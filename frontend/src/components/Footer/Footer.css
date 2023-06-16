@@ -26,14 +26,14 @@
 .footerColumn>li.header {
     font-weight: 600;
     margin-bottom: 20px;
-    color: burlywood;
+    color: var(--accent-color);
     margin-bottom: 10px;
     cursor: default;
-    border-bottom: 0.5px solid burlywood;
+    border-bottom: 0.5px solid var(--accent-color);
 }
 
 .footerColumn>li:hover {
-    color: burlywood;
+    color: var(--accent-color);
 }
 
 .logo_col {
@@ -50,7 +50,7 @@
 
 .footer_hr {
     width: 100%;
-    border: 1px dotted burlywood;
+    border: 1px dotted var(--accent-color);
     opacity: 1;
     margin-left: auto;
     margin-right: auto;
@@ -58,17 +58,17 @@
 }
 
 .footer_icon {
-    color: burlywood;
+    color: var(--accent-color);
     border-radius: 50%;
     padding: 6px;
     width: 32px;
     height: 32px;
     transition: 0.3s;
-    border: 1px solid burlywood;
+    border: 1px solid var(--accent-color);
 }
 
 .footer_icon:hover {
-    background-color: burlywood;
+    background-color: var(--accent-color);
     color: black;
 }
 

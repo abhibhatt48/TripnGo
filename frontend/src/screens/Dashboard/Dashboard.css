@@ -85,12 +85,12 @@
 
 .button:hover {
     background-color: black;
-    color: #deb887;
+    color: var(--accent-color);
 }
 
 .button:active {
     transition: 0s;
-    background-color: #deb887;
+    background-color: var(--accent-color);
     color: black;
 }
 

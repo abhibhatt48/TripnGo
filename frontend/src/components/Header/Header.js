@@ -14,8 +14,9 @@ const Header = ({ onSelect, activeKey, ...props }) => {
 
     const menuItems = [
         "Home",
-        "About",
-        "Contact"
+        "FAQs",
+        "Contact",
+        "Sign-up"
     ];
 
     const [currentKey, setCurrentKey] = useState(menuItems[0]);

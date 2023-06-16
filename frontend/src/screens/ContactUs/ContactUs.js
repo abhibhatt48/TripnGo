@@ -46,6 +46,7 @@ function ContactUs() {
   };
 
   return (
+    <div className="background-image">
     <Container className='central-container'>
       <div className='contact-us-container'>
         <div className='contact-us-overlay'>
@@ -96,6 +97,7 @@ function ContactUs() {
         </Row>
       </div>
     </Container>
+    </div>
   );
 }
 

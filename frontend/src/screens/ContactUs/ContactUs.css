@@ -1,20 +1,22 @@
-body {
-  background-image: url(https://live.staticflickr.com/4556/24708106728_3d933d30d9_k_d.jpg);
+.background-image {
+  height: 100%;
+  background: url(https://live.staticflickr.com/4556/24708106728_3d933d30d9_k_d.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
-  background-position: center;
 }
-
 .central-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100vw;
   height: 100vh;
+  background-position: center;
 }
 
 .contact-us-container {
   background-color: black;
-  background-size: cover;
-  background-position: center;
   min-height: 500px;
   width: 50vw;
   border-radius: 20px;
@@ -56,7 +58,8 @@ body {
   color: #333;
 }
 
-.button {
+.contact-us-container .button {
+  margin: 0 auto;
   width: 100%;
   height: 50px;
   border-radius: 25px;
@@ -65,16 +68,14 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-.button:hover {
+.contact-us-container .button:hover {
   background-color: black;
   color: var(--accent-color);
 }
 
-.button:active {
+.contact-us-container .button:active {
   transition: 0s;
   background-color: var(--accent-color);
   color: black;

@@ -11,6 +11,10 @@ import {
 } from "react-router-dom";
 import OrderDetails from 'screens/OrderDetails';
 import PackageDetails from 'screens/PackageDetails';
+import Login from 'screens/Login';
+import SignUp from 'screens/SignUp';
+import ContactUs from 'screens/ContactUs';
+import FAQs from 'screens/FAQs';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,6 +25,10 @@ root.render(
         <Route path="/" element={<Dashboard />} />
         <Route path="/order-details" element={<OrderDetails />} />
         <Route path="/package-details" element={<PackageDetails />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/faqs" element={<FAQs />} />
       </Routes>
       <Footer />
     </BrowserRouter>

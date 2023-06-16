@@ -1,2 +1,2 @@
-import PackageDetails from "./PackageDetails";
-export default PackageDetails;
+import SignUp from "./SignUp";
+export default SignUp;

@@ -16,7 +16,14 @@ const Header = ({ onSelect, activeKey, ...props }) => {
         "Home",
         "FAQs",
         "Contact",
-        "Sign-up"
+        "SignUp"
+    ];
+
+    const navPaths = [
+        "/",
+        "faqs",
+        "contact-us",
+        "sign-up"
     ];
 
     const [currentKey, setCurrentKey] = useState(menuItems[0]);
@@ -76,12 +83,13 @@ const Header = ({ onSelect, activeKey, ...props }) => {
                                 <span className={'menu-button ' + (currentKey === d ? 'active' : '')}
                                     onClick={() => {
                                         setCurrentKey(d);
-                                        navigate('/');
+                                        navigate(navPaths[index]);
                                         showOptions && setShowOptions(false);
                                     }}>{d}</span>
                             </div>
                         )
                     }
+
 
                     <div className='menu-item'>
                         <span className={'notification-text menu-button ' + (currentKey === "Notifications" ? 'active' : '')} onClick={() => {

@@ -1,6 +1,6 @@
 import './Login.css';
 
-function OrderDetails() {
+function Login() {
     return (
         <div className="App">
             <div className='page-header'>This is Login page.</div>
@@ -8,4 +8,4 @@ function OrderDetails() {
     );
 }
 
-export default OrderDetails;
+export default Login;

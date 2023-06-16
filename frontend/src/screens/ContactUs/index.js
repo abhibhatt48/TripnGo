@@ -1,3 +1,2 @@
-import Dashboard from "./Dashboard";
-
-export default Dashboard;
+import ContactUs from "./ContactUs";
+export default ContactUs;

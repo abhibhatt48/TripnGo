@@ -1,6 +1,6 @@
 import './FAQs.css';
 
-function OrderDetails() {
+function FAQs() {
     return (
         <div className="App">
             <div className='page-header'>This is FAQs page.</div>
@@ -8,5 +8,5 @@ function OrderDetails() {
     );
 }
 
-export default OrderDetails;
+export default FAQs;
 

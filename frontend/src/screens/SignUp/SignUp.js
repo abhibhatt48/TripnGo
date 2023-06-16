@@ -1,6 +1,6 @@
 import './SignUp.css';
 
-function PackageDetails() {
+function SignUp() {
     return (
         <div className="App">
             <div className='page-header'>This is signup page.</div>
@@ -8,4 +8,4 @@ function PackageDetails() {
     );
 }
 
-export default PackageDetails;
+export default SignUp;

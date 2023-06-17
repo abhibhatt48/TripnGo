@@ -47,56 +47,56 @@ function ContactUs() {
 
   return (
     <div className="background-image">
-    <Container className='central-container'>
-      <div className='contact-us-container'>
-        <div className='contact-us-overlay'>
-          <h1 className='title'>Contact Us</h1>
-          <p className='subtitle'>Have any questions or feedback? Let us know!</p>
+      <Container className='central-container'>
+        <div className='contact-us-container'>
+          <div className='contact-us-overlay'>
+            <h1 className='title'>Contact Us</h1>
+            <p className='subtitle'>Have any questions or feedback? Let us know!</p>
+          </div>
+          <Row className='form-container'>
+            <Col lg={{ span: 12 }} md={{ span: 12 }}>
+              <form onSubmit={handleSubmit} >
+                <div className='form-group'>
+                  <input
+                    type='text'
+                    className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+                    placeholder='Your Name'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                  {errors.name && <div className='invalid-feedback'>{errors.name}</div>}
+                </div>
+                <div className='form-group'>
+                  <input
+                    type='email'
+                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                    placeholder='Your Email'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  {errors.email && <div className='invalid-feedback'>{errors.email}</div>}
+                </div>
+                <div className='form-group'>
+                  <textarea
+                    className='form-control'
+                    rows='5'
+                    placeholder='Your Message'
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    required
+                  ></textarea>
+                </div>
+                <button type='submit' className='button'>
+                  Submit
+                </button>
+                {submitted && <p className='submitted-message'>Response submitted. Thank you!</p>}
+              </form>
+            </Col>
+          </Row>
         </div>
-        <Row className='form-container'>
-          <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }}>
-            <form onSubmit={handleSubmit}>
-              <div className='form-group'>
-                <input
-                  type='text'
-                  className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-                  placeholder='Your Name'
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-                {errors.name && <div className='invalid-feedback'>{errors.name}</div>}
-              </div>
-              <div className='form-group'>
-                <input
-                  type='email'
-                  className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                  placeholder='Your Email'
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                {errors.email && <div className='invalid-feedback'>{errors.email}</div>}
-              </div>
-              <div className='form-group'>
-                <textarea
-                  className='form-control'
-                  rows='5'
-                  placeholder='Your Message'
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  required
-                ></textarea>
-              </div>
-              <button type='submit' className='button'>
-                Submit
-              </button>
-              {submitted && <p className='submitted-message'>Response submitted. Thank you!</p>}
-            </form>
-          </Col>
-        </Row>
-      </div>
-    </Container>
+      </Container>
     </div>
   );
 }

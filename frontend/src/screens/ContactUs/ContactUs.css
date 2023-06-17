@@ -1,48 +1,53 @@
 .background-image {
   height: 100%;
-  background: url(https://live.staticflickr.com/4556/24708106728_3d933d30d9_k_d.jpg) no-repeat center center fixed; 
+  background: url(https://live.staticflickr.com/4556/24708106728_3d933d30d9_k_d.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
+
 .central-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
   background-position: center;
 }
 
 .contact-us-container {
-  background-color: black;
-  min-height: 500px;
-  width: 50vw;
+  background-color: #ffffffcc;
+  backdrop-filter: blur(5px);
   border-radius: 20px;
   padding: 40px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   box-sizing: border-box;
 }
 
 .contact-us-overlay {
   position: relative;
   text-align: center;
-  color: white;
+  color: black;
 }
 
 .title {
-  font-size: 48px;
+  font-size: 40px;
+  margin-top: 10px;
   font-weight: 600;
   margin-bottom: 16px;
 }
 
 .subtitle {
-  font-size: 24px;
-  margin-bottom: 48px;
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 36px;
 }
 
 .form-container {
-  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-control {
@@ -58,14 +63,21 @@
   color: #333;
 }
 
+.form-control:focus {
+  outline: none;
+  border: none;
+}
+
 .contact-us-container .button {
   margin: 0 auto;
-  width: 100%;
+  width: calc(100% - 60px);
   height: 50px;
   border-radius: 25px;
   background-color: var(--accent-color);
   color: black;
   font-weight: 600;
+  margin-left: 30px;
+  margin-right: 30px;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -83,7 +95,50 @@
 
 .submitted-message {
   margin-top: 16px;
-  color: white;
+  color: black;
   font-size: 18px;
   text-align: center;
+}
+
+/* Text Area */
+textarea.form-control {
+  height: 150px;
+  padding: 20px;
+  resize: vertical;
+  min-height: 60px;
+  max-height: 200px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .contact-us-container {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .form-control {
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .contact-us-container .button {
+    height: 40px;
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+    font-size: 14px;
+  }
+
+  .submitted-message {
+    font-size: 14px;
+  }
 }

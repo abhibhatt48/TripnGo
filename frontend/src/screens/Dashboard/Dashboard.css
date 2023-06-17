@@ -1,3 +1,7 @@
+.dashboard-container {
+    padding-bottom: 50px;
+}
+
 .carousel-container {
     background-color: black;
     min-height: 500px;

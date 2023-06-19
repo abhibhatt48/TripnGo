@@ -69,6 +69,10 @@ code {
   min-width: 200px;
 }
 
+.button-100 {
+  min-width: 100px;
+}
+
 .button-100p {
   width: 100%;
   margin-left: 0px;

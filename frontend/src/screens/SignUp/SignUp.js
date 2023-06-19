@@ -196,7 +196,7 @@ function SignUp() {
                     onClick={() => {
                       navigate("/login");
                     }}
-                    className="button button-primary button-200"
+                    className="button button-primary button-login"
                   >
                     Login
                   </button>

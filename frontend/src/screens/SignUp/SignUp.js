@@ -88,7 +88,7 @@ function SignUp() {
             <p className="subtitle">Excited about Trip'nGo!! SignUp Here</p>
           </div>
           <Row className="form-container">
-            <Col lg={{ span: 10 }} md={{ span: 10 }}>
+            <Col lg={{ span: 12 }} md={{ span: 12 }}>
               {error && <p className="text-danger text-center">{error}</p>}
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -163,19 +163,16 @@ function SignUp() {
                       onChange={handleConfirmPasswordChange}
                       required
                     />
-                    {!isConfirmPassword ? (
+                    {!isConfirmPassword && (
                       <div className="invalid-feedback">
                         Passwords do not match{" "}
                         <span style={{ color: "red" }}>*</span>
                       </div>
-                    ) : (
-                      <small className="form-text text-muted">
-                        Passwords match.
-                      </small>
-                    )}
+                    )
+                    }
                   </div>
                 </div>
-                <button type="submit" className="button button-secondary">
+                <button type="submit" className="button button-secondary button-100p">
                   Sign up
                 </button>
                 {submitted && (
@@ -186,20 +183,20 @@ function SignUp() {
 
                 <button
                   type="submit"
-                  className="button button-secondary"
+                  className="button button-primary button-100p"
                   style={{ marginTop: "10px" }}
                 >
                   Sign up with Google
                 </button>
                 {<p className="submitted-message">Or</p>}
 
-                <div className="d-flex align-items-center">
+                <div className="d-flex flex-column">
                   <p class="submitted-message">Already have an account?</p>
                   <button
                     onClick={() => {
                       navigate("/login");
                     }}
-                    className="button button-secondary"
+                    className="button button-primary button-200"
                   >
                     Login
                   </button>

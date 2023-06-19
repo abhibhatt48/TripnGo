@@ -53,12 +53,12 @@ function Dashboard() {
                     <input className="search-input" type="text" placeholder="Search" onChange={onSearchTextChange} />
                 </Col>
                 <Col lg={{ span: 1 }} md={{ span: 2 }}>
-                    <button className="button"
+                    <button className="button button-primary button-md-100p"
                         onClick={onSearchClick}
                     >Search</button>
                 </Col>
                 <Col lg={{ span: 1 }} md={{ span: 2 }}>
-                    <button className="button" onClick={onSearchClick}
+                    <button className="button button-primary button-md-100p" onClick={onSearchClick}
                     >Filter</button>
                 </Col>
             </Row>
@@ -84,7 +84,7 @@ function Dashboard() {
                     </Row>
                 </Container>
 
-                <button className="button btn-more-trips"
+                <button className="button button-primary button-200 button-sm-100p"
                     onClick={onSearchClick}
                 >More Trips</button>
             </div>
@@ -108,7 +108,7 @@ function Dashboard() {
                                 ))}
                     </Row>
                 </Container>
-                <button className="button btn-more-trips"
+                <button className="button button-primary button-200 button-sm-100p"
                     onClick={onSearchClick}
                 >More Trips</button>
             </div>

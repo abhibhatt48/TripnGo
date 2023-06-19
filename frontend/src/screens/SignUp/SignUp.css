@@ -1,153 +1,121 @@
 .App {
-    min-height: 60vh;
+  min-height: 60vh;
 }
 
 .page-header {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 50px;
+  text-align: center;
+  margin-top: 50px;
+  font-size: 50px;
 }
+
 .background-image {
-    height: 100%;
-    background: url(https://live.staticflickr.com/4556/24708106728_3d933d30d9_k_d.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-  }
-  
-  .central-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-position: center;
-  }
-  
-  .signup-container {
-    background-color: #ffffffcc;
-    backdrop-filter: blur(5px);
-    border-radius: 20px;
-    padding: 40px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    box-sizing: border-box;
-  }
-  
-  .signup-overlay {
-    position: relative;
-    text-align: center;
-    color: black;
-  }
-  
-  .title {
-    font-size: 40px;
-    margin-top: 10px;
-    font-weight: 600;
-    margin-bottom: 16px;
-  }
-  
-  .subtitle {
-    font-size: 20px;
-    color: #333;
-    margin-bottom: 36px;
-  }
-  
-  .form-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .form-control {
-    width: 100%;
-    height: 50px;
-    border-radius: 25px;
-    border: 1px solid #e0e0e0;
-    padding-left: 20px;
-    padding-right: 20px;
-    font-size: 16px;
-    margin-bottom: 16px;
-    line-height: 19px;
-    color: #333;
-  }
-  
-  .form-control:focus {
-    outline: none;
-    border: none;
-  }
-  
-  .signup-container .button {
-    margin: 0 auto;
-    width: calc(100% - 60px);
-    height: 50px;
-    border-radius: 25px;
-    background-color: var(--accent-color);
-    color: black;
-    font-weight: 600;
-    margin-left: 30px;
-    margin-right: 30px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-   .button:hover {
-    background-color: black;
-    color: var(--accent-color);
-  }
-  
-  .signup .button:active {
-    transition: 0s;
-    background-color: var(--accent-color);
-    color: black;
-  }
-  
-  .submitted-message {
-    margin-top: 16px;
-    color: black;
-    font-size: 18px;
-    text-align: center;
-  }
-  
-  /* Text Area */
-  textarea.form-control {
-    height: 150px;
+  height: 100%;
+  background: url(https://live.staticflickr.com/4556/24708106728_3d933d30d9_k_d.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.central-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+}
+
+.signup-container {
+  background-color: #ffffffcc;
+  backdrop-filter: blur(5px);
+  border-radius: 20px;
+  padding: 40px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-sizing: border-box;
+}
+
+.signup-overlay {
+  position: relative;
+  text-align: center;
+  color: black;
+}
+
+.title {
+  font-size: 40px;
+  margin-top: 10px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 36px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-control {
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  border: 1px solid #e0e0e0;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 16px;
+  margin-bottom: 16px;
+  line-height: 19px;
+  color: #333;
+}
+
+.form-control:focus {
+  outline: none;
+  border: none;
+}
+
+.submitted-message {
+  margin-top: 16px;
+  color: black;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* Text Area */
+textarea.form-control {
+  height: 150px;
+  padding: 20px;
+  resize: vertical;
+  min-height: 60px;
+  max-height: 200px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .contact-us-container {
     padding: 20px;
-    resize: vertical;
-    min-height: 60px;
-    max-height: 200px;
   }
-  
-  /* Mobile */
-  @media (max-width: 768px) {
-    .contact-us-container {
-      padding: 20px;
-    }
-  
-    .title {
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-  
-    .subtitle {
-      font-size: 16px;
-      margin-bottom: 24px;
-    }
-  
-    .form-control {
-      height: 40px;
-      font-size: 14px;
-    }
-  
-    .signup .button {
-      height: 40px;
-      width: 100%;
-      margin-left: 0px;
-      margin-right: 0px;
-      font-size: 14px;
-    }
-  
-    .submitted-message {
-      font-size: 14px;
-    }
+
+  .title {
+    font-size: 30px;
+    margin-bottom: 10px;
   }
+
+  .subtitle {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .form-control {
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .submitted-message {
+    font-size: 14px;
+  }
+}

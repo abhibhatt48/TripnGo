@@ -88,15 +88,14 @@ function SignUp() {
             <p className="subtitle">Excited about Trip'nGo!! SignUp Here</p>
           </div>
           <Row className="form-container">
-            <Col lg={{ span: 6, offset: 3 }} md={{ span: 8, offset: 2 }}>
+            <Col lg={{ span: 10 }} md={{ span: 10 }}>
               {error && <p className="text-danger text-center">{error}</p>}
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
-                    className={`form-control ${
-                      !isUsername ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isUsername ? "is-invalid" : ""
+                      }`}
                     placeholder="Username"
                     value={username}
                     onChange={handleUsernameChange}
@@ -116,9 +115,8 @@ function SignUp() {
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control ${
-                      !isEmailValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isEmailValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
@@ -131,9 +129,8 @@ function SignUp() {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control ${
-                      !isPasswordValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isPasswordValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Password"
                     value={password}
                     onChange={handlePasswordChange}
@@ -159,9 +156,8 @@ function SignUp() {
                   <div className="form-group">
                     <input
                       type="password"
-                      className={`form-control ${
-                        !isConfirmPassword ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${!isConfirmPassword ? "is-invalid" : ""
+                        }`}
                       placeholder="Confirm Password"
                       value={confirmPassword}
                       onChange={handleConfirmPasswordChange}
@@ -179,7 +175,7 @@ function SignUp() {
                     )}
                   </div>
                 </div>
-                <button type="submit" className="button">
+                <button type="submit" className="button button-secondary">
                   Sign up
                 </button>
                 {submitted && (
@@ -190,7 +186,7 @@ function SignUp() {
 
                 <button
                   type="submit"
-                  className="button"
+                  className="button button-secondary"
                   style={{ marginTop: "10px" }}
                 >
                   Sign up with Google
@@ -203,7 +199,7 @@ function SignUp() {
                     onClick={() => {
                       navigate("/login");
                     }}
-                    className="btn btn-primary"
+                    className="button button-secondary"
                   >
                     Login
                   </button>

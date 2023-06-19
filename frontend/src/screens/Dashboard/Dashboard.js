@@ -2,6 +2,7 @@ import { Row, Col, Container } from 'react-bootstrap';
 import './Dashboard.css';
 import React from 'react';
 import TripItem from 'components/TripItem';
+import { popularTrips, tripsNearYou } from './TripItems';
 
 function Dashboard() {
 
@@ -55,7 +56,8 @@ function Dashboard() {
                             <Col key={idx}>
 
                                 <TripItem trip={{
-                                    image: popular_trips_images[idx]
+                                    image: popular_trips_images[idx],
+                                    ...popularTrips[idx]
                                 }} />
                             </Col>
                         ))}
@@ -74,7 +76,8 @@ function Dashboard() {
                         {Array.from({ length: 3 }).map((_, idx) => (
                             <Col key={idx}>
                                 <TripItem trip={{
-                                    image: near_by_trips_images[idx]
+                                    image: near_by_trips_images[idx],
+                                    ...tripsNearYou[idx]
                                 }} />
                             </Col>
                         ))}

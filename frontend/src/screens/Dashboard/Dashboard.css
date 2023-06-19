@@ -130,3 +130,12 @@
         font-size: 16px;
     }
 }
+
+.noTrip {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--accent-color);
+}

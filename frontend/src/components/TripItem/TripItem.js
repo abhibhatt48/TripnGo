@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const TripItem = ({ trip }) => {
     const item_title = trip.title;
-    const item_location = trip.location > 50 ? trip.location.substring(0, 50) + "..." : trip.location;
-    const item_description = trip.description > 100 ? trip.description.substring(0, 100) + "..." : trip.description;
+    const item_location = trip.location.length > 50 ? trip.location.substring(0, 50) + "..." : trip.location;
+    const item_description = trip.description.length > 100 ? trip.description.substring(0, 100) + "..." : trip.description;
     const item_cost = trip.cost;
     const item_rating = trip.rating;
 

@@ -28,7 +28,7 @@ function Footer() {
           >
             Trip'nGo
           </span>
-          <span className="slogan">Slogan</span>
+          <span className="slogan">Let the Journey Begin!</span>
         </Col>
         <Col
           lg={{
@@ -84,7 +84,7 @@ function Footer() {
       </div>
 
       <div className="footer_text">
-        © 2021 Company, Inc. All Rights Reserved.
+        © 2023 Company, Inc. All Rights Reserved.
       </div>
     </div>
   );

@@ -44,8 +44,8 @@ function Dashboard() {
                 <div className="carousel-image" style={{ backgroundImage: `url(https://live.staticflickr.com/4556/24708106728_3d933d30d9_k_d.jpg)` }} />
                 {/* Image by barnyz: https://flickr.com/photos/75487768@N04/24708106728/in/photolist-QbTcbm-naDN9o-8tF7Y3-bpQQFi-DDnvj9-hnwqti-JRMGJH-N9vpzy-MoREwn-23mWx8L-27HZbNM-PzxcXy-dkdGBH-MC55mp-CRe2wH-ddngBy-5pBL9K-aimadp-atdUU9-6KBNJ3-fnqbB2-7kPfy7-9yQB4D-27yjzhM-26h2CDK-Zow8Ti-SwsNoj-7mLDRp-T9MWwY-21LYYPn-25X7Hrm-Xx4bVM-GWeFwT-Jn58bR-DGZcAy-E8i7yj-uxLmC3-bBeBGg-bB2AyU-DKb97-KxECR9-Gcrv2e-oVgqQC-28MX46G-yJVjVY-Xvs96Y-Q2kHof-pcJooL-W9WpXW-Gw2QEA/ */}
                 <div className="carousel-overlay">
-                    <span className="carousel-title">Best deals you can find</span>
-                    <span className="carousel-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+                    <span className="carousel-title">Let the Journey Begin!</span>
+                    <span className="carousel-text">Experience the World Your Way: Tailored Trips for Unforgettable Memories!</span>
                 </div>
             </div>
             <Row className='search-container'>

@@ -82,6 +82,8 @@ code {
 .button-container {
   width: 100%;
   padding: 0px 24px;
+  display: flex;
+  justify-content: center;
 }
 
 /* Mobile */

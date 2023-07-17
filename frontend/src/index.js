@@ -15,6 +15,7 @@ import Login from 'screens/Login';
 import SignUp from 'screens/SignUp';
 import ContactUs from 'screens/ContactUs';
 import FAQs from 'screens/FAQs';
+import UserProfile from 'screens/UserProfile';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,6 +30,7 @@ root.render(
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/faqs" element={<FAQs />} />
+        <Route path="/userprofile" element={<UserProfile/>} />
       </Routes>
       <Footer />
     </BrowserRouter>

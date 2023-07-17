@@ -32,8 +32,7 @@ function Login() {
       // Passwords match, proceed with form submission or other actions
       console.log("Valid Credentials");
 
-      // navigate("/Profile");
-      window.location.href = "/d";
+       navigate("/userprofile");
     }
   };
 

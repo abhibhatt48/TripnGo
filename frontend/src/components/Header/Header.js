@@ -5,18 +5,35 @@ import { IoIosNotifications } from "react-icons/io";
 import { Container } from "react-bootstrap";
 import { HiMenu } from "react-icons/hi";
 import Modal from "react-bootstrap/Modal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Header = ({ onSelect, activeKey, ...props }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   let navigate = useNavigate();
+  let location = useLocation();
 
-  const menuItems = ["Home", "FAQs", "Contact", "SignUp"];
-
-  const navPaths = ["/", "faqs", "contact-us", "sign-up"];
+  const menuItems = React.useMemo(() => {
+    return ["Home", "FAQs", "Contact", "SignUp"];
+  }, []);
+  const navPaths = React.useMemo(() => {
+    return ["/", "faqs", "contact-us", "sign-up"];
+  }, []);
 
   const [currentKey, setCurrentKey] = useState(menuItems[0]);
+
+  React.useEffect(() => {
+    const path = location.pathname.split("/")[1];
+
+    if (path === "/" || path === "") {
+      setCurrentKey("Home");
+    } else {
+      const index = navPaths.indexOf(path);
+      setCurrentKey(menuItems[index]);
+    }
+
+  }, [location, menuItems, navPaths]);
+
 
   return (
     <div className="nav-bar-container">

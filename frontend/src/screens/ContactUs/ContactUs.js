@@ -54,7 +54,7 @@ function ContactUs() {
             <p className='subtitle'>Have any questions or feedback? Let us know!</p>
           </div>
           <Row className='form-container'>
-            <Col lg={{ span: 12 }} md={{ span: 12 }}>
+            <Col lg={12} md={12}>
               <form onSubmit={handleSubmit} >
                 <div className='form-group'>
                   <input

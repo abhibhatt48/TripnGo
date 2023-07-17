@@ -105,8 +105,9 @@
 }
 
 .menu-button:hover {
-    background-color: var(--accent-color)bb;
+    background-color: var(--accent-color);
     color: black;
+    opacity: 0.8;
     cursor: pointer;
 }
 

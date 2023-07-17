@@ -44,7 +44,7 @@ function SignUp() {
 
   const handleConfirmPasswordChange = (event) => {
     setConfirmPassword(event.target.value);
-    setIsConfirmPassword(event.target.value == password);
+    setIsConfirmPassword(event.target.value === password);
   };
 
   const validateEmail = (email) => {
@@ -88,19 +88,16 @@ function SignUp() {
             <p className="subtitle">Excited about Trip'nGo!! SignUp Here</p>
           </div>
           <Row className="form-container">
-            <Col lg={{ span: 12 }} md={{ span: 12 }}>
+            <Col lg={12} md={12}>
               {error && <p className="text-danger text-center">{error}</p>}
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
-                    className={`form-control ${!isUsername ? "is-invalid" : ""
-                      }`}
+                    className={`form-control ${!isUsername ? "is-invalid" : ""}`}
                     placeholder="Username"
                     value={username}
                     onChange={handleUsernameChange}
-                    error={!isUsername}
-                    helperText={!isUsername ? "User name is invalid" : ""}
                     pattern="([a-zA-Z]){3,15}$"
                     required
                   />
@@ -191,7 +188,7 @@ function SignUp() {
                 {<p className="submitted-message">Or</p>}
 
                 <div className="d-flex flex-column">
-                  <p class="submitted-message">Already have an account?</p>
+                  <p className="submitted-message">Already have an account?</p>
                   <button
                     onClick={() => {
                       navigate("/login");

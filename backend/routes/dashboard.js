@@ -1,3 +1,7 @@
+var express = require('express');
+var router = express.Router();
+
+
 // Images by barnyc: https://flickr.com/photos/75487768@N04/31628278140/in/photolist-QbTcbm-naDN9o-8tF7Y3-bpQQFi-DDnvj9-hnwqti-JRMGJH-N9vpzy-MoREwn-23mWx8L-27HZbNM-PzxcXy-dkdGBH-MC55mp-CRe2wH-ddngBy-5pBL9K-aimadp-atdUU9-6KBNJ3-fnqbB2-7kPfy7-9yQB4D-27yjzhM-26h2CDK-Zow8Ti-SwsNoj-7mLDRp-T9MWwY-21LYYPn-25X7Hrm-Xx4bVM-GWeFwT-Jn58bR-DGZcAy-E8i7yj-uxLmC3-bBeBGg-bB2AyU-DKb97-KxECR9-Gcrv2e-oVgqQC-28MX46G-yJVjVY-Xvs96Y-Q2kHof-pcJooL-W9WpXW-Gw2QEA/
 const popularTrips = [
     {
@@ -26,6 +30,12 @@ const popularTrips = [
         description: "Windsor is a city in Ontario, Canada, situated on the south bank of the Detroit River directly across from Detroit, Michigan. Located in Essex County, it is the southernmost city in Canada and marks the southwestern end of the Quebec City–Windsor Corridor.",
     },
 ];
+/* GET featured trips listing. */
+router.get('/popular-trips', function (req, res, next) {
+    res.send({
+        trips: popularTrips
+    });
+});
 
 // Images by barnyc: https://flickr.com/photos/75487768@N04/31628278140/in/photolist-QbTcbm-naDN9o-8tF7Y3-bpQQFi-DDnvj9-hnwqti-JRMGJH-N9vpzy-MoREwn-23mWx8L-27HZbNM-PzxcXy-dkdGBH-MC55mp-CRe2wH-ddngBy-5pBL9K-aimadp-atdUU9-6KBNJ3-fnqbB2-7kPfy7-9yQB4D-27yjzhM-26h2CDK-Zow8Ti-SwsNoj-7mLDRp-T9MWwY-21LYYPn-25X7Hrm-Xx4bVM-GWeFwT-Jn58bR-DGZcAy-E8i7yj-uxLmC3-bBeBGg-bB2AyU-DKb97-KxECR9-Gcrv2e-oVgqQC-28MX46G-yJVjVY-Xvs96Y-Q2kHof-pcJooL-W9WpXW-Gw2QEA/
 const tripsNearYou = [
@@ -55,7 +65,11 @@ const tripsNearYou = [
         description: "Calgary, a cosmopolitan Alberta city with numerous skyscrapers, owes its rapid growth to its status as the centre of Canada’s oil industry. However, it’s still steeped in the western culture that earned it the nickname “Cowtown,” evident in the Calgary Stampede, its massive July rodeo and festival that grew out of the farming exhibitions once presented here.",
     }
 ];
+/* GET near you trips listing. */
+router.get('/trips-near-you', function (req, res, next) {
+    res.send({
+        trips: tripsNearYou
+    });
+});
 
-
-
-export { popularTrips, tripsNearYou };
+module.exports = router;

@@ -106,3 +106,12 @@ textarea.form-control {
     font-size: 14px;
   }
 }
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .contact-us-container {
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}

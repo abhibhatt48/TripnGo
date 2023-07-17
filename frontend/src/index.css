@@ -19,7 +19,7 @@ code {
 .button {
   min-width: 100px;
   border-radius: 25px;
-  height: 44px;
+  min-height: 44px;
   font-weight: 600;
   margin-top: 4px;
   margin-bottom: 4px;
@@ -89,7 +89,7 @@ code {
 
   .button,
   .button-secondary {
-    height: 40px;
+    min-height: 40px;
     margin-left: 0px;
     margin-right: 0px;
     font-size: 14px;

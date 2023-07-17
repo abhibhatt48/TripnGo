@@ -81,7 +81,7 @@
 @media (max-width: 768px) {
   .signup-container {
     padding: 20px 10px 30px 10px;
-    min-width: 0px;
+    min-width: 400px;
   }
 
   .title {
@@ -113,6 +113,7 @@
 @media (max-width: 480px) {
   .signup-container {
     width: 100%;
+    min-width: 0px;
     margin-left: 20px;
     margin-right: 20px;
   }

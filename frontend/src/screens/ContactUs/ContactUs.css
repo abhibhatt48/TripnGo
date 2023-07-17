@@ -84,7 +84,7 @@ textarea.form-control {
 @media (max-width: 768px) {
   .contact-us-container {
     padding: 20px 10px 30px 10px;
-    min-width: 0px;
+    min-width: 400px;
   }
 
   .title {
@@ -111,6 +111,7 @@ textarea.form-control {
 @media (max-width: 480px) {
   .contact-us-container {
     width: 100%;
+    min-width: 0px;
     margin-left: 20px;
     margin-right: 20px;
   }

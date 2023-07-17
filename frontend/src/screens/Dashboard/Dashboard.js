@@ -49,17 +49,13 @@ function Dashboard() {
                 </div>
             </div>
             <Row className='search-container'>
-                <Col lg={{ span: 6 }} md={{ span: 5 }}>
+                <Col lg={6} md={6}>
                     <input className="search-input" type="text" placeholder="Search" onChange={onSearchTextChange} />
                 </Col>
-                <Col lg={{ span: 1 }} md={{ span: 2 }}>
+                <Col lg={1} md={2}>
                     <button className="button button-primary button-md-100p"
                         onClick={onSearchClick}
                     >Search</button>
-                </Col>
-                <Col lg={{ span: 1 }} md={{ span: 2 }}>
-                    <button className="button button-primary button-md-100p" onClick={onSearchClick}
-                    >Filter</button>
                 </Col>
             </Row>
 
@@ -73,7 +69,6 @@ function Dashboard() {
                                 :
                                 Array.from({ length: Math.min(3, filteredPopularTrips.length) }).map((_, idx) => (
                                     <Col key={idx}>
-
                                         <TripItem trip={{
                                             image: popular_trips_images[idx],
                                             ...filteredPopularTrips[idx]
@@ -83,10 +78,11 @@ function Dashboard() {
                         }
                     </Row>
                 </Container>
-
-                <button className="button button-primary button-200 button-sm-100p"
-                    onClick={onSearchClick}
-                >More Trips</button>
+                <div className='button-container'>
+                    <button className="button button-primary button-200 button-sm-100p"
+                        onClick={onSearchClick}
+                    >More Trips</button>
+                </div>
             </div>
 
             <div className="trips-container">
@@ -108,9 +104,11 @@ function Dashboard() {
                                 ))}
                     </Row>
                 </Container>
-                <button className="button button-primary button-200 button-sm-100p"
-                    onClick={onSearchClick}
-                >More Trips</button>
+                <div className='button-container'>
+                    <button className="button button-primary button-200 button-sm-100p"
+                        onClick={onSearchClick}
+                    >More Trips</button>
+                </div>
             </div>
 
         </div >

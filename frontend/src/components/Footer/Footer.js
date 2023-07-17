@@ -8,16 +8,9 @@ function Footer() {
 
   return (
     <div className="footer">
-      <Row>
+      <Row className="justify-content-md-center">
         <Col
-          lg={{
-            span: 1,
-          }}
-        ></Col>
-        <Col
-          lg={{
-            span: 3,
-          }}
+          lg={3}
           className="logo_col"
         >
           <span
@@ -31,9 +24,7 @@ function Footer() {
           <span className="slogan">Let the Journey Begin!</span>
         </Col>
         <Col
-          lg={{
-            span: 2,
-          }}
+          lg={2}
         >
           <ul className="footerColumn">
             <li className="header">Pages</li>
@@ -49,9 +40,7 @@ function Footer() {
           </ul>
         </Col>
         <Col
-          lg={{
-            span: 2,
-          }}
+          lg={2}
         >
           <ul className="footerColumn">
             <li className="header">More</li>
@@ -61,9 +50,7 @@ function Footer() {
           </ul>
         </Col>
         <Col
-          lg={{
-            span: 2,
-          }}
+          lg={2}
         >
           <ul className="footerColumn">
             <li className="header">About</li>

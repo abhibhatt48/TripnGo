@@ -88,7 +88,7 @@ function SignUp() {
             <p className="subtitle">Excited about Trip'nGo!! SignUp Here</p>
           </div>
           <Row className="form-container">
-            <Col lg={{ span: 12 }} md={{ span: 12 }}>
+            <Col lg={12} md={12}>
               {error && <p className="text-danger text-center">{error}</p>}
               <form onSubmit={handleSubmit}>
                 <div className="form-group">

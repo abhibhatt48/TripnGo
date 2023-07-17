@@ -79,6 +79,11 @@ code {
   margin-right: 0px;
 }
 
+.button-container {
+  width: 100%;
+  padding: 0px 24px;
+}
+
 /* Mobile */
 @media (max-width: 768px) {
 

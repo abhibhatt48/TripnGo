@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(true);
 
@@ -46,15 +46,14 @@ function Login() {
             <p className="subtitle">Ready for your Next Trip? </p>
           </div>
           <Row className="form-container">
-            <Col lg={{ span: 12 }} md={{ span: 12 }}>
+            <Col lg={12} md={12}>
               {/* {error && <p className="text-danger text-center">{error}</p>} */}
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control ${
-                      !isEmailValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isEmailValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
@@ -67,9 +66,8 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control ${
-                      !isPasswordValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isPasswordValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Password"
                     value={password}
                     onChange={handlePasswordChange}

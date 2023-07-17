@@ -88,9 +88,11 @@ function ContactUs() {
                     required
                   ></textarea>
                 </div>
-                <button type='submit' className='button button-secondary button-100p'>
-                  Submit
-                </button>
+                <div className="button-container">
+                  <button type='submit' className='button button-secondary button-100p'>
+                    Submit
+                  </button>
+                </div>
                 {submitted && <p className='submitted-message'>Response submitted. Thank you!</p>}
               </form>
             </Col>

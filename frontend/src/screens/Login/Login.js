@@ -80,26 +80,29 @@ function Login() {
                     </div>
                   )}
                 </div>
-                <button
-                  type="submit"
-                  className="button button-secondary button-100p"
-                  onClick={() => {
-                    navigate("/");
-                  }}
-                >
-                  Login
-                </button>
-                {submitted && (
-                  <p className="submitted-message">Login Successful</p>
-                )}
-
-                <button
-                  type="submit"
-                  className="button button-primary button-100p"
-                  style={{ marginTop: "10px" }}
-                >
-                  Login with Google
-                </button>
+                <div className="button-container">
+                  <button
+                    type="submit"
+                    className="button button-secondary button-100p"
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                  >
+                    Login
+                  </button>
+                  {submitted && (
+                    <p className="submitted-message">Login Successful</p>
+                  )}
+                </div>
+                <div className="button-container">
+                  <button
+                    type="submit"
+                    className="button button-primary button-100p"
+                    style={{ marginTop: "10px" }}
+                  >
+                    Login with Google
+                  </button>
+                </div>
               </form>
             </Col>
           </Row>

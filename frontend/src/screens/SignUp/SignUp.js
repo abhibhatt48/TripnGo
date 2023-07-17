@@ -169,25 +169,29 @@ function SignUp() {
                     }
                   </div>
                 </div>
-                <button type="submit" className="button button-secondary button-100p">
-                  Sign up
-                </button>
+                <div className="button-container">
+                  <button type="submit" className="button button-secondary button-100p">
+                    Sign up
+                  </button>
+                </div>
                 {submitted && (
                   <p className="submitted-message">
                     SignUp Successful. Thank you!
                   </p>
                 )}
 
-                <button
-                  type="submit"
-                  className="button button-primary button-100p"
-                  style={{ marginTop: "10px" }}
-                >
-                  Sign up with Google
-                </button>
+                <div className="button-container">
+                  <button
+                    type="submit"
+                    className="button button-primary button-100p"
+                    style={{ marginTop: "10px" }}
+                  >
+                    Sign up with Google
+                  </button>
+                </div>
                 {<p className="submitted-message">Or</p>}
 
-                <div className="d-flex flex-column">
+                <div className="d-flex flex-column align-items-center">
                   <p className="submitted-message">Already have an account?</p>
                   <button
                     onClick={() => {

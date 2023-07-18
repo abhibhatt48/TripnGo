@@ -15,15 +15,38 @@
   margin-bottom: 20px;
   }
   
+  .edit-button {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 15px;
+    display: block;
+    min-width: 83px;
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-radius: 100px;
+    transition: 0.3s;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-left: 2px;
+    margin-right: 2px;
+    color: var(--accent-color);
+}
+
+
+.edit-button:hover {
+    background-color: var(--accent-color)bb;
+    color: black;
+    cursor: pointer;
+}
+
   .each-button{
     margin-bottom: 5%
   }
   
   .custom-column {
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; Adjust this property based on your layout requirements */
-    height: 230px; /* Set the desired height value */
+    display: block;
+    
   }
   
   .custom-button-left{

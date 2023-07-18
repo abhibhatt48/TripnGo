@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 var contactUsRouter = require('./routes/contact_us');
 var paymentRouter = require('./routes/payment');
 var dashboardRouter = require('./routes/dashboard');
+var notificationsRouter = require('./routes/notifications');
 
 var app = express();
 
@@ -24,5 +25,6 @@ app.use('/users', usersRouter);
 app.use('/contact-us', contactUsRouter);
 app.use('/payment', paymentRouter);
 app.use('/dashboard', dashboardRouter);
+app.use('/notifications', notificationsRouter);
 
 module.exports = app;

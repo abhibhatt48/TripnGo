@@ -1,30 +1,27 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col, Button, Card, Modal } from "react-bootstrap";
+import { Row, Col, Container, Card ,Button,Modal} from "react-bootstrap";
 import "../UserProfile/Userprofile.css";
 import johnDoeImage from "assests/johndoe.jpeg";
 
-const Userprofile = () => {
-  const [editProfileOpen, setEditProfileOpen] = useState(false);
-  const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
-  const [userData, setUserData] = useState({
-    name: "",
-    age: "",
-    gender: "",
-    dateOfBirth: "",
-    city: "",
-    bio: "",
-    street: "",
-    addressCity: "",
-    state: "",
-    country: "",
-    email: "",
-    phone: "",
-    profileImage: johnDoeImage,
-});
-
-  
+function ProfilePage() {
+    const [editProfileOpen, setEditProfileOpen] = useState(false);
+    const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
+    const [userData, setUserData] = useState({
+      name: "",
+      age: "",
+      gender: "",
+      dateOfBirth: "",
+      city: "",
+      bio: "",
+      street: "",
+      addressCity: "",
+      state: "",
+      country: "",
+      email: "",
+      phone: "",
+      profileImage: johnDoeImage,
+  });
 
   const {
     register,
@@ -48,42 +45,36 @@ const Userprofile = () => {
     console.log(data);
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      setUserData((prevUserData) => ({
-        ...prevUserData,
-        profileImage: e.target.result,
-      }));
-    };
-
-    reader.readAsDataURL(file);
-  };
-  
+      
+      const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+    
+        reader.onload = (e) => {
+          setUserData((prevUserData) => ({
+            ...prevUserData,
+            profileImage: e.target.result,
+          }));
+        };
+    
+        reader.readAsDataURL(file);
+      };
 
   return (
-    <>
-      <div className="background-image"
-        style={{
-          position: "sticky",
-          top: 0,
-          left: 0,
-          zIndex: "99999",
-        }}
-      >
-
-      <div style={{ marginTop: "2%" }}>
-        <Container>
-          <Row>
-            <Col xs={12} md={4} lg={12}>
-              {/* Profile Image and Bio */}
-              <Card className="mb-4">
-              <Card.Body>
-<div className="container" style={{display:"flex"}}>
-    <div style={{ width:"25%"}}>
-        <div className="">
+    <div className="background-image">
+      <Container className="central-container">
+        <div className="login-container">
+          <div className="login-overlay">
+            <h1 className="title">Welcome</h1>
+            
+          </div>
+         
+          <Row >
+        <Col xs={12} md={4} lg={12}>
+          {/* Profile Image and Bio */}
+          <Card className="mb-4">
+            <Card.Body>
+            <div className="">
             <img
                 src={userData.profileImage}
                 roundedCircle
@@ -99,21 +90,69 @@ const Userprofile = () => {
                 onChange={handleImageChange}
             />
         </div>
-    </div>
-    <div style={{    width:"75%"}}>
-      <Card.Title>John Wick</Card.Title>
-      <Card.Text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut sagittis nisl. Ut tincidunt sed ligula sit amet consequat. Donec venenatis nulla et purus accumsan pharetra. Integer pretium porttitor nunc, in euismod massa molestie viverra. Etiam vel nisi ac odio ornare fermentum. Curabitur feugiat varius neque quis bibendum. Aliquam suscipit nunc in leo fermentum, pulvinar elementum orci efficitur. Donec maximus diam ligula, vel ullamcorper quam viverra at. Nulla lacus nisi, auctor vitae tellus quis, tincidunt luctus ex. Maecenas magna arcu, blandit nec cursus vitae, gravida vel dui.
-      </Card.Text>
-    </div>
-  </div>
+              <Card.Title>John Wick</Card.Title>
+              <Row>
+                
+                
+              </Row>
+             
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
 
+      <Row className="mb-4">
+        <Col className="" xs={6} md={4} lg={6} >
+          {/* Personal Information*/}
+          <Card className="mb-4 custom-column">
+            <Card.Body>
+              <Card.Title>Personal Information</Card.Title>
+              <ul className="list-unstyled">
+                <li>Name: John Doe</li>
+                <li>Age: 30</li>
+                <li>Gender: Male</li>
+                <li>Date of birth: 23-05-1999</li>
+                <li>City: Mumbai </li>
+              </ul>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col className="" xs={6} md={4} lg={6}>
+          {/* Address Information */}
+          <Card className="mb-4 custom-column">
+            <Card.Body>
+              <Card.Title>Address Information</Card.Title>
+              <ul className="list-unstyled">
+                <li>Street: 123 Main St</li>
+                <li>City: New York</li>
+                <li>State: NY</li>
+                <li>Country: USA</li>
+              </ul>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
 
-
-
-                  <hr />
-                  <div className="custom-button-left">
-                  {editProfileOpen ? (
+      <Row className="mb-4">
+        <Col className="custom-column" xs={12} md={8} lg={6}>
+          {/* Contact Information */}
+          <Card className="mb-4" style={{height: "150px"}}>
+            <Card.Body>
+              <Card.Title>Contact Information</Card.Title>
+              <ul className="list-unstyled">
+                <li>Email: john.doe@example.com</li>
+                <li>Phone: 123-456-7890</li>
+              </ul>
+            </Card.Body>
+          </Card>  
+        </Col>
+        <Col >
+        <Card>
+            <Card.Body>
+          <div style={{border: "0.5px solid lightgrey", borderRadius: "5px", textAlign: "center", height: "150px"}}>
+            
+            <div>
+            {editProfileOpen ? (
                     <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="form-group">
                         <label htmlFor="name">Name:</label>
@@ -374,9 +413,9 @@ const Userprofile = () => {
                       Edit Profile
                     </Button>
                   )}
-                  </div>
-                  <div className="custom-button-left">
-                    <Button
+            </div>
+            <div >
+            <Button
                       variant="primary"
                       value="Change password modal will be opened"
                       className="each-button"
@@ -384,71 +423,16 @@ const Userprofile = () => {
                     >
                           Change Password
                     </Button>
-                    </div>       
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-          <Row className="mb-4">
-        <Col className="" xs={6} md={4} lg={6} >
-          {/* Personal Information*/}
-          <Card className="mb-4 custom-column">
-            <Card.Body>
-              <Card.Title>Personal Information</Card.Title>
-              <ul className="list-unstyled">
-                <li>Name: John Doe</li>
-                <li>Age: 30</li>
-                <li>Gender: Male</li>
-                <li>Date of birth: 23-05-1999</li>
-                <li>City: Mumbai </li>
-              </ul>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col className="" xs={6} md={4} lg={6}>
-          {/* Address Information */}
-          <Card className="mb-4 custom-column">
-            <Card.Body>
-              <Card.Title>Address Information</Card.Title>
-              <ul className="list-unstyled">
-                <li>Street: 123 Main St</li>
-                <li>City: New York</li>
-                <li>State: NY</li>
-                <li>Country: USA</li>
-              </ul>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-
-      <Row className="mb-4">
-        <Col className="custom-column" xs={12} md={8} lg={6}>
-          {/* Contact Information */}
-          <Card className="mb-4" style={{height: "150px"}}>
-            <Card.Body>
-              <Card.Title>Contact Information</Card.Title>
-              <ul className="list-unstyled">
-                <li>Email: john.doe@example.com</li>
-                <li>Phone: 123-456-7890</li>
-              </ul>
-            </Card.Body>
-          </Card>  
-        </Col>
-        <Col className="">
-          <div style={{border: "0.5px solid lightgrey", borderRadius: "5px", textAlign: "center", height: "150px"}}>
-            <div style={{marginTop: "5%"}}>
-
-            To deactivate your account, click button
             </div>
-            <div>
-              <Button variant="danger" style={{margin: "5%"}} value=" Edit profile modal will be opened" onClick={handleClick}>Deactivate</Button>
-            </div>
+
           </div>
+          </Card.Body>
+          </Card>
         </Col>
       </Row>
-        </Container>
-      </div>
-      {/* Change Password Modal */}
+
+        </div>
+      </Container>
       <Modal
         show={showChangePasswordModal}
         onHide={handleCloseChangePasswordModal}
@@ -525,9 +509,9 @@ const Userprofile = () => {
           </form>
         </Modal.Body>
       </Modal>
-      </div>
-    </>
+    </div>
+    
   );
-};
+}
 
-export default Userprofile;
+export default ProfilePage;

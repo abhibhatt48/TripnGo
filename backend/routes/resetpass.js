@@ -11,7 +11,7 @@ router.post('/', async function (req, res) {
   }
 
   const database = await db();
-  const usersCollection = database.collection('WebProject');
+  const usersCollection = database.collection('Authentication');
 
   try {
     // Find the user by email

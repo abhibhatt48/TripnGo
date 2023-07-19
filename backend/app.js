@@ -14,7 +14,7 @@ var loginRouter = require('./routes/login');
 var dashboardRouter = require('./routes/dashboard');
 var notificationsRouter = require('./routes/notifications');
 var { listenForNotifications } = require('./conn');
-var EmailRouter = require('./routes/validateemail');
+var EmailRouter = require('./routes/validateEmail');
 var ResetPassRouter = require('./routes/resetpass');
 
 var app = express();

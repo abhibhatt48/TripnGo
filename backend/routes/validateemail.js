@@ -5,7 +5,7 @@ const { db } = require("../conn");
 router.post('/', async function (req, res, next) {
   const { email } = req.body;
   const database = await db();
-  const existingEmail = database.collection("WebProject");
+  const existingEmail = database.collection("Authentication");
 
   try {
     // Check if the email exists in the database

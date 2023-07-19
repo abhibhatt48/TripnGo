@@ -16,7 +16,7 @@ router.post('/', async function(req,res,next)  {
     }
   
     const database = await db();
-    const existingUsers = database.collection("WebProject");
+    const existingUsers = database.collection("Authentication");
   
     try {
       // Check if the user exists in the database
@@ -31,12 +31,12 @@ router.post('/', async function(req,res,next)  {
         return res.status(403).json({ message: 'Invalid password' });
       }
   
-      // If the password is correct, generate a JWT token
+      // If the password is correct, validate it for login
       const userData = {
         email: validateUser.email,
         username: validateUser.username,
       };
-    //   const token = jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: '1h' });
+
   
       return res.status(200).json({ user: userData });
     } catch (error) {

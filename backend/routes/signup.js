@@ -11,15 +11,12 @@ router.post("/", async function (req, res, next) {
 
   if (!username || !email || !password  ) {
     return res.status(400).json({ message: "All fields are required" });
-    console.log("All fields are required");
   }
 
-//   if (password !== confirmPassword) {
-//     return res.status(400).json({ message: "Passwords do not match" });
-//   }
+
 const database = await db();
-const usersData = database.collection("WebProject");
-//   const usersData = mongoDB.getDB().collection("WebProject");
+const usersData = database.collection("Authentication");
+
 
   try {
     // Check if the email already exists in the database

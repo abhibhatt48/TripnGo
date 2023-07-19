@@ -19,20 +19,18 @@ import Page404 from 'screens/Page404';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/order-details" element={<OrderDetails />} />
-        <Route path="/package-details" element={<PackageDetails />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/faqs" element={<FAQs />} />
-        <Route path="*" element={<Page404 />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
-  </React.StrictMode >
+  <BrowserRouter>
+    <Header />
+    <Routes>
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/order-details" element={<OrderDetails />} />
+      <Route path="/package-details" element={<PackageDetails />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/sign-up" element={<SignUp />} />
+      <Route path="/contact-us" element={<ContactUs />} />
+      <Route path="/faqs" element={<FAQs />} />
+      <Route path="*" element={<Page404 />} />
+    </Routes>
+    <Footer />
+  </BrowserRouter>
 );

@@ -14,6 +14,7 @@ import PackageDetails from 'screens/PackageDetails';
 import Login from 'screens/Login';
 import SignUp from 'screens/SignUp';
 import ContactUs from 'screens/ContactUs';
+import ContactList from 'screens/ContactList';
 import FAQs from 'screens/FAQs';
 import Page404 from 'screens/Page404';
 
@@ -28,6 +29,7 @@ root.render(
       <Route path="/login" element={<Login />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/contact-us" element={<ContactUs />} />
+      <Route path="/contact-list" element={<ContactList />} />
       <Route path="/faqs" element={<FAQs />} />
       <Route path="*" element={<Page404 />} />
     </Routes>

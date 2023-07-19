@@ -10,6 +10,7 @@ var contactUsRouter = require('./routes/contact_us');
 var paymentRouter = require('./routes/payment');
 var dashboardRouter = require('./routes/dashboard');
 var notificationsRouter = require('./routes/notifications');
+var { listenForNotifications } = require('./conn');
 
 var app = express();
 
@@ -26,5 +27,7 @@ app.use('/contact-us', contactUsRouter);
 app.use('/payment', paymentRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/notifications', notificationsRouter);
+
+listenForNotifications();
 
 module.exports = app;

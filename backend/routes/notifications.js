@@ -32,6 +32,7 @@ router.post('/', async function (req, res, next) {
     const timeStr = date.toISOString().split('T')[1].split('.')[0];
 
     const notification = {
+        userId: `${userId}`,
         title,
         description,
         date: dateStr,
@@ -53,19 +54,19 @@ router.get('/', async function (req, res, next) {
     res.status(200).send(notifications);
 });
 
-// Get notification by id from database
-router.get('/:id', async function (req, res, next) {
-    const id = req.params.id;
+// Get notification by userId from database
+router.get('/:userId', async function (req, res, next) {
+    const userId = req.params.userId;
 
-    if (!id) {
+    if (!userId) {
         res.status(400).send("Missing required fields");
         return;
     }
 
     const database = await db();
-    const notification = await database.collection(collection).findOne({ _id: ObjectId(id) });
+    const notifications = await database.collection(collection).find({ userId: userId }).toArray();
 
-    res.status(200).send(notification);
+    res.status(200).send(notifications);
 });
 
 module.exports = router;

@@ -17,6 +17,29 @@ async function db() {
     return database;
 }
 
+async function listenForNotifications() {
+    const database = await db();
+
+    const collection = database.collection("notifications");
+
+    const changeStream = collection.watch();
+
+    changeStream.on("change", next => {
+        const userId = next.fullDocument.userId;
+        const socket = global.sockets[userId];
+
+        console.log("Notification received:", next.fullDocument);
+        if (socket) {
+            socket.emit("message", next.fullDocument);
+        } else {
+            console.log("Socket not found for userId:", userId);
+        }
+    });
+
+    return changeStream;
+}
+
 module.exports = {
-    db
+    db,
+    listenForNotifications
 };

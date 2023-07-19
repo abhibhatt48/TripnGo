@@ -5,6 +5,7 @@ const APIs = {
     TRIPS_NEAR_YOU: `${HOST_URL}/dashboard/trips-near-you`,
     SOCKET_URL: `${HOST_URL}`,
     NOTIFICATIONS: `${HOST_URL}/notifications`,
+    CONTACT_US: `${HOST_URL}/contact-us`,
 };
 
 export default APIs;

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import './ContactUs.css';
+import axios from 'axios';
+import APIs from 'Constants';
 
 function ContactUs() {
   const [name, setName] = useState('');
@@ -33,9 +35,15 @@ function ContactUs() {
       // Convert formData to JSON
       const jsonData = JSON.stringify(formData);
 
+      axios.post(APIs.CONTACT_US, formData)
+        .then((response) => {
+          console.log(response.data);
+          setSubmitted(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       // Perform actions with the jsonData (e.g., send it to the server)
-
-      setSubmitted(true);
       setName('');
       setEmail('');
       setMessage('');

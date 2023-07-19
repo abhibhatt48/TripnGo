@@ -17,6 +17,7 @@ import ContactUs from 'screens/ContactUs';
 import FAQs from 'screens/FAQs';
 import Page404 from 'screens/Page404';
 import ForgotPassword from 'screens/ForgotPassword';
+import ResetPassword from 'screens/ResetPassword';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -31,6 +32,7 @@ root.render(
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
+        <Route path="/resetpassword" element={<ResetPassword/>} />
         <Route path="/faqs" element={<FAQs />} />
         <Route path="*" element={<Page404 />} />
       </Routes>

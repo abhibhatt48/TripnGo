@@ -19,51 +19,54 @@ function Login() {
     setPassword(value);
   };
 
-  const handleEmailChange =  (event) => {
+  const handleEmailChange = (event) => {
     const value = event.target.value;
     setEmail(value);
   };
+  const handleForgotPassword = (event) => {
+    navigate("/forgotPassword");
+  };
+
   const handleSubmit = async (event) => {
-    console.log("Inside event")
+    console.log("Inside event");
     event.preventDefault();
     if (!email || !password) {
-      console.log("Inside condition")
+      console.log("Inside condition");
       setErrormessage("Please fill in all required fields");
-     
-      return; // Prevent form submission
-    } try {
 
+      return; // Prevent form submission
+    }
+    try {
       const user = {
         email: email,
         password: password,
       };
-  
-     const response = await axios
-      .post('http://localhost:3000/login', user)
+
+      const response = await axios
+        .post("http://localhost:3000/login", user)
         .then((response) => {
           // setUserSession(response.data.user);
-  
+
           setMessage("Login Successful");
-       
+
           navigate("/");
-        })
-      
-       } catch(error) {
-          if (
-            error.response &&
-            (error.response.status === 401 ||
-            error.response.status === 403
-          )) {
-            setErrormessage(error.response.data.message);
-          } else {
-            setErrormessage("User does not exist! Please enter correct email or Signup");
-          }
-  
-          console.log("Error while Login", error);
-          console.error(error);
-        };
-    };
-   
+        });
+    } catch (error) {
+      if (
+        error.response &&
+        (error.response.status === 401 || error.response.status === 403)
+      ) {
+        setErrormessage(error.response.data.message);
+      } else {
+        setErrormessage(
+          "User does not exist! Please enter correct email or Signup"
+        );
+      }
+
+      console.log("Error while Login", error);
+      console.error(error);
+    }
+  };
 
   return (
     <div className="background-image">
@@ -80,8 +83,9 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control ${!isEmailValid ? "is-invalid" : ""
-                      }`}
+                    className={`form-control ${
+                      !isEmailValid ? "is-invalid" : ""
+                    }`}
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
@@ -94,8 +98,9 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control ${!isPasswordValid ? "is-invalid" : ""
-                      }`}
+                    className={`form-control ${
+                      !isPasswordValid ? "is-invalid" : ""
+                    }`}
                     placeholder="Password"
                     value={password}
                     onChange={handlePasswordChange}
@@ -118,28 +123,18 @@ function Login() {
                 {submitted && (
                   <p className="submitted-message">Login Successful</p>
                 )}
-          {/* <button
-            variant="link"
-            style={{
-              marginTop: 3,
-              height: "25px",
-              borderRadius: 5,
-              marginLeft: 5,
-              fontSize: 18,
-              fontFamily: "cursive",
-              textAlign: "center",
-            }}
-          >
-            Forgot Password?
-          </button> */}
-
-                <button
-                  type="submit"
-                  className="button button-primary button-100p"
-                  style={{ marginTop: "10px" }}
-                >
-                  Forgot Password?
-                </button>
+                <div>
+                  <button
+                    type="button"
+                    className="button button-primary button-100p"
+                    style={{ marginTop: "10px" }}
+                    onClick={() => {
+                      navigate("/forgotPassword");
+                    }}
+                  >
+                    Forgot Password?
+                  </button>
+                </div>
               </form>
             </Col>
           </Row>
@@ -148,6 +143,5 @@ function Login() {
     </div>
   );
 }
-
 
 export default Login;

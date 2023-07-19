@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(true);
-
+  const [message, setMessage] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [error, setErrormessage] = useState("");
@@ -18,24 +19,51 @@ function Login() {
     setPassword(value);
   };
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange =  (event) => {
     const value = event.target.value;
     setEmail(value);
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    console.log("Inside event")
     event.preventDefault();
     if (!email || !password) {
+      console.log("Inside condition")
       setErrormessage("Please fill in all required fields");
-      <div>"Invalid Username or Password"</div>;
+     
       return; // Prevent form submission
-    } else {
-      // Passwords match, proceed with form submission or other actions
-      console.log("Valid Credentials");
+    } try {
 
-      // navigate("/Profile");
-      window.location.href = "/d";
-    }
-  };
+      const user = {
+        email: email,
+        password: password,
+      };
+  
+     const response = await axios
+      .post('http://localhost:3000/login', user)
+        .then((response) => {
+          // setUserSession(response.data.user);
+  
+          setMessage("Login Successful");
+       
+          navigate("/");
+        })
+      
+       } catch(error) {
+          if (
+            error.response &&
+            (error.response.status === 401 ||
+            error.response.status === 403
+          )) {
+            setErrormessage(error.response.data.message);
+          } else {
+            setErrormessage("User does not exist! Please enter correct email or Signup");
+          }
+  
+          console.log("Error while Login", error);
+          console.error(error);
+        };
+    };
+   
 
   return (
     <div className="background-image">
@@ -47,7 +75,7 @@ function Login() {
           </div>
           <Row className="form-container">
             <Col lg={12} md={12}>
-              {/* {error && <p className="text-danger text-center">{error}</p>} */}
+              {error && <p className="text-danger text-center">{error}</p>}
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <input
@@ -83,22 +111,34 @@ function Login() {
                 <button
                   type="submit"
                   className="button button-secondary button-100p"
-                  onClick={() => {
-                    navigate("/");
-                  }}
+                  onClick={handleSubmit}
                 >
                   Login
                 </button>
                 {submitted && (
                   <p className="submitted-message">Login Successful</p>
                 )}
+          {/* <button
+            variant="link"
+            style={{
+              marginTop: 3,
+              height: "25px",
+              borderRadius: 5,
+              marginLeft: 5,
+              fontSize: 18,
+              fontFamily: "cursive",
+              textAlign: "center",
+            }}
+          >
+            Forgot Password?
+          </button> */}
 
                 <button
                   type="submit"
                   className="button button-primary button-100p"
                   style={{ marginTop: "10px" }}
                 >
-                  Login with Google
+                  Forgot Password?
                 </button>
               </form>
             </Col>
@@ -108,5 +148,6 @@ function Login() {
     </div>
   );
 }
+
 
 export default Login;

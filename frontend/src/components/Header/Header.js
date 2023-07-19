@@ -6,10 +6,40 @@ import { Container } from "react-bootstrap";
 import { HiMenu } from "react-icons/hi";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate, useLocation } from "react-router-dom";
+import APIs from "Constants";
+import axios from "axios";
+import io from 'socket.io-client';
 
-const Header = ({ onSelect, activeKey, ...props }) => {
+async function listenForNotifications(onNotification) {
+  const userId = localStorage.getItem("userId") ?? 1;
+  const socket = io(APIs.SOCKET_URL, {
+    query: {
+      userId: userId
+    }
+  });
+  socket.on('connect', () => {
+    console.log('Connected to server');
+  });
+
+  socket.on('message', message => {
+    console.log('Received message:', message);
+    if (onNotification && typeof onNotification === 'function')
+      onNotification(message);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Disconnected from server');
+  });
+
+  return socket;
+}
+
+const Header = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [isNewNotification, setIsNewNotification] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const userId = 1;
   let navigate = useNavigate();
   let location = useLocation();
 
@@ -34,6 +64,22 @@ const Header = ({ onSelect, activeKey, ...props }) => {
 
   }, [location, menuItems, navPaths]);
 
+  React.useEffect(() => {
+    listenForNotifications((message) => {
+      setIsNewNotification(!showNotifications && true);
+      setNotifications([message, ...notifications]);
+    });
+  }, [showNotifications, notifications]);
+
+  React.useEffect(() => {
+    axios.get(`${APIs.NOTIFICATIONS}/${userId}`).then((res) => {
+      const noti = [];
+      for (let i = res.data.length - 1; i >= 0; i--) {
+        noti.push(res.data[i]);
+      }
+      setNotifications(noti);
+    });
+  }, []);
 
   return (
     <div className="nav-bar-container">
@@ -54,26 +100,25 @@ const Header = ({ onSelect, activeKey, ...props }) => {
         >
           <IoIosNotifications className="notification-popup-icon" />
           <Modal.Title id="contained-modal-title-vcenter">
-            Notifications (1)
+            Notifications ({notifications.length})
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="notification-container">
-          {Array.from({ length: 1 }).map((_, idx) => (
-            <div
-              key={idx}
+          {notifications.map((notification, idx) => (
+            <div key={idx}
               onClick={() => {
                 setShowNotifications(false);
-                navigate("/order-details");
-              }}
-            >
-              <div className="notification-item">
-                <span className="notification-title">
-                  Trip booking confirmed
-                </span>
-                <span className="notification-description">
-                  Click to view trip booking details.
-                </span>
-              </div>
+                const url = notification.payload.url;
+                if (url) {
+                  navigate(url);
+                }
+              }} className="notification-item">
+              <span className="notification-title">
+                {notification.title}
+              </span>
+              <span className="notification-description">
+                {notification.description}
+              </span>
             </div>
           ))}
         </Modal.Body>
@@ -125,12 +170,18 @@ const Header = ({ onSelect, activeKey, ...props }) => {
             >
               Notifications
             </span>
-            <IoIosNotifications
-              className="notification-icon"
-              onClick={() => {
-                setShowNotifications(!showNotifications);
-              }}
-            />
+            <div className="notification-dot-container">
+              <IoIosNotifications
+                className="notification-icon"
+                onClick={() => {
+                  setIsNewNotification(false);
+                  setShowNotifications(!showNotifications);
+                }}
+              />
+              {isNewNotification && (
+                <div className="notification-dot"></div>
+              )}
+            </div>
           </div>
 
           <div className="menu-item">

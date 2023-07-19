@@ -105,24 +105,20 @@ const Header = () => {
         </Modal.Header>
         <Modal.Body className="notification-container">
           {notifications.map((notification, idx) => (
-            <div
-              key={idx}
+            <div key={idx}
               onClick={() => {
                 setShowNotifications(false);
                 const url = notification.payload.url;
                 if (url) {
                   navigate(url);
                 }
-              }}
-            >
-              <div className="notification-item">
-                <span className="notification-title">
-                  {notification.title}
-                </span>
-                <span className="notification-description">
-                  {notification.description}
-                </span>
-              </div>
+              }} className="notification-item">
+              <span className="notification-title">
+                {notification.title}
+              </span>
+              <span className="notification-description">
+                {notification.description}
+              </span>
             </div>
           ))}
         </Modal.Body>

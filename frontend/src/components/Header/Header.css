@@ -101,6 +101,10 @@
     margin-right: 10px;
 }
 
+.modal-header .btn-close {
+    margin-right: 0px;
+}
+
 .menu {
     display: flex;
     flex-direction: row;

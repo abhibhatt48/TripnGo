@@ -1,5 +1,6 @@
 import { Row, Col, Container } from 'react-bootstrap';
 import '../Dashboard/Dashboard.css';
+import './Wishlist.css';
 import React from 'react';
 import { useEffect, useRef } from 'react';
 import TripItem from '../../components/TripItem/TripItem';
@@ -16,9 +17,7 @@ const Wishlist = () => {
   };
 
   const [filteredTrips, setFilteredTrips] = React.useState([...popularTrips, ...tripsNearYou]);
-  const [searchText, setSearchText] = React.useState('');
   const localStorageData = localStorage.getItem('id');
-  // const wishlistIDs = localStorageData ? JSON.parse(localStorageData) : [];
   const wishlistIDs = localStorageData ? JSON.parse(localStorageData) : [];
   const previousWishlistIDs = usePrevious(wishlistIDs);
 
@@ -50,13 +49,9 @@ const Wishlist = () => {
     "https://live.staticflickr.com/5737/30288680862_5c9e8248f4_c_d.jpg",
     "https://live.staticflickr.com/5537/31228301162_8dddd9450d_c_d.jpg"
   ];
-  const onSearchClick = (e) => {
-    e.preventDefault();
-    console.log('Search button clicked');
-  };
 
   return (
-    <div className='dashboard-container'>
+    <div className='dashboard-container wishlist-page-container'>
       {/* ... (previous code) */}
       <div className="trips-container">
         <h1 className="title">Wishlist Items</h1>
@@ -76,11 +71,6 @@ const Wishlist = () => {
             )}
           </Row>
         </Container>
-        <div className='button-container'>
-          <button className={`button button-primary button-200 button-sm-100p ${filteredTrips.length === 0 ? 'disabled' : ''}`}
-            onClick={onSearchClick}
-          >More Items</button>
-        </div>
       </div>
     </div>
   );

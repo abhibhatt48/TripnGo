@@ -16,7 +16,7 @@ import SignUp from 'screens/SignUp';
 import ContactUs from 'screens/ContactUs';
 import FAQs from 'screens/FAQs';
 import Page404 from 'screens/Page404';
-import Wishlist from 'screens/Wishlist/Wishlist';
+import Wishlist from 'screens/Wishlist';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

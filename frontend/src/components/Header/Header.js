@@ -56,7 +56,7 @@ const Header = ({ onSelect, activeKey, ...props }) => {
           closeVariant="white"
         >
           <IoIosNotifications className="notification-popup-icon" />
-      
+
           <Modal.Title id="contained-modal-title-vcenter">
             Notifications (1)
           </Modal.Title>
@@ -124,7 +124,6 @@ const Header = ({ onSelect, activeKey, ...props }) => {
                 setCurrentKey("Wishlist");
                 showOptions && setShowOptions(false);
                 setShowWishlist(!showWishlist);
-                
               }}
             >
               Wishlist

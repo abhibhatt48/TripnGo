@@ -6,6 +6,7 @@ const APIs = {
     SOCKET_URL: `${HOST_URL}`,
     NOTIFICATIONS: `${HOST_URL}/notifications`,
     CONTACT_US: `${HOST_URL}/contact-us`,
+    CREATE_SESSION: `${HOST_URL}/payment`,
 };
 
 export default APIs;

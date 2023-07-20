@@ -84,6 +84,12 @@ code {
   justify-content: center;
 }
 
+.button.disabled {
+  background-color: #E0E0E0;
+  color: #9E9E9E;
+  cursor: not-allowed;
+}
+
 /* Mobile */
 @media (max-width: 768px) {
 

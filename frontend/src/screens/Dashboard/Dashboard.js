@@ -73,14 +73,14 @@ function Dashboard() {
                                         <TripItem trip={{
                                             image: popular_trips_images[idx],
                                             ...filteredPopularTrips[idx]
-                                        }}  />
+                                        }} />
                                     </Col>
                                 ))
                         }
                     </Row>
                 </Container>
                 <div className='button-container'>
-                    <button className="button button-primary button-200 button-sm-100p"
+                    <button className={`button button-primary button-200 button-sm-100p ${filteredPopularTrips.length === 0 ? 'disabled' : ''}`}
                         onClick={onSearchClick}
                     >More Trips</button>
                 </div>
@@ -91,7 +91,6 @@ function Dashboard() {
                 <Container className='trips-item-container'>
                     <Row className="g-4 justify-content-md-center">
                         {
-
                             filteredTripsNearYou.length === 0 ?
                                 <span className='noTrip'>No trip found</span>
                                 :
@@ -106,7 +105,7 @@ function Dashboard() {
                     </Row>
                 </Container>
                 <div className='button-container'>
-                    <button className="button button-primary button-200 button-sm-100p"
+                    <button className={`button button-primary button-200 button-sm-100p ${filteredTripsNearYou.length === 0 ? 'disabled' : ''}`}
                         onClick={onSearchClick}
                     >More Trips</button>
                 </div>

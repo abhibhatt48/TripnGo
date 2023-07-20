@@ -2,8 +2,6 @@
     padding-bottom: 50px;
 }
 
-
-
 .carousel-container {
     background-color: black;
     min-height: 500px;
@@ -91,12 +89,11 @@
 }
 
 .heart-icon {
-    
     font-size: x-large;
     color: rgb(225, 94, 116);
-  }
+}
 
-  .wishlist-container{
+.wishlist-container {
     position: absolute;
     top: 0px;
     right: 0px;

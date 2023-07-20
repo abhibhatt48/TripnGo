@@ -17,6 +17,7 @@ import ContactUs from 'screens/ContactUs';
 import ContactList from 'screens/ContactList';
 import FAQs from 'screens/FAQs';
 import Page404 from 'screens/Page404';
+import Payment from 'screens/Payment';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,8 +30,9 @@ root.render(
       <Route path="/login" element={<Login />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/contact-us" element={<ContactUs />} />
-      <Route path="/contact-list" element={<ContactList />} />
+      <Route path="/admin/contact-list" element={<ContactList />} />
       <Route path="/faqs" element={<FAQs />} />
+      <Route path="/payment" element={<Payment />} />
       <Route path="*" element={<Page404 />} />
     </Routes>
     <Footer />

@@ -8,7 +8,7 @@ import './Payment.css';
 
 function Payment() {
   const [name] = useState('John Doe');
-  const [packageName] = useState('Premium Package');
+  const [packageName] = useState('Halifax');
   const [amount] = useState(1000);
   const [promoCode, setPromoCode] = useState('');
   const [discountedAmount, setDiscountedAmount] = useState(amount);

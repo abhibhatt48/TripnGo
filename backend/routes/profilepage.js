@@ -4,12 +4,14 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const router= express.Router();
 
 // Connect to MongoDB
 mongoose.connect("mongodb://localhost/profile_app", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 
 // Create a profile schema
 const profileSchema = new mongoose.Schema({
@@ -27,6 +29,7 @@ const profileSchema = new mongoose.Schema({
   phone: String,
   profileImage: String,
 });
+
 
 // Create a profile model
 const Profile = mongoose.model("Profile", profileSchema);
@@ -48,7 +51,9 @@ app.get("/api/profile", (req, res) => {
   });
 });
 
-app.post("/api/profile", (req, res) => {
+
+
+app.post("/api/updateprofile", (req, res) => {
   const data = req.body;
 
   // Update the profile data in the database
@@ -61,5 +66,14 @@ app.post("/api/profile", (req, res) => {
     }
   });
 });
+
+app.use("/", router);
+
+// Start the server
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
 
 module.exports = router;

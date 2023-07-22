@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Row, Col, Container, Card ,Button,Modal} from "react-bootstrap";
 import "./ProfilePage.css";
+import axios from "axios";
 import johnDoeImage from "assests/johndoe.jpeg";
 
 function ProfilePage() {
@@ -55,7 +56,15 @@ function ProfilePage() {
     setShowEditProfileModal(false);
     console.log(data);
   };
-
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get("/api/64b7fc4d220f90886f389ede"); 
+      const data = response.data;
+      setUserData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
       
       const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -81,11 +90,11 @@ function ProfilePage() {
           </div>
          
         <Row className="mb-2">
-        <Col xs={12} md={4} lg={12}>
+        <Col xs={12} md={12} lg={12}>
           {/* Profile Image and Bio */}
           <Card className="mb-4">
             <Card.Body className="text-center">
-            <div className="">
+            <div >
             <img
                 src={userData.profileImage}
                 roundedCircle
@@ -95,7 +104,7 @@ function ProfilePage() {
             />
         </div>
         <div >
-        <Button variant="info" onClick={handleShowEditImageModal}>
+        <Button variant="info" onClick={handleShowEditImageModal} className="button button-secondary ">
           Edit Image
         </Button>
         </div>
@@ -106,17 +115,17 @@ function ProfilePage() {
       </Row>
 
       <Row className="mb-2">
-        <Col className="" xs={12} md={12} lg={12} >
+        <Col  xs={12} md={12} lg={12} >
           {/* Personal Information*/}
           <Card className="mb-4 ">
             <Card.Body>
               <Card.Title>Personal Information</Card.Title>
               <ul className="list-unstyled">
-                <li>Name: John Doe</li>
-                <li>Age: 30</li>
-                <li>Gender: Male</li>
-                <li>Date of birth: 23-05-1999</li>
-                <li>City: Mumbai </li>
+                <li>Name: {userData.name}}</li>
+                <li>Age: {userData.age}}</li>
+                <li>Gender: {userData.gender}</li>
+                <li>Date of birth: {userData.dateOfBirth}</li>
+                <li>City: {userData.city}</li>
               </ul>
             </Card.Body>
           </Card>
@@ -130,10 +139,10 @@ function ProfilePage() {
             <Card.Body>
               <Card.Title>Address Information</Card.Title>
               <ul className="list-unstyled">
-                <li>Street: 123 Main St</li>
-                <li>City: New York</li>
-                <li>State: NY</li>
-                <li>Country: USA</li>
+                <li>Street: {userData.street}</li>
+                <li>City: {userData.city}</li>
+                <li>State: {userData.state}</li>
+                <li>Country: {userData.country}</li>
               </ul>
             </Card.Body>
           </Card>
@@ -147,8 +156,8 @@ function ProfilePage() {
             <Card.Body>
               <Card.Title>Contact Information</Card.Title>
               <ul className="list-unstyled">
-                <li>Email: john.doe@example.com</li>
-                <li>Phone: 123-456-7890</li>
+                <li>Email: {userData.email}</li>
+                <li>Phone: {userData.phone}</li>
               </ul>
             </Card.Body>
           </Card>  
@@ -200,6 +209,7 @@ function ProfilePage() {
           <Modal.Title>Edit Profile</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+        
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
               <label htmlFor="name">Name:</label>
@@ -430,7 +440,7 @@ function ProfilePage() {
                 </div>
               )}
             </div>
-            <Button type="submit" variant="primary">
+            <Button type="submit" onClick={updateData} variant="primary">
               Save Changes
             </Button>
           </form>
@@ -508,7 +518,7 @@ function ProfilePage() {
                 </div>
               )}
             </div>
-            <Button type="submit" variant="primary">
+            <Button type="submit"  variant="primary">
               Save Changes
             </Button>
           </form>

@@ -18,6 +18,7 @@ import ContactList from 'screens/ContactList';
 import FAQs from 'screens/FAQs';
 import Page404 from 'screens/Page404';
 import Payment from 'screens/Payment';
+import MoreTrips from 'screens/MoreTrips';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -27,6 +28,7 @@ root.render(
       <Route path="/" element={<Dashboard />} />
       <Route path="/order-details" element={<OrderDetails />} />
       <Route path="/package-details" element={<PackageDetails />} />
+      <Route path="/travel-packages" element={<MoreTrips />} />
       <Route path="/login" element={<Login />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/contact-us" element={<ContactUs />} />

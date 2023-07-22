@@ -72,6 +72,28 @@
     cursor: pointer;
 }
 
+.notification-dot-container {
+    position: relative;
+}
+
+.notification-dot-container:hover .notification-dot {
+    border: 1px solid var(--accent-color);
+    background-color: black;
+}
+
+.notification-dot {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    pointer-events: none;
+    width: 10px;
+    height: 10px;
+    border: 1px solid black;
+    transition: 0.3s;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+}
+
 .notification-popup-icon {
     color: var(--accent-color);
     width: 28px;
@@ -84,6 +106,9 @@
     width: 28px;
     height: 28px;
     margin-right: 10px;
+}
+.modal-header .btn-close {
+    margin-right: 0px;
 }
 
 .menu {
@@ -180,9 +205,7 @@
     margin-bottom: 4px;
 }
 
-
 /* responsive tablet */
-
 @media (max-width: 768px) {
 
     .logo {
@@ -220,11 +243,12 @@
         width: 100%;
     }
 
-    .notification-icon,
-    .wishlist-icon,
-    .profile-container {
-        display: none;
-    }
+.notification-icon,
+.wishlist-icon,
+.notification-dot-container,
+.profile-container {
+    display: none;
+}
 
     .logo-container {
         width: 100%;

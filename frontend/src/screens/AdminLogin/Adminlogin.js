@@ -46,7 +46,7 @@ function Adminlogin() {
 
           setMessage("Admin login Successful");
 console.log("success");
-          navigate("/adminlogin");
+          navigate("/admin/contact-list");
         });
     } catch (error) {
       if (

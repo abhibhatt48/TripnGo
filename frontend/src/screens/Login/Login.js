@@ -134,7 +134,21 @@ function Login() {
                   >
                     Forgot Password?
                   </button>
+                  {<p className="submitted-message">Or</p>}
+
                 </div>
+                <div>
+                  <button
+                    type="button"
+                    className="button button-primary button-100p"
+                    style={{ marginTop: "10px" }}
+                    onClick={() => {
+                      navigate("/adminlogin");
+                    }}
+                  >
+                    Admin Login
+                  </button>
+                  </div>
               </form>
             </Col>
           </Row>

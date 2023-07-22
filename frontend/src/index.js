@@ -18,6 +18,7 @@ import FAQs from 'screens/FAQs';
 import Page404 from 'screens/Page404';
 import ForgotPassword from 'screens/ForgotPassword';
 import ResetPassword from 'screens/ResetPassword';
+import Adminlogin from 'screens/AdminLogin/Adminlogin';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,6 +30,7 @@ root.render(
         <Route path="/order-details" element={<OrderDetails />} />
         <Route path="/package-details" element={<PackageDetails />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/adminlogin" element={<Adminlogin />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />

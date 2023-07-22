@@ -16,6 +16,7 @@ var notificationsRouter = require('./routes/notifications');
 var { listenForNotifications } = require('./conn');
 var EmailRouter = require('./routes/validateEmail');
 var ResetPassRouter = require('./routes/resetpass');
+var adminloginRouter = require('./routes/adminlogin');
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use('/dashboard', dashboardRouter);
 app.use('/notifications', notificationsRouter);
 app.use('/validate-email', EmailRouter);
 app.use('/reset-pass', ResetPassRouter);
+app.use('/adminlogin',adminloginRouter);
 
 listenForNotifications();
 

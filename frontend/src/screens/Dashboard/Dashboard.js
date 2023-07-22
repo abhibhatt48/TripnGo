@@ -1,3 +1,5 @@
+// Author: Rahul Saliya
+
 import { Row, Col, Container } from 'react-bootstrap';
 import './Dashboard.css';
 import React from 'react';
@@ -5,11 +7,13 @@ import TripItem from 'components/TripItem';
 import { popularTrips, tripsNearYou } from './TripItems';
 import axios from 'axios';
 import APIs from 'Constants';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
     const [filteredPopularTrips, setFilteredPopularTrips] = React.useState(popularTrips);
     const [filteredTripsNearYou, setFilteredTripsNearYou] = React.useState(tripsNearYou);
     const [searchText, setSearchText] = React.useState('');
+    const navigate = useNavigate();
 
     const onSearchTextChange = (e) => {
         setSearchText(e.target.value);
@@ -57,6 +61,9 @@ function Dashboard() {
         e.preventDefault();
         console.log('Search button clicked');
     };
+    const handleMoreTripsClick = () => {
+        navigate('/travel-packages');
+      };
 
     return (
         <div className='dashboard-container'>
@@ -100,7 +107,7 @@ function Dashboard() {
                 </Container>
                 <div className='button-container'>
                     <button className="button button-primary button-200 button-sm-100p"
-                        onClick={onSearchClick}
+                        onClick={handleMoreTripsClick}
                     >More Trips</button>
                 </div>
             </div>
@@ -126,7 +133,7 @@ function Dashboard() {
                 </Container>
                 <div className='button-container'>
                     <button className="button button-primary button-200 button-sm-100p"
-                        onClick={onSearchClick}
+                        onClick={handleMoreTripsClick}
                     >More Trips</button>
                 </div>
             </div>

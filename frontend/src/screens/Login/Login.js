@@ -83,9 +83,8 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control ${
-                      !isEmailValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isEmailValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
@@ -98,9 +97,8 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control ${
-                      !isPasswordValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isPasswordValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Password"
                     value={password}
                     onChange={handlePasswordChange}
@@ -123,7 +121,7 @@ function Login() {
                 {submitted && (
                   <p className="submitted-message">Login Successful</p>
                 )}
-                <div>
+                <div className="button-container">
                   <button
                     type="button"
                     className="button button-primary button-100p"
@@ -134,21 +132,8 @@ function Login() {
                   >
                     Forgot Password?
                   </button>
-                  {<p className="submitted-message">Or</p>}
-
                 </div>
-                <div>
-                  <button
-                    type="button"
-                    className="button button-primary button-100p"
-                    style={{ marginTop: "10px" }}
-                    onClick={() => {
-                      navigate("/adminlogin");
-                    }}
-                  >
-                    Admin Login
-                  </button>
-                  </div>
+
               </form>
             </Col>
           </Row>

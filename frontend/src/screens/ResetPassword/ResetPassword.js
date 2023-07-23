@@ -3,6 +3,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./ResetPassword.css";
 import axios from "axios";
+import APIs from "Constants";
 
 function ResetPassword() {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ function ResetPassword() {
   };
 
   const handleSubmit = async (event) => {
-  
+
     event.preventDefault();
     if (!email || !confirmPassword || !password) {
       setErrormessage("Please fill in all required fields");
@@ -47,7 +48,7 @@ function ResetPassword() {
     }
     try {
       const response = await axios.post(
-        "http://localhost:3000/validate-email",
+        APIs.FORGOT_PASSWORD,
         { email }
       );
       console.log("valid email");
@@ -59,7 +60,7 @@ function ResetPassword() {
         };
 
         await axios
-          .post("http://localhost:3000/reset-pass", user)
+          .post(APIs.RESET_PASSWORD, user)
           .then((response) => {
             console.log("Password updated successfully");
             setMessage("Password updated successfully");
@@ -92,9 +93,8 @@ function ResetPassword() {
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control ${
-                      !isEmailValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isEmailValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
@@ -107,9 +107,8 @@ function ResetPassword() {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control ${
-                      !isPasswordValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isPasswordValid ? "is-invalid" : ""
+                      }`}
                     placeholder="New Password"
                     value={password}
                     onChange={handlePasswordChange}
@@ -125,9 +124,8 @@ function ResetPassword() {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control ${
-                      !isConfirmPassword ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isConfirmPassword ? "is-invalid" : ""
+                      }`}
                     placeholder="Confirm Password"
                     value={confirmPassword}
                     onChange={handleConfirmPasswordChange}

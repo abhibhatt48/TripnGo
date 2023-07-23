@@ -3,6 +3,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
+import APIs from "Constants";
 
 function Login() {
   const navigate = useNavigate();
@@ -33,7 +34,6 @@ function Login() {
     if (!email || !password) {
       console.log("Inside condition");
       setErrormessage("Please fill in all required fields");
-
       return; // Prevent form submission
     }
     try {
@@ -42,13 +42,12 @@ function Login() {
         password: password,
       };
 
-      const response = await axios
-        .post("http://localhost:3000/login", user)
+      await axios
+        .post(APIs.LOGIN, user)
         .then((response) => {
+          console.log(response);
           // setUserSession(response.data.user);
-
           setMessage("Login Successful");
-
           navigate("/");
         });
     } catch (error) {

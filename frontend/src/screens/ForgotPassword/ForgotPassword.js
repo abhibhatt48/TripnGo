@@ -3,6 +3,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./ForgotPassword.css";
 import axios from "axios";
+import APIs from "Constants";
 
 function ForgotPassword() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ function ForgotPassword() {
       try {
         // Check if the email exists in the backend
         const response = await axios.post(
-          "http://localhost:3000/validate-email",
+          APIs.FORGOT_PASSWORD,
           {
             email,
           }
@@ -68,15 +69,15 @@ function ForgotPassword() {
       return;
     }
     if (otp === '348652') {
-        // If the OTP is valid, you can proceed with the password reset logic here
-        console.log("OTP verified. Proceed with password reset.");
-        navigate("/resetpassword"); // Replace this with your actual password reset logic
-      } else {
-        // If the entered OTP is incorrect, show an error message or take appropriate action
-        setErrormessage("Incorrect OTP. Please try again.");
-      }
+      // If the OTP is valid, you can proceed with the password reset logic here
+      console.log("OTP verified. Proceed with password reset.");
+      navigate("/resetpassword"); // Replace this with your actual password reset logic
+    } else {
+      // If the entered OTP is incorrect, show an error message or take appropriate action
+      setErrormessage("Incorrect OTP. Please try again.");
+    }
 
-    
+
   };
 
   return (
@@ -93,9 +94,8 @@ function ForgotPassword() {
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control ${
-                      !isEmailValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isEmailValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
@@ -119,9 +119,8 @@ function ForgotPassword() {
                   <div className="form-group">
                     <input
                       type="number"
-                      className={`form-control ${
-                        !isOtpValid ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${!isOtpValid ? "is-invalid" : ""
+                        }`}
                       placeholder="Enter OTP"
                       value={otp}
                       onChange={handleOtpChange}

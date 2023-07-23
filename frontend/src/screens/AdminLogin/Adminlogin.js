@@ -3,6 +3,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./Adminlogin.css";
 import axios from "axios";
+import APIs from "Constants";
 
 function Adminlogin() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function Adminlogin() {
     const value = event.target.value;
     setEmail(value);
   };
- 
+
 
   const handleSubmit = async (event) => {
     console.log("Inside event");
@@ -31,7 +32,6 @@ function Adminlogin() {
     if (!email || !password) {
       console.log("Inside condition");
       setErrormessage("Please fill in all required fields");
-
       return; // Prevent form submission
     }
     try {
@@ -40,12 +40,11 @@ function Adminlogin() {
         password: password,
       };
 
-      const response = await axios
-        .post("http://localhost:3000/adminlogin", user)
+      await axios
+        .post(APIs.ADMIN_LOGIN, user)
         .then((response) => {
-
           setMessage("Admin login Successful");
-console.log("success");
+          console.log("success");
           navigate("/admin/contact-list");
         });
     } catch (error) {
@@ -80,9 +79,8 @@ console.log("success");
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control ${
-                      !isEmailValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isEmailValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
@@ -95,9 +93,8 @@ console.log("success");
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control ${
-                      !isPasswordValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isPasswordValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Password"
                     value={password}
                     onChange={handlePasswordChange}
@@ -110,17 +107,19 @@ console.log("success");
                     </div>
                   )}
                 </div>
-                <button
-                  type="submit"
-                  className="button button-secondary button-100p"
-                  onClick={handleSubmit}
-                >
-                  Login as Admin
-                </button>
+                <div className="button-container">
+                  <button
+                    type="submit"
+                    className="button button-secondary button-100p"
+                    onClick={handleSubmit}
+                  >
+                    Login as Admin
+                  </button>
+                </div>
                 {submitted && (
                   <p className="submitted-message">Admin Login Successful</p>
                 )}
-                
+
               </form>
             </Col>
           </Row>

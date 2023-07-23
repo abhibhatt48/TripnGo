@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import "./ResetPassword.css";
 import axios from "axios";
 
-function Login() {
+function ResetPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(true);
@@ -12,69 +12,78 @@ function Login() {
   const [password, setPassword] = useState("");
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [error, setErrormessage] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isConfirmPassword, setIsConfirmPassword] = useState(true);
   const [submitted, setSubmitted] = useState(false);
 
   const handlePasswordChange = (event) => {
     const value = event.target.value;
     setPassword(value);
+    setIsPasswordValid(validatePassword(value));
   };
-
   const handleEmailChange = (event) => {
     const value = event.target.value;
     setEmail(value);
   };
-  const handleForgotPassword = (event) => {
-    navigate("/forgotPassword");
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
+    setIsConfirmPassword(event.target.value === password);
+  };
+
+  const validatePassword = (password) => {
+    // Regular expression pattern for password validation
+    const pattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,18}$/;
+    return pattern.test(password);
   };
 
   const handleSubmit = async (event) => {
-    console.log("Inside event");
+  
     event.preventDefault();
-    if (!email || !password) {
-      console.log("Inside condition");
+    if (!email || !confirmPassword || !password) {
       setErrormessage("Please fill in all required fields");
 
       return; // Prevent form submission
     }
     try {
-      const user = {
-        email: email,
-        password: password,
-      };
+      const response = await axios.post(
+        "http://localhost:3000/validate-email",
+        { email }
+      );
+      console.log("valid email");
+      const { exists } = response.data;
+      if (exists) {
+        const user = {
+          email: email,
+          password: password,
+        };
 
-      const response = await axios
-        .post("http://localhost:3000/login", user)
-        .then((response) => {
-          // setUserSession(response.data.user);
+        await axios
+          .post("http://localhost:3000/reset-pass", user)
+          .then((response) => {
+            console.log("Password updated successfully");
+            setMessage("Password updated successfully");
 
-          setMessage("Login Successful");
-
-          navigate("/");
-        });
-    } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 401 || error.response.status === 403)
-      ) {
-        setErrormessage(error.response.data.message);
+            navigate("/login");
+          });
       } else {
+        // Email does not exist in the database, show an error message
         setErrormessage(
-          "User does not exist! Please enter correct email or Signup"
+          "User does not exist. Please enter a valid email address."
         );
       }
-
-      console.log("Error while Login", error);
-      console.error(error);
+    } catch (error) {
+      console.log("Error updating password:", error);
+      setErrormessage("Error updating password. Please try again later.");
     }
   };
 
   return (
     <div className="background-image">
       <Container className="central-container">
-        <div className="login-container">
-          <div className="login-overlay">
-            <h1 className="title">Login</h1>
-            <p className="subtitle">Ready for your Next Trip? </p>
+        <div className="resetpass-container">
+          <div className="resetpass-overlay">
+            <h1 className="title">Reset Password</h1>
           </div>
           <Row className="form-container">
             <Col lg={12} md={12}>
@@ -101,7 +110,7 @@ function Login() {
                     className={`form-control ${
                       !isPasswordValid ? "is-invalid" : ""
                     }`}
-                    placeholder="Password"
+                    placeholder="New Password"
                     value={password}
                     onChange={handlePasswordChange}
                     required
@@ -113,42 +122,35 @@ function Login() {
                     </div>
                   )}
                 </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className={`form-control ${
+                      !isConfirmPassword ? "is-invalid" : ""
+                    }`}
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={handleConfirmPasswordChange}
+                    required
+                  />
+                  {!isConfirmPassword && (
+                    <div className="invalid-feedback">
+                      Passwords do not match{" "}
+                      <span style={{ color: "red" }}>*</span>
+                    </div>
+                  )}
+                </div>
+
                 <button
                   type="submit"
                   className="button button-secondary button-100p"
                   onClick={handleSubmit}
                 >
-                  Login
+                  Submit
                 </button>
                 {submitted && (
-                  <p className="submitted-message">Login Successful</p>
+                  <p className="submitted-message">Password reset Successful</p>
                 )}
-                <div>
-                  <button
-                    type="button"
-                    className="button button-primary button-100p"
-                    style={{ marginTop: "10px" }}
-                    onClick={() => {
-                      navigate("/forgotPassword");
-                    }}
-                  >
-                    Forgot Password?
-                  </button>
-                  {<p className="submitted-message">Or</p>}
-
-                </div>
-                <div>
-                  <button
-                    type="button"
-                    className="button button-primary button-100p"
-                    style={{ marginTop: "10px" }}
-                    onClick={() => {
-                      navigate("/adminlogin");
-                    }}
-                  >
-                    Admin Login
-                  </button>
-                  </div>
               </form>
             </Col>
           </Row>
@@ -158,4 +160,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ResetPassword;

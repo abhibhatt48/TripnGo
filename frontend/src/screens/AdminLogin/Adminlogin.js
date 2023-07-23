@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import "./Adminlogin.css";
 import axios from "axios";
 
-function Login() {
+function Adminlogin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(true);
@@ -23,9 +23,7 @@ function Login() {
     const value = event.target.value;
     setEmail(value);
   };
-  const handleForgotPassword = (event) => {
-    navigate("/forgotPassword");
-  };
+ 
 
   const handleSubmit = async (event) => {
     console.log("Inside event");
@@ -43,13 +41,12 @@ function Login() {
       };
 
       const response = await axios
-        .post("http://localhost:3000/login", user)
+        .post("http://localhost:3000/adminlogin", user)
         .then((response) => {
-          // setUserSession(response.data.user);
 
-          setMessage("Login Successful");
-
-          navigate("/");
+          setMessage("Admin login Successful");
+console.log("success");
+          navigate("/admin/contact-list");
         });
     } catch (error) {
       if (
@@ -71,10 +68,10 @@ function Login() {
   return (
     <div className="background-image">
       <Container className="central-container">
-        <div className="login-container">
-          <div className="login-overlay">
-            <h1 className="title">Login</h1>
-            <p className="subtitle">Ready for your Next Trip? </p>
+        <div className="admin-container">
+          <div className="admin-overlay">
+            <h1 className="title">Admin Login</h1>
+            <p className="subtitle">Welcome Admin!</p>
           </div>
           <Row className="form-container">
             <Col lg={12} md={12}>
@@ -118,37 +115,12 @@ function Login() {
                   className="button button-secondary button-100p"
                   onClick={handleSubmit}
                 >
-                  Login
+                  Login as Admin
                 </button>
                 {submitted && (
-                  <p className="submitted-message">Login Successful</p>
+                  <p className="submitted-message">Admin Login Successful</p>
                 )}
-                <div>
-                  <button
-                    type="button"
-                    className="button button-primary button-100p"
-                    style={{ marginTop: "10px" }}
-                    onClick={() => {
-                      navigate("/forgotPassword");
-                    }}
-                  >
-                    Forgot Password?
-                  </button>
-                  {<p className="submitted-message">Or</p>}
-
-                </div>
-                <div>
-                  <button
-                    type="button"
-                    className="button button-primary button-100p"
-                    style={{ marginTop: "10px" }}
-                    onClick={() => {
-                      navigate("/adminlogin");
-                    }}
-                  >
-                    Admin Login
-                  </button>
-                  </div>
+                
               </form>
             </Col>
           </Row>
@@ -158,4 +130,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Adminlogin;

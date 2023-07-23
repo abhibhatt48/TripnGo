@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(true);
-
+  const [message, setMessage] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [error, setErrormessage] = useState("");
@@ -22,18 +23,48 @@ function Login() {
     const value = event.target.value;
     setEmail(value);
   };
-  const handleSubmit = (event) => {
+  const handleForgotPassword = (event) => {
+    navigate("/forgotPassword");
+  };
+
+  const handleSubmit = async (event) => {
+    console.log("Inside event");
     event.preventDefault();
     if (!email || !password) {
+      console.log("Inside condition");
       setErrormessage("Please fill in all required fields");
-      <div>"Invalid Username or Password"</div>;
-      return; // Prevent form submission
-    } else {
-      // Passwords match, proceed with form submission or other actions
-      console.log("Valid Credentials");
 
-      // navigate("/Profile");
-      window.location.href = "/d";
+      return; // Prevent form submission
+    }
+    try {
+      const user = {
+        email: email,
+        password: password,
+      };
+
+      const response = await axios
+        .post("http://localhost:3000/login", user)
+        .then((response) => {
+          // setUserSession(response.data.user);
+
+          setMessage("Login Successful");
+
+          navigate("/");
+        });
+    } catch (error) {
+      if (
+        error.response &&
+        (error.response.status === 401 || error.response.status === 403)
+      ) {
+        setErrormessage(error.response.data.message);
+      } else {
+        setErrormessage(
+          "User does not exist! Please enter correct email or Signup"
+        );
+      }
+
+      console.log("Error while Login", error);
+      console.error(error);
     }
   };
 
@@ -47,13 +78,14 @@ function Login() {
           </div>
           <Row className="form-container">
             <Col lg={12} md={12}>
-              {/* {error && <p className="text-danger text-center">{error}</p>} */}
+              {error && <p className="text-danger text-center">{error}</p>}
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control ${!isEmailValid ? "is-invalid" : ""
-                      }`}
+                    className={`form-control ${
+                      !isEmailValid ? "is-invalid" : ""
+                    }`}
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
@@ -66,8 +98,9 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control ${!isPasswordValid ? "is-invalid" : ""
-                      }`}
+                    className={`form-control ${
+                      !isPasswordValid ? "is-invalid" : ""
+                    }`}
                     placeholder="Password"
                     value={password}
                     onChange={handlePasswordChange}
@@ -80,29 +113,42 @@ function Login() {
                     </div>
                   )}
                 </div>
-                <div className="button-container">
+                <button
+                  type="submit"
+                  className="button button-secondary button-100p"
+                  onClick={handleSubmit}
+                >
+                  Login
+                </button>
+                {submitted && (
+                  <p className="submitted-message">Login Successful</p>
+                )}
+                <div>
                   <button
-                    type="submit"
-                    className="button button-secondary button-100p"
-                    onClick={() => {
-                      navigate("/");
-                    }}
-                  >
-                    Login
-                  </button>
-                  {submitted && (
-                    <p className="submitted-message">Login Successful</p>
-                  )}
-                </div>
-                <div className="button-container">
-                  <button
-                    type="submit"
+                    type="button"
                     className="button button-primary button-100p"
                     style={{ marginTop: "10px" }}
+                    onClick={() => {
+                      navigate("/forgotPassword");
+                    }}
                   >
-                    Login with Google
+                    Forgot Password?
                   </button>
+                  {<p className="submitted-message">Or</p>}
+
                 </div>
+                <div>
+                  <button
+                    type="button"
+                    className="button button-primary button-100p"
+                    style={{ marginTop: "10px" }}
+                    onClick={() => {
+                      navigate("/adminlogin");
+                    }}
+                  >
+                    Admin Login
+                  </button>
+                  </div>
               </form>
             </Col>
           </Row>

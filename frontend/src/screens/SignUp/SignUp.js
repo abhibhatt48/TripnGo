@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 import './SignUp.css';
 
 function SignUp() {
@@ -23,11 +23,12 @@ function SignUp() {
   const [submitted, setSubmitted] = useState(false);
 
   const [error, setErrormessage] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleUsernameChange = (event) => {
     const value = event.target.value;
     setUsername(value);
-    setIsUsername(value.match(/^([a-zA-Z]){3,15}$/)); // Example validation condition
+    setIsUsername(value.match(/^([a-zA-Z]){3,15}$/)); 
   };
 
   const handleEmailChange = (event) => {
@@ -59,19 +60,44 @@ function SignUp() {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,18}$/;
     return pattern.test(password);
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!username || !email || !password || !confirmPassword) {
       setErrormessage("Please fill in all required fields");
-      <div>"Please fill in all required fields"</div>;
+
       return; // Prevent form submission
     }
     if (password === confirmPassword) {
       // Passwords match, proceed with form submission or other actions
       console.log("Passwords match");
       setPasswordMatch(true);
-      // navigate("/Profile");
-      window.location.href = "/profile";
+      const user = {
+        username: username,
+        email: email,
+        password: password,
+      };
+
+
+      const response = await axios
+      .post('http://localhost:3000/signup', user)
+      .then((response) => {
+        setMessage("Signup Successful");
+        console.log("Inside axios");
+        console.log(response.data);
+        navigate("/profile");
+      })
+      .catch((error) => {
+        if (error.response &&(error.response.status === 401 || error.response.status === 403)) {
+          setMessage(error.response.data.message);
+        } else {
+          setMessage("Error during signing up", error);
+        }
+
+        console.log("Error while signing up", error);
+     
+      });
+      
+
     } else {
       // Passwords do not match, show an error message or take appropriate action
       console.log("Passwords do not match");

@@ -45,10 +45,10 @@ function Login() {
       await axios
         .post(APIs.LOGIN, user)
         .then((response) => {
-          console.log(response);
-          // setUserSession(response.data.user);
-          setMessage("Login Successful");
-          navigate("/");
+          const id = response.data.user.id;
+          localStorage.setItem("userId", id);
+
+          window.location.href = "/";
         });
     } catch (error) {
       if (
@@ -132,7 +132,9 @@ function Login() {
                     Forgot Password?
                   </button>
                 </div>
+
                 {<p className="submitted-message">Or</p>}
+
                 <div>
                   <button
                     type="button"

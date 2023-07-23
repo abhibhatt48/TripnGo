@@ -39,16 +39,28 @@ const Header = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [isNewNotification, setIsNewNotification] = useState(false);
   const [notifications, setNotifications] = useState([]);
-  const userId = 1;
-  let navigate = useNavigate();
-  let location = useLocation();
+  const [userId, setUserId] = useState(localStorage.getItem("userId") ?? 1);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const menuItems = React.useMemo(() => {
-    return ["Home", "FAQs", "Contact", "SignUp"];
-  }, []);
-  const navPaths = React.useMemo(() => {
-    return ["/", "faqs", "contact-us", "sign-up"];
-  }, []);
+  // on local storage change, update userId
+  window.addEventListener('storage', () => {
+    const id = localStorage.getItem("userId");
+    setUserId(id);
+  });
+
+  var menuItems = React.useMemo(() => {
+    const withoutLoginItems = ["Home", "FAQs", "Contact", "Login"];
+    const withLoginItems = ["Home", "FAQs", "Contact"];
+    return userId && userId !== "undefined" ? withLoginItems : withoutLoginItems;
+  }, [userId]);
+  var navPaths = React.useMemo(() => {
+    const withoutLoginItems = ["/", "faqs", "contact-us", "login"];
+    const withLoginItems = ["/", "faqs", "contact-us"];
+    const id = localStorage.getItem("userId");
+    setUserId(id);
+    return userId && userId !== "undefined" ? withLoginItems : withoutLoginItems;
+  }, [userId]);
 
   const [currentKey, setCurrentKey] = useState(menuItems[0]);
 
@@ -156,51 +168,58 @@ const Header = () => {
             </div>
           ))}
 
-          <div className="menu-item">
-            <span
-              className={
-                "notification-text menu-button " +
-                (currentKey === "Notifications" ? "active" : "")
-              }
-              onClick={() => {
-                setCurrentKey("Notifications");
-                showOptions && setShowOptions(false);
-                setShowNotifications(!showNotifications);
-              }}
-            >
-              Notifications
-            </span>
-            <div className="notification-dot-container">
-              <IoIosNotifications
-                className="notification-icon"
+          {
+            userId && userId !== "undefined" &&
+            <div className="menu-item">
+              <span
+                className={
+                  "notification-text menu-button " +
+                  (currentKey === "Notifications" ? "active" : "")
+                }
                 onClick={() => {
-                  setIsNewNotification(false);
+                  setCurrentKey("Notifications");
+                  showOptions && setShowOptions(false);
                   setShowNotifications(!showNotifications);
                 }}
-              />
-              {isNewNotification && (
-                <div className="notification-dot"></div>
-              )}
+              >
+                Notifications
+              </span>
+              <div className="notification-dot-container">
+                <IoIosNotifications
+                  className="notification-icon"
+                  onClick={() => {
+                    setIsNewNotification(false);
+                    setShowNotifications(!showNotifications);
+                  }}
+                />
+                {isNewNotification && (
+                  <div className="notification-dot"></div>
+                )}
+              </div>
             </div>
-          </div>
+          }
 
-          <div className="menu-item">
-            <span
-              className={
-                "profile-text menu-button " +
-                (currentKey === "Profile" ? "active" : "")
-              }
-              onClick={() => {
-                showOptions && setShowOptions(false);
-                setCurrentKey("Profile");
-              }}
-            >
-              Profile
-            </span>
-            <div className="profile-container">
-              <FaUser className="profile-icon" />
+
+          {
+            userId && userId !== "undefined" &&
+            <div className="menu-item">
+              <span
+                className={
+                  "profile-text menu-button " +
+                  (currentKey === "Profile" ? "active" : "")
+                }
+                onClick={() => {
+                  showOptions && setShowOptions(false);
+                  setCurrentKey("Profile");
+                }}
+              >
+                Profile
+              </span>
+              <div className="profile-container">
+                <FaUser className="profile-icon" />
+              </div>
             </div>
-          </div>
+          }
         </div>
       </Container>
     </div>

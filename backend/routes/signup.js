@@ -3,22 +3,20 @@
 var express = require("express");
 var router = express.Router();
 const bcrypt = require("bcryptjs");
-const {db} = require("../conn");
+const { db } = require("../conn");
 const cors = require('cors');
 
-router.use(cors()); 
+router.use(cors());
 router.post("/", async function (req, res, next) {
-  const { username, email, password, confirmPassword } = req.body;
+  const { username, email, password } = req.body;
   console.log("Taking userdata");
 
-  if (!username || !email || !password  ) {
+  if (!username || !email || !password) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-
-const database = await db();
-const usersData = database.collection("Authentication");
-
+  const database = await db();
+  const usersData = database.collection("Authentication");
 
   try {
     // Check if the email already exists in the database

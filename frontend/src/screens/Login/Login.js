@@ -3,6 +3,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
+import APIs from "Constants";
 
 function Login() {
   const navigate = useNavigate();
@@ -33,7 +34,6 @@ function Login() {
     if (!email || !password) {
       console.log("Inside condition");
       setErrormessage("Please fill in all required fields");
-
       return; // Prevent form submission
     }
     try {
@@ -42,14 +42,13 @@ function Login() {
         password: password,
       };
 
-      const response = await axios
-        .post("http://localhost:3000/login", user)
+      await axios
+        .post(APIs.LOGIN, user)
         .then((response) => {
-          // setUserSession(response.data.user);
+          const id = response.data.user.id;
+          localStorage.setItem("userId", id);
 
-          setMessage("Login Successful");
-
-          navigate("/");
+          window.location.href = "/";
         });
     } catch (error) {
       if (
@@ -83,9 +82,8 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control ${
-                      !isEmailValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isEmailValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
@@ -98,9 +96,8 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control ${
-                      !isPasswordValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isPasswordValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Password"
                     value={password}
                     onChange={handlePasswordChange}
@@ -123,7 +120,7 @@ function Login() {
                 {submitted && (
                   <p className="submitted-message">Login Successful</p>
                 )}
-                <div>
+                <div className="button-container">
                   <button
                     type="button"
                     className="button button-primary button-100p"
@@ -134,21 +131,23 @@ function Login() {
                   >
                     Forgot Password?
                   </button>
-                  {<p className="submitted-message">Or</p>}
-
                 </div>
+
+                {<p className="submitted-message">Or</p>}
+
                 <div>
                   <button
                     type="button"
                     className="button button-primary button-100p"
                     style={{ marginTop: "10px" }}
                     onClick={() => {
-                      navigate("/adminlogin");
+                      navigate("/sign-up");
                     }}
                   >
-                    Admin Login
+                    Signup
                   </button>
-                  </div>
+                </div>
+
               </form>
             </Col>
           </Row>

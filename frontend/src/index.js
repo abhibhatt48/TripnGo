@@ -34,11 +34,11 @@ root.render(
         <Route path="/package-details" element={<PackageDetails />} />
         <Route path="/travel-packages" element={<MoreTrips />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/adminlogin" element={<Adminlogin />} />
+        <Route path="/admin" element={<Adminlogin />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/forgotPassword" element={<ForgotPassword/>} />
-        <Route path="/resetpassword" element={<ResetPassword/>} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/admin/contact-list" element={<ContactList />} />
         <Route path="/faqs" element={<FAQs />} />
         <Route path="/payment" element={<Payment />} />

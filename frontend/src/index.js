@@ -18,6 +18,9 @@ import ContactList from 'screens/ContactList';
 import FAQs from 'screens/FAQs';
 import Page404 from 'screens/Page404';
 import Wishlist from 'screens/Wishlist';
+import ForgotPassword from 'screens/ForgotPassword';
+import ResetPassword from 'screens/ResetPassword';
+import Adminlogin from 'screens/AdminLogin/Adminlogin';
 import Payment from 'screens/Payment';
 import MoreTrips from 'screens/MoreTrips';
 
@@ -38,8 +41,17 @@ root.render(
         <Route path="/payment" element={<Payment />} />
         <Route path="*" element={<Page404 />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/admin" element={<Adminlogin />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/admin/contact-list" element={<ContactList />} />
+        <Route path="/faqs" element={<FAQs />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
       <Footer />
     </BrowserRouter>
   </React.StrictMode >
-)
+);

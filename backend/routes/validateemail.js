@@ -19,6 +19,7 @@ router.post('/', async function (req, res, next) {
       // Email does not exist, return false
       return res.json({ exists: false });
     }
+
   } catch (error) {
     console.error('Error checking email:', error);
     return res.status(500).json({ message: 'Error checking email' });

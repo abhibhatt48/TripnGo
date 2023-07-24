@@ -2,6 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
+const { db } = require("../conn");
 
 
 // Images by barnyc: https://flickr.com/photos/75487768@N04/31628278140/in/photolist-QbTcbm-naDN9o-8tF7Y3-bpQQFi-DDnvj9-hnwqti-JRMGJH-N9vpzy-MoREwn-23mWx8L-27HZbNM-PzxcXy-dkdGBH-MC55mp-CRe2wH-ddngBy-5pBL9K-aimadp-atdUU9-6KBNJ3-fnqbB2-7kPfy7-9yQB4D-27yjzhM-26h2CDK-Zow8Ti-SwsNoj-7mLDRp-T9MWwY-21LYYPn-25X7Hrm-Xx4bVM-GWeFwT-Jn58bR-DGZcAy-E8i7yj-uxLmC3-bBeBGg-bB2AyU-DKb97-KxECR9-Gcrv2e-oVgqQC-28MX46G-yJVjVY-Xvs96Y-Q2kHof-pcJooL-W9WpXW-Gw2QEA/
@@ -33,9 +34,21 @@ const popularTrips = [
     },
 ];
 /* GET featured trips listing. */
-router.get('/popular-trips', function (req, res, next) {
+router.get('/popular-trips', async function (req, res, next) {
+    const trips = [];
+
+    // get first three entries from TravelPackage mongo document
+    const database = await db();
+    const travelPackages = await database.collection("TravelPackages").find({}).toArray();
+
+    for (let i = 0; i < travelPackages.length; i++) {
+        trips.push(travelPackages[i]);
+        if (trips.length === 3)
+            break;
+    }
+
     res.send({
-        trips: popularTrips
+        trips: trips
     });
 });
 
@@ -68,9 +81,21 @@ const tripsNearYou = [
     }
 ];
 /* GET near you trips listing. */
-router.get('/trips-near-you', function (req, res, next) {
+router.get('/trips-near-you', async function (req, res, next) {
+    const trips = [];
+
+    // get last three entries from TravelPackage mongo document
+    const database = await db();
+    const travelPackages = await database.collection("TravelPackages").find({}).toArray();
+
+    for (let i = travelPackages.length - 1; i >= 0; i--) {
+        trips.push(travelPackages[i]);
+        if (trips.length === 3)
+            break;
+    }
+
     res.send({
-        trips: tripsNearYou
+        trips: trips
     });
 });
 

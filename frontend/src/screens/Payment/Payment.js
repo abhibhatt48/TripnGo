@@ -36,7 +36,7 @@ function Payment() {
     try {
       const response = await axios.post(APIs.PAYMENT, formData);
       if (response.data.success) {
-        //window.location.href = response.data.data.link;
+        window.location.href = response.data.data.link;
       } else {
         throw new Error('Failed to create payment session');
       }

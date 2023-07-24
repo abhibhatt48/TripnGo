@@ -44,6 +44,24 @@ app.use('/validate-email', EmailRouter);
 app.use('/reset-pass', ResetPassRouter);
 app.use('/adminlogin', adminloginRouter);
 
+const endpointSecret = "whsec_5XLp9PVFgRGEvCWjkOwgV0gtaPcSyfn4";
+app.post('/payment-callback', async (req, res) => {
+    const sig = req.headers['stripe-signature'];
+
+    let event;
+
+    try {
+        event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    } catch (err) {
+        response.status(400).send(`Webhook Error: ${err.message}`);
+        return;
+    }
+
+    console.log(event);
+
+    res.sendStatus(200);
+});
+
 listenForNotifications();
 
 module.exports = app;

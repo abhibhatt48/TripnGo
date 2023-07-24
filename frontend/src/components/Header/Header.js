@@ -2,21 +2,98 @@ import "./Header.css";
 import React, { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { IoIosNotifications } from "react-icons/io";
+import { FiShoppingBag } from 'react-icons/fi';
 import { Container } from "react-bootstrap";
 import { HiMenu } from "react-icons/hi";
 import Modal from "react-bootstrap/Modal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import APIs from "Constants";
+import axios from "axios";
+import io from 'socket.io-client';
 
-const Header = ({ onSelect, activeKey, ...props }) => {
+async function listenForNotifications(onNotification) {
+  const userId = localStorage.getItem("userId") ?? 1;
+  const socket = io(APIs.SOCKET_URL, {
+    query: {
+      userId: userId
+    }
+  });
+  socket.on('connect', () => {
+    console.log('Connected to server');
+  });
+
+  socket.on('message', message => {
+    console.log('Received message:', message);
+    if (onNotification && typeof onNotification === 'function')
+      onNotification(message);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Disconnected from server');
+  });
+
+  return socket;
+}
+
+const Header = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  let navigate = useNavigate();
+  const [showWishlist, setShowWishlist] = useState(false);
+  const [isNewNotification, setIsNewNotification] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [userId, setUserId] = useState(localStorage.getItem("userId") ?? 1);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const menuItems = ["Home", "FAQs", "Contact", "SignUp"];
+  // on local storage change, update userId
+  window.addEventListener('storage', () => {
+    const id = localStorage.getItem("userId");
+    setUserId(id);
+  });
 
-  const navPaths = ["/", "faqs", "contact-us", "sign-up"];
+  var menuItems = React.useMemo(() => {
+    const withoutLoginItems = ["Home", "FAQs", "Contact", "Login"];
+    const withLoginItems = ["Home", "FAQs", "Contact"];
+    return userId && userId !== "undefined" ? withLoginItems : withoutLoginItems;
+  }, [userId]);
+  var navPaths = React.useMemo(() => {
+    const withoutLoginItems = ["/", "faqs", "contact-us", "login"];
+    const withLoginItems = ["/", "faqs", "contact-us"];
+    const id = localStorage.getItem("userId");
+    setUserId(id);
+    return userId && userId !== "undefined" ? withLoginItems : withoutLoginItems;
+  }, [userId]);
 
   const [currentKey, setCurrentKey] = useState(menuItems[0]);
+
+  React.useEffect(() => {
+    const path = location.pathname.split("/")[1];
+
+    if (path === "/" || path === "") {
+      setCurrentKey("Home");
+    } else {
+      const index = navPaths.indexOf(path);
+      setCurrentKey(menuItems[index]);
+    }
+
+  }, [location, menuItems, navPaths]);
+
+  React.useEffect(() => {
+    listenForNotifications((message) => {
+      setIsNewNotification(!showNotifications && true);
+      setNotifications([message, ...notifications]);
+    });
+  }, [showNotifications, notifications]);
+
+  React.useEffect(() => {
+    axios.get(`${APIs.NOTIFICATIONS}/${userId}`).then((res) => {
+      const noti = [];
+      for (let i = res.data.length - 1; i >= 0; i--) {
+        noti.push(res.data[i]);
+      }
+      setNotifications(noti);
+    });
+  }, []);
 
   return (
     <div className="nav-bar-container">
@@ -27,6 +104,7 @@ const Header = ({ onSelect, activeKey, ...props }) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
+        <FiShoppingBag className="wishlist-icon" />
         <Modal.Header
           className="notification-header"
           closeButton
@@ -36,27 +114,27 @@ const Header = ({ onSelect, activeKey, ...props }) => {
           closeVariant="white"
         >
           <IoIosNotifications className="notification-popup-icon" />
+
           <Modal.Title id="contained-modal-title-vcenter">
-            Notifications (1)
+            Notifications ({notifications.length})
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="notification-container">
-          {Array.from({ length: 1 }).map((_, idx) => (
-            <div
-              key={idx}
+          {notifications.map((notification, idx) => (
+            <div key={idx}
               onClick={() => {
                 setShowNotifications(false);
-                navigate("/order-details");
-              }}
-            >
-              <div className="notification-item">
-                <span className="notification-title">
-                  Trip booking confirmed
-                </span>
-                <span className="notification-description">
-                  Click to view trip booking details.
-                </span>
-              </div>
+                const url = notification.payload.url;
+                if (url) {
+                  navigate(url);
+                }
+              }} className="notification-item">
+              <span className="notification-title">
+                {notification.title}
+              </span>
+              <span className="notification-description">
+                {notification.description}
+              </span>
             </div>
           ))}
         </Modal.Body>
@@ -93,46 +171,80 @@ const Header = ({ onSelect, activeKey, ...props }) => {
               </span>
             </div>
           ))}
-
           <div className="menu-item">
             <span
               className={
-                "notification-text menu-button " +
-                (currentKey === "Notifications" ? "active" : "")
+                "wishlist-text menu-button " +
+                (currentKey === "Wishlist" ? "active" : "")
               }
               onClick={() => {
-                setCurrentKey("Notifications");
+                setCurrentKey("Wishlist");
                 showOptions && setShowOptions(false);
-                setShowNotifications(!showNotifications);
+                setShowWishlist(!showWishlist);
               }}
             >
-              Notifications
+              Wishlist
             </span>
-            <IoIosNotifications
-              className="notification-icon"
+            <FiShoppingBag
+              className="wishlist-icon"
               onClick={() => {
-                setShowNotifications(!showNotifications);
+                setShowWishlist(!showWishlist);
+                navigate('/wishlist');
               }}
             />
           </div>
 
-          <div className="menu-item">
-            <span
-              className={
-                "profile-text menu-button " +
-                (currentKey === "Profile" ? "active" : "")
-              }
-              onClick={() => {
-                showOptions && setShowOptions(false);
-                setCurrentKey("Profile");
-              }}
-            >
-              Profile
-            </span>
-            <div className="profile-container">
-              <FaUser className="profile-icon" />
+          {
+            userId && userId !== "undefined" &&
+            <div className="menu-item">
+              <span
+                className={
+                  "notification-text menu-button " +
+                  (currentKey === "Notifications" ? "active" : "")
+                }
+                onClick={() => {
+                  setCurrentKey("Notifications");
+                  showOptions && setShowOptions(false);
+                  setShowNotifications(!showNotifications);
+                }}
+              >
+                Notifications
+              </span>
+              <div className="notification-dot-container">
+                <IoIosNotifications
+                  className="notification-icon"
+                  onClick={() => {
+                    setIsNewNotification(false);
+                    setShowNotifications(!showNotifications);
+                  }}
+                />
+                {isNewNotification && (
+                  <div className="notification-dot"></div>
+                )}
+              </div>
             </div>
-          </div>
+          }
+
+          {
+            userId && userId !== "undefined" &&
+            <div className="menu-item">
+              <span
+                className={
+                  "profile-text menu-button " +
+                  (currentKey === "Profile" ? "active" : "")
+                }
+                onClick={() => {
+                  showOptions && setShowOptions(false);
+                  setCurrentKey("Profile");
+                }}
+              >
+                Profile
+              </span>
+              <div className="profile-container">
+                <FaUser className="profile-icon" />
+              </div>
+            </div>
+          }
         </div>
       </Container>
     </div>

@@ -1,15 +1,25 @@
+// Author: Rahul Saliya
+
 import { Row, Col, Container } from 'react-bootstrap';
 import './Dashboard.css';
 import React from 'react';
 import TripItem from 'components/TripItem';
 import { popularTrips, tripsNearYou } from './TripItems';
+import axios from 'axios';
+import APIs from 'Constants';
+import { useNavigate } from 'react-router-dom';
+
 
 function Dashboard() {
     const [filteredPopularTrips, setFilteredPopularTrips] = React.useState(popularTrips);
     const [filteredTripsNearYou, setFilteredTripsNearYou] = React.useState(tripsNearYou);
     const [searchText, setSearchText] = React.useState('');
+    const navigate = useNavigate();
 
     const onSearchTextChange = (e) => {
+        if (e.target.value.length > 50) {
+            return;
+        }
         setSearchText(e.target.value);
         const filteredPopularTrips = popularTrips.filter((trip) => {
             return trip.title.toLowerCase().includes(e.target.value.toLowerCase());
@@ -20,6 +30,24 @@ function Dashboard() {
         setFilteredPopularTrips(filteredPopularTrips);
         setFilteredTripsNearYou(filteredTripsNearYou);
     };
+
+    React.useEffect(() => {
+        axios.get(APIs.POPULAR_TRIPS)
+            .then((res) => {
+                setFilteredPopularTrips(res.data.trips);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+        axios.get(APIs.TRIPS_NEAR_YOU)
+            .then((res) => {
+                setFilteredTripsNearYou(res.data.trips);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
 
     // Images by barnyc: https://flickr.com/photos/75487768@N04/31628278140/in/photolist-QbTcbm-naDN9o-8tF7Y3-bpQQFi-DDnvj9-hnwqti-JRMGJH-N9vpzy-MoREwn-23mWx8L-27HZbNM-PzxcXy-dkdGBH-MC55mp-CRe2wH-ddngBy-5pBL9K-aimadp-atdUU9-6KBNJ3-fnqbB2-7kPfy7-9yQB4D-27yjzhM-26h2CDK-Zow8Ti-SwsNoj-7mLDRp-T9MWwY-21LYYPn-25X7Hrm-Xx4bVM-GWeFwT-Jn58bR-DGZcAy-E8i7yj-uxLmC3-bBeBGg-bB2AyU-DKb97-KxECR9-Gcrv2e-oVgqQC-28MX46G-yJVjVY-Xvs96Y-Q2kHof-pcJooL-W9WpXW-Gw2QEA/
     const popular_trips_images = [
@@ -35,7 +63,12 @@ function Dashboard() {
     ];
     const onSearchClick = (e) => {
         e.preventDefault();
+        navigate('/travel-packages?searchText=' + searchText);
         console.log('Search button clicked');
+    };
+
+    const handleMoreTripsClick = (target) => {
+        navigate('/travel-packages?tripType=' + target.toLowerCase());
     };
 
     return (
@@ -49,17 +82,13 @@ function Dashboard() {
                 </div>
             </div>
             <Row className='search-container'>
-                <Col lg={{ span: 6 }} md={{ span: 5 }}>
-                    <input className="search-input" type="text" placeholder="Search" onChange={onSearchTextChange} />
+                <Col lg={6} md={6}>
+                    <input className="search-input" type="text" placeholder="Search" onChange={onSearchTextChange} maxLength={50} />
                 </Col>
-                <Col lg={{ span: 1 }} md={{ span: 2 }}>
+                <Col lg={1} md={2}>
                     <button className="button button-primary button-md-100p"
                         onClick={onSearchClick}
                     >Search</button>
-                </Col>
-                <Col lg={{ span: 1 }} md={{ span: 2 }}>
-                    <button className="button button-primary button-md-100p" onClick={onSearchClick}
-                    >Filter</button>
                 </Col>
             </Row>
 
@@ -73,7 +102,6 @@ function Dashboard() {
                                 :
                                 Array.from({ length: Math.min(3, filteredPopularTrips.length) }).map((_, idx) => (
                                     <Col key={idx}>
-
                                         <TripItem trip={{
                                             image: popular_trips_images[idx],
                                             ...filteredPopularTrips[idx]
@@ -83,10 +111,11 @@ function Dashboard() {
                         }
                     </Row>
                 </Container>
-
-                <button className="button button-primary button-200 button-sm-100p"
-                    onClick={onSearchClick}
-                >More Trips</button>
+                <div className='button-container'>
+                    <button className={`button button-primary button-200 button-sm-100p ${filteredPopularTrips.length === 0 ? 'disabled' : ''}`}
+                        onClick={() => { handleMoreTripsClick("popular") }}
+                    >More Trips</button>
+                </div>
             </div>
 
             <div className="trips-container">
@@ -94,7 +123,6 @@ function Dashboard() {
                 <Container className='trips-item-container'>
                     <Row className="g-4 justify-content-md-center">
                         {
-
                             filteredTripsNearYou.length === 0 ?
                                 <span className='noTrip'>No trip found</span>
                                 :
@@ -108,9 +136,11 @@ function Dashboard() {
                                 ))}
                     </Row>
                 </Container>
-                <button className="button button-primary button-200 button-sm-100p"
-                    onClick={onSearchClick}
-                >More Trips</button>
+                <div className='button-container'>
+                    <button className={`button button-primary button-200 button-sm-100p ${filteredTripsNearYou.length === 0 ? 'disabled' : ''}`}
+                        onClick={() => { handleMoreTripsClick("nearby") }}
+                    >More Trips</button>
+                </div>
             </div>
 
         </div >

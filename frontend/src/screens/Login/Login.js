@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import axios from "axios";
+import APIs from "Constants";
 
 function Login() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(true);
-
+  const [message, setMessage] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [error, setErrormessage] = useState("");
@@ -22,17 +24,47 @@ function Login() {
     const value = event.target.value;
     setEmail(value);
   };
-  const handleSubmit = (event) => {
+  const handleForgotPassword = (event) => {
+    navigate("/forgotPassword");
+  };
+
+  const handleSubmit = async (event) => {
+    console.log("Inside event");
     event.preventDefault();
     if (!email || !password) {
+      console.log("Inside condition");
       setErrormessage("Please fill in all required fields");
-      <div>"Invalid Username or Password"</div>;
       return; // Prevent form submission
-    } else {
-      // Passwords match, proceed with form submission or other actions
-      console.log("Valid Credentials");
+    }
+    try {
+      const user = {
+        email: email,
+        password: password,
+      };
 
        navigate("/userprofile");
+      await axios
+        .post(APIs.LOGIN, user)
+        .then((response) => {
+          const id = response.data.user.id;
+          localStorage.setItem("userId", id);
+
+          window.location.href = "/";
+        });
+    } catch (error) {
+      if (
+        error.response &&
+        (error.response.status === 401 || error.response.status === 403)
+      ) {
+        setErrormessage(error.response.data.message);
+      } else {
+        setErrormessage(
+          "User does not exist! Please enter correct email or Signup"
+        );
+      }
+
+      console.log("Error while Login", error);
+      console.error(error);
     }
   };
 
@@ -45,15 +77,14 @@ function Login() {
             <p className="subtitle">Ready for your Next Trip? </p>
           </div>
           <Row className="form-container">
-            <Col lg={{ span: 12 }} md={{ span: 12 }}>
-              {/* {error && <p className="text-danger text-center">{error}</p>} */}
+            <Col lg={12} md={12}>
+              {error && <p className="text-danger text-center">{error}</p>}
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control ${
-                      !isEmailValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isEmailValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
@@ -66,9 +97,8 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control ${
-                      !isPasswordValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isPasswordValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Password"
                     value={password}
                     onChange={handlePasswordChange}
@@ -84,23 +114,41 @@ function Login() {
                 <button
                   type="submit"
                   className="button button-secondary button-100p"
-                  onClick={() => {
-                    navigate("/");
-                  }}
+                  onClick={handleSubmit}
                 >
                   Login
                 </button>
                 {submitted && (
                   <p className="submitted-message">Login Successful</p>
                 )}
+                <div className="button-container">
+                  <button
+                    type="button"
+                    className="button button-primary button-100p"
+                    style={{ marginTop: "10px" }}
+                    onClick={() => {
+                      navigate("/forgotPassword");
+                    }}
+                  >
+                    Forgot Password?
+                  </button>
+                </div>
 
-                <button
-                  type="submit"
-                  className="button button-primary button-100p"
-                  style={{ marginTop: "10px" }}
-                >
-                  Login with Google
-                </button>
+                {<p className="submitted-message">Or</p>}
+
+                <div className="button-container">
+                  <button
+                    type="button"
+                    className="button button-primary button-100p"
+                    style={{ marginTop: "10px" }}
+                    onClick={() => {
+                      navigate("/sign-up");
+                    }}
+                  >
+                    Signup
+                  </button>
+                </div>
+
               </form>
             </Col>
           </Row>

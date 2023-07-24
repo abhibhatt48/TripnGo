@@ -24,13 +24,30 @@
         ],
         mode: "payment",
         // TODO; Change this URL and nevigate to notification. 
-        success_url: "http://localhost:3000/success",
-        cancel_url: "http://localhost:3000/cancel",
+        //success_url: "http://localhost:3000/success",
+        //cancel_url: "http://localhost:3000/cancel",
       });
-      return response.sendSuccess(res, { link: session.url });
-    } catch(error) {
-      return response.sendError(res, "Failed to create Stripe session", 500);
+      const notificationPayload = {
+        userId,
+        title: 'Payment Successful',
+        description: `Your payment for the ${packageName} has been processed successfully.`,
+        payload: {
+          type: 'payment',
+          // modify this as needed
+          url: session.url 
+        }
+      };
+      // make a POST request to the notifications API, change the API path for notification
+    const notificationRes = await axios.post('http://localhost:3001/', notificationPayload);
+
+    if (notificationRes.status !== 200) {
+      throw new Error('Failed to create notification');
     }
+
+    return response.sendSuccess(res, { link: session.url });
+  } catch(error) {
+    return response.sendError(res, "Failed to create Stripe session", 500);
+  }
   });
 
   module.exports = router;

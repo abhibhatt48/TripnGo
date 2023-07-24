@@ -7,6 +7,11 @@ const APIs = {
     NOTIFICATIONS: `${HOST_URL}/notifications`,
     CONTACT_US: `${HOST_URL}/contact-us`,
     CREATE_SESSION: `${HOST_URL}/payment`,
+    LOGIN: `${HOST_URL}/login`,
+    SIGNUP: `${HOST_URL}/signup`,
+    FORGOT_PASSWORD: `${HOST_URL}/validate-email`,
+    RESET_PASSWORD: `${HOST_URL}/reset-pass`,
+    ADMIN_LOGIN: `${HOST_URL}/adminlogin`,
 };
 
 export default APIs;

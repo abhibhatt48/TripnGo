@@ -13,7 +13,6 @@ function Payment() {
   const [promoCode, setPromoCode] = useState('');
   const [discountedAmount, setDiscountedAmount] = useState(amount);
   const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState({});
 
   const handlePromoCodeChange = (e) => {
     setPromoCode(e.target.value);
@@ -27,33 +26,24 @@ function Payment() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errors = {};
 
-    if (!promoCode.trim()) {
-      errors.promoCode = 'Promo Code is required';
-    }
+    const formData = {
+      userId: localStorage.getItem('userId') ?? 1,
+      packageName,
+      amount: discountedAmount,
+    };
 
-    if (Object.keys(errors).length === 0) {
-      const formData = {
-        name,
-        packageName,
-        amount: discountedAmount,
-      };
-
-      try {
-        const response = await axios.post(APIs.PAYMENT, formData);
-        if (response.data.success) {
-          window.location.href = response.data.data.link;
-        } else {
-          throw new Error('Failed to create payment session');
-        }
-        setPromoCode('');
-        setSubmitted(true);
-      } catch (error) {
-        console.log(error);
+    try {
+      const response = await axios.post(APIs.PAYMENT, formData);
+      if (response.data.success) {
+        window.location.href = response.data.data.link;
+      } else {
+        throw new Error('Failed to create payment session');
       }
-    } else {
-      setErrors(errors);
+      setPromoCode('');
+      setSubmitted(true);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -63,22 +53,25 @@ function Payment() {
         <div className="payment-container">
           <div className="payment-overlay">
             <h1 className="title">Payment</h1>
-            <p className="subtitle">Name: {name}</p>
-            <p className="subtitle">Package Name: {packageName}</p>
-            <p className="subtitle">Amount: ${amount}</p>
-            <p className="subtitle">Discounted Amount: ${discountedAmount.toFixed(2)}</p>
+            <p className="subtitle label">Name:</p>
+            <p className="subtitle">{name}</p>
+            <p className="subtitle label">Package Name:</p>
+            <p className="subtitle">{packageName}</p>
+            <p className="subtitle label">Amount:</p>
+            <p className="subtitle">${amount}</p>
+            <p className="subtitle label">Discounted Amount:</p>
+            <p className="subtitle">${discountedAmount.toFixed(2)}</p>
             <Row className="form-container">
-              <Col lg={6} md={8} sm={12}>
+              <Col lg={12} md={12} sm={12}>
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">
                     <input
                       type="text"
-                      className={`form-control ${errors.promoCode ? 'is-invalid' : ''}`}
+                      className={`form-control`}
                       placeholder="Enter Promo Code"
                       value={promoCode}
                       onChange={handlePromoCodeChange}
                     />
-                    {errors.promoCode && <div className="invalid-feedback">{errors.promoCode}</div>}
                   </div>
                   <div className="button-container">
                     <button type="submit" className="button button-secondary button-100p">

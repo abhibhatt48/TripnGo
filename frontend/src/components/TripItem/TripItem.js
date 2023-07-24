@@ -50,7 +50,6 @@ const TripItem = ({ trip }) => {
 
             </div>
 
-            {/* <AiOutlineHeart onClick={() => {setWishlistICon(true)}} className="heart-icon" /> */}
             <Card.Body>
                 <Card.Title className='trip-item__title'>{item_title}</Card.Title>
                 <div className="trip-item__info-container">

@@ -73,7 +73,10 @@ const Header = () => {
       setCurrentKey("Home");
     } else {
       const index = navPaths.indexOf(path);
-      setCurrentKey(menuItems[index]);
+      if (index !== -1)
+        setCurrentKey(menuItems[index]);
+      else
+        setCurrentKey(path);
     }
 
   }, [location, menuItems, navPaths]);
@@ -93,7 +96,7 @@ const Header = () => {
       }
       setNotifications(noti);
     });
-  }, []);
+  }, [userId]);
 
   return (
     <div className="nav-bar-container">
@@ -104,7 +107,6 @@ const Header = () => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <FiShoppingBag className="wishlist-icon" />
         <Modal.Header
           className="notification-header"
           closeButton
@@ -175,20 +177,19 @@ const Header = () => {
             <span
               className={
                 "wishlist-text menu-button " +
-                (currentKey === "Wishlist" ? "active" : "")
+                (currentKey === "wishlist" ? "active" : "")
               }
               onClick={() => {
-                setCurrentKey("Wishlist");
                 showOptions && setShowOptions(false);
                 setShowWishlist(!showWishlist);
+                navigate('/wishlist');
               }}
             >
               Wishlist
             </span>
             <FiShoppingBag
-              className="wishlist-icon"
+              className={`wishlist-icon ${currentKey === "wishlist" ? "active" : ""}`}
               onClick={() => {
-                setShowWishlist(!showWishlist);
                 navigate('/wishlist');
               }}
             />

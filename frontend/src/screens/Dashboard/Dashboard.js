@@ -63,8 +63,10 @@ function Dashboard() {
     ];
     const onSearchClick = (e) => {
         e.preventDefault();
+        if (searchText.length === 0) {
+            return;
+        }
         navigate('/travel-packages?searchText=' + searchText);
-        console.log('Search button clicked');
     };
 
     const handleMoreTripsClick = (target) => {

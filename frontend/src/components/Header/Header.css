@@ -55,7 +55,7 @@
     height: 24px;
 }
 
-.notification-icon {
+.notification-icon, .wishlist-icon {
     color: var(--accent-color);
     width: 40px;
     height: 40px;
@@ -65,7 +65,7 @@
     padding: 8px;
 }
 
-.notification-icon:hover {
+.notification-icon, .wishlist-icon:hover {
     background-color: var(--accent-color);
     color: black;
     border-radius: 50%;
@@ -101,6 +101,12 @@
     margin-right: 10px;
 }
 
+.shopping-cart-icon{
+    color: var(--accent-color);
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+}
 .modal-header .btn-close {
     margin-right: 0px;
 }
@@ -145,6 +151,7 @@
 }
 
 .notification-text,
+.wishlist-text,
 .hamburger-icon,
 .profile-text {
     display: none;
@@ -236,10 +243,12 @@
         width: 100%;
     }
 
-    .notification-dot-container,
-    .profile-container {
-        display: none;
-    }
+.notification-icon,
+.wishlist-icon,
+.notification-dot-container,
+.profile-container {
+    display: none;
+}
 
     .logo-container {
         width: 100%;

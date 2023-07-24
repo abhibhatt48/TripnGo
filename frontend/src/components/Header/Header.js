@@ -2,6 +2,7 @@ import "./Header.css";
 import React, { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { IoIosNotifications } from "react-icons/io";
+import { FiShoppingBag } from 'react-icons/fi';
 import { Container } from "react-bootstrap";
 import { HiMenu } from "react-icons/hi";
 import Modal from "react-bootstrap/Modal";
@@ -37,6 +38,7 @@ async function listenForNotifications(onNotification) {
 const Header = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showWishlist, setShowWishlist] = useState(false);
   const [isNewNotification, setIsNewNotification] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [userId, setUserId] = useState(localStorage.getItem("userId") ?? 1);
@@ -102,6 +104,7 @@ const Header = () => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
+        <FiShoppingBag className="wishlist-icon" />
         <Modal.Header
           className="notification-header"
           closeButton
@@ -111,6 +114,7 @@ const Header = () => {
           closeVariant="white"
         >
           <IoIosNotifications className="notification-popup-icon" />
+
           <Modal.Title id="contained-modal-title-vcenter">
             Notifications ({notifications.length})
           </Modal.Title>
@@ -167,6 +171,28 @@ const Header = () => {
               </span>
             </div>
           ))}
+          <div className="menu-item">
+            <span
+              className={
+                "wishlist-text menu-button " +
+                (currentKey === "Wishlist" ? "active" : "")
+              }
+              onClick={() => {
+                setCurrentKey("Wishlist");
+                showOptions && setShowOptions(false);
+                setShowWishlist(!showWishlist);
+              }}
+            >
+              Wishlist
+            </span>
+            <FiShoppingBag
+              className="wishlist-icon"
+              onClick={() => {
+                setShowWishlist(!showWishlist);
+                navigate('/wishlist');
+              }}
+            />
+          </div>
 
           {
             userId && userId !== "undefined" &&

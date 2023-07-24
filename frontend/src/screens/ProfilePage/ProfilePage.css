@@ -7,6 +7,18 @@
   background-size: cover;
 }
 
+@media (max-width: 576px) {
+  .responsive-button {
+    font-size: 12px; /* Adjust the font size for smaller screens */
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .responsive-button {
+    font-size: 14px; /* Adjust the font size for medium-sized screens */
+  }
+}
+
 .custom-button-center{
   display: flex;
   flex-direction: column;
@@ -232,6 +244,20 @@
   .title {
     font-size: 30px;
     margin-bottom: 10px;
+  }
+
+  .my-4 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .h-100 {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .h-100 .card-body {
+    flex: 1;
   }
 
   .subtitle {

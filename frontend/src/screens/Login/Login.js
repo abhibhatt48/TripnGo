@@ -42,7 +42,7 @@ function Login() {
         password: password,
       };
 
-       navigate("/userprofile");
+       navigate("/profilepage");
       await axios
         .post(APIs.LOGIN, user)
         .then((response) => {

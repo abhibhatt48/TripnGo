@@ -3,11 +3,10 @@ import { useForm } from "react-hook-form";
 import { Row, Col, Container, Card ,Button,Modal} from "react-bootstrap";
 import "./ProfilePage.css";
 import axios from "axios";
-import johnDoeImage from "assests/johndoe.jpeg";
+
 
 function ProfilePage() {
     const [showEditProfileModal, setShowEditProfileModal] = useState(false);
-    const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
     const [showEditImageModal, setShowEditImageModal] = useState(false);
     const [userData, setUserData] = useState({
       name: "",
@@ -22,26 +21,19 @@ function ProfilePage() {
       country: "",
       email: "",
       phone: "",
-      profileImage: johnDoeImage,
+      profileImage: "",
   });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch
   } = useForm();
 
   const handleClick = () => {
     setShowEditProfileModal(!showEditProfileModal);
   };
-  const handleShowChangePasswordModal = () => {
-    setShowChangePasswordModal(true);
-  };
-
-  const handleCloseChangePasswordModal = () => {
-    setShowChangePasswordModal(false);
-  };
+ 
 
   const handleShowEditImageModal = () => {
     setShowEditImageModal(true);
@@ -56,15 +48,16 @@ function ProfilePage() {
     setShowEditProfileModal(false);
     console.log(data);
   };
-  const fetchUserData = async () => {
-    try {
-      const response = await axios.get("/api/64b7fc4d220f90886f389ede"); 
-      const data = response.data;
-      setUserData(data);
-    } catch (error) {
-      console.log(error);
+  const fetchUserData =  axios.get("/api/profile", {
+    data: {
+      email: "john.doe@example.com"
     }
-  };
+  }).then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error(error.response.data);
+  });
       
       const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -81,6 +74,7 @@ function ProfilePage() {
       };
 
   return (
+  
     <div className="background-image">
       <Container className="central-container">
         <div className="login-container">
@@ -89,40 +83,62 @@ function ProfilePage() {
             
           </div>
          
-        <Row className="mb-2">
-        <Col xs={12} md={12} lg={12}>
-          {/* Profile Image and Bio */}
-          <Card className="mb-4">
+    <Container>
+      <Row>
+        <Col sm={8}>
+          <Card className="h-100">
             <Card.Body className="text-center">
-            <div >
-            <img
-                src={userData.profileImage}
-                roundedCircle
-                style={{ width: "150px", height: "150px" }}
-                className="mb-3"
-                alt="Profile"
-            />
-        </div>
-        <div >
-        <Button variant="info" onClick={handleShowEditImageModal} className="button button-secondary ">
-          Edit Image
-        </Button>
-        </div>
-              <Card.Title className="mt-4">John Wick</Card.Title>                        
+              <div>
+                <img
+                  src={userData.profileImage}
+                  roundedCircle
+                  style={{ width: "150px", height: "150px" }}
+                  className="mb-3"
+                  alt="Profile"
+                />
+              </div>
+              <div>
+                <Button
+                  variant="info"
+                  onClick={handleShowEditImageModal}
+                  className="button button-secondary responsive-button"
+                >
+                  Edit Image
+                </Button>
+              </div>
+              <Card.Title className="mt-4">{userData.name}</Card.Title>
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col sm={4}>
+          <Card className="h-100">
+            <Card.Body>
+              <div className="d-flex flex-column justify-content-center align-items-center" style={{ textAlign: "center", height: "150px" }}>
+                <div>
+                  <Button
+                    className="button button-secondary responsive-button"
+                    variant="info"
+                    value="Edit profile modal will be opened"
+                    onClick={handleClick}
+                  >
+                    Edit Profile
+                  </Button>
+                </div>
+              </div>
             </Card.Body>
           </Card>
         </Col>
       </Row>
 
-      <Row className="mb-2">
-        <Col  xs={12} md={12} lg={12} >
-          {/* Personal Information*/}
-          <Card className="mb-4 ">
+      <Row className="mt-4">
+        <Col sm >
+          <Card className="h-100">
             <Card.Body>
               <Card.Title>Personal Information</Card.Title>
               <ul className="list-unstyled">
-                <li>Name: {userData.name}}</li>
-                <li>Age: {userData.age}}</li>
+                <li>Name: {userData.name}</li>
+                <li>Age: {userData.age}</li>
                 <li>Gender: {userData.gender}</li>
                 <li>Date of birth: {userData.dateOfBirth}</li>
                 <li>City: {userData.city}</li>
@@ -130,12 +146,9 @@ function ProfilePage() {
             </Card.Body>
           </Card>
         </Col>
-        </Row>
 
-        <Row className="mb-2">
-        <Col className="" xs={12} md={12} lg={12}>
-          {/* Address Information */}
-          <Card className="mb-4 ">
+        <Col sm>
+          <Card className="h-100">
             <Card.Body>
               <Card.Title>Address Information</Card.Title>
               <ul className="list-unstyled">
@@ -147,12 +160,9 @@ function ProfilePage() {
             </Card.Body>
           </Card>
         </Col>
-      </Row>
 
-      <Row className="mb-2">
-        <Col className="custom-column" xs={12} md={12} lg={12}>
-          {/* Contact Information */}
-          <Card  className="mb-4 " >
+        <Col sm>
+          <Card className="h-100">
             <Card.Body>
               <Card.Title>Contact Information</Card.Title>
               <ul className="list-unstyled">
@@ -160,43 +170,13 @@ function ProfilePage() {
                 <li>Phone: {userData.phone}</li>
               </ul>
             </Card.Body>
-          </Card>  
-        </Col>
-        </Row>
-
-        <Row>
-        <Col className="custom-column" xs={12} md={12} lg={12}>
-        <Card className="mb-4">
-            <Card.Body >
-          <div className="d-flex flex-column justify-content-center align-items-center" style={{ textAlign: "center", height: "150px"}}>
-            
-          <div>
-                      <Button className="edit button edit-button:hover" 
-                        variant="info"
-                        value="Edit profile modal will be opened"
-                        onClick={handleClick}
-                      >
-                        Edit Profile
-                      </Button>
-                    </div>
-            <div >
-            <Button
-                      variant="primary"
-                      value="Change password modal will be opened"
-                      className="mt-2"
-                      onClick={handleShowChangePasswordModal}
-                    >
-                          Change Password
-                    </Button>
-            </div>
-
-          </div>
-          </Card.Body>
           </Card>
         </Col>
       </Row>
+    </Container>
 
-        </div>
+      
+      </div>
       </Container>
       
       {/* Edit Profile Modal */}
@@ -440,90 +420,15 @@ function ProfilePage() {
                 </div>
               )}
             </div>
-            <Button type="submit" onClick={updateData} variant="primary">
+            <Button type="submit" //onClick={updateData} 
+            variant="primary">
               Save Changes
             </Button>
           </form>
         </Modal.Body>
       </Modal>
       
-      {/*Show password modal*/}
-      <Modal
-        show={showChangePasswordModal}
-        onHide={handleCloseChangePasswordModal}
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Change Password</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-group">
-              <label htmlFor="currentPassword">Current Password:</label>
-              <input
-                type="password"
-                className={`form-control ${
-                  errors.currentPassword ? "is-invalid" : ""
-                }`}
-                id="currentPassword"
-                {...register("currentPassword", {
-                  required: "Current Password is required",
-                })}
-              />
-              {errors.currentPassword && (
-                <div className="invalid-feedback">
-                  {errors.currentPassword.message}
-                </div>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="newPassword">New Password:</label>
-              <input
-                type="password"
-                className={`form-control ${
-                  errors.newPassword ? "is-invalid" : ""
-                }`}
-                id="newPassword"
-                {...register("newPassword", {
-                  required: "New Password is required",
-                  minLength: {
-                    value: 8,
-                    message: "New Password must be at least 8 characters",
-                  },
-                })}
-              />
-              {errors.newPassword && (
-                <div className="invalid-feedback">
-                  {errors.newPassword.message}
-                </div>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm Password:</label>
-              <input
-                type="password"
-                className={`form-control ${
-                  errors.confirmPassword ? "is-invalid" : ""
-                }`}
-                id="confirmPassword"
-                {...register("confirmPassword", {
-                  required: "Confirm Password is required",
-                  validate: (value) =>
-                    value === watch("newPassword") || "Passwords do not match",
-                })}
-              />
-              {errors.confirmPassword && (
-                <div className="invalid-feedback">
-                  {errors.confirmPassword.message}
-                </div>
-              )}
-            </div>
-            <Button type="submit"  variant="primary">
-              Save Changes
-            </Button>
-          </form>
-        </Modal.Body>
-      </Modal>
+      
 
       <Modal show={showEditImageModal} onHide={handleCloseEditImageModal}>
   <Modal.Header closeButton>

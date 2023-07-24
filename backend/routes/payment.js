@@ -1,53 +1,49 @@
- // Author: Abhishek Bhatt
- 
- var express = require('express');
-  var router = express.Router();
-  const stripe = require("stripe")(process.env.SECRET_KEY);
-  const response = require('./response');
+// Author: Abhishek Bhatt
+var express = require('express');
+var router = express.Router();
+const { sendNotification } = require("../conn");
+const stripe = require("stripe")(process.env.SECRET_KEY);
+const response = require('./response');
 
-  router.post("/", async (req, res) => {
-    const { name, amount, packageName } = req.body;
-    try {
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ["card"],
-        line_items: [
-          {
-            price_data: {
-              currency: "cad",
-              product_data: {
-                name: packageName,
-              },
-              unit_amount: amount * 100,
+router.post("/", async (req, res) => {
+  const { name, amount, packageName,userId } = req.body;
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "cad",
+            product_data: {
+              name: packageName,
             },
-            quantity: 1,
+            unit_amount: amount * 100,
           },
-        ],
-        mode: "payment",
-        // TODO; Change this URL and nevigate to notification. 
-        //success_url: "http://localhost:3000/success",
-        //cancel_url: "http://localhost:3000/cancel",
-      });
-      const notificationPayload = {
-        userId,
-        title: 'Payment Successful',
-        description: `Your payment for the ${packageName} has been processed successfully.`,
-        payload: {
-          type: 'payment',
-          // modify this as needed
-          url: session.url 
-        }
-      };
-      // make a POST request to the notifications API, change the API path for notification
-    const notificationRes = await axios.post('http://localhost:3001/', notificationPayload);
+          quantity: 1,
+        },
+      ],
+      mode: "payment",
+      success_url: "http://localhost:3001/",
+      cancel_url: "http://localhost:3000/payment",
+    });
+    // const notificationPayload = {
+    //   userId,
+    //   title: 'Payment Successful',
+    //   description: `Your payment for the ${packageName} has been processed successfully.`,
+    //   payload: {
+    //     type: 'payment',
+    //     // modify this as needed
+    //     url: session.url
+    //   }
+    // };
 
-    if (notificationRes.status !== 200) {
-      throw new Error('Failed to create notification');
-    }
-
-    return response.sendSuccess(res, { link: session.url });
-  } catch(error) {
-    return response.sendError(res, "Failed to create Stripe session", 500);
+//sendNotification(notificationPayload);
+res.send(response.sendSuccess(res, { link: session.url }));
+  } catch (error) {
+    console.log(error);
+res.send(response.sendError(res, "Failed to create Stripe session", 500));
   }
-  });
+});
+module.exports = router;
 
-  module.exports = router;
+

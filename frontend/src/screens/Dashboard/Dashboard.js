@@ -9,6 +9,7 @@ import axios from 'axios';
 import APIs from 'Constants';
 import { useNavigate } from 'react-router-dom';
 
+
 function Dashboard() {
     const [filteredPopularTrips, setFilteredPopularTrips] = React.useState(popularTrips);
     const [filteredTripsNearYou, setFilteredTripsNearYou] = React.useState(tripsNearYou);
@@ -16,6 +17,9 @@ function Dashboard() {
     const navigate = useNavigate();
 
     const onSearchTextChange = (e) => {
+        if (e.target.value.length > 50) {
+            return;
+        }
         setSearchText(e.target.value);
         const filteredPopularTrips = popularTrips.filter((trip) => {
             return trip.title.toLowerCase().includes(e.target.value.toLowerCase());
@@ -59,11 +63,13 @@ function Dashboard() {
     ];
     const onSearchClick = (e) => {
         e.preventDefault();
+        navigate('/travel-packages?searchText=' + searchText);
         console.log('Search button clicked');
     };
-    const handleMoreTripsClick = () => {
-        navigate('/travel-packages');
-      };
+
+    const handleMoreTripsClick = (target) => {
+        navigate('/travel-packages?tripType=' + target.toLowerCase());
+    };
 
     return (
         <div className='dashboard-container'>
@@ -77,7 +83,7 @@ function Dashboard() {
             </div>
             <Row className='search-container'>
                 <Col lg={6} md={6}>
-                    <input className="search-input" type="text" placeholder="Search" onChange={onSearchTextChange} />
+                    <input className="search-input" type="text" placeholder="Search" onChange={onSearchTextChange} maxLength={50} />
                 </Col>
                 <Col lg={1} md={2}>
                     <button className="button button-primary button-md-100p"
@@ -106,8 +112,8 @@ function Dashboard() {
                     </Row>
                 </Container>
                 <div className='button-container'>
-                    <button className="button button-primary button-200 button-sm-100p"
-                        onClick={handleMoreTripsClick}
+                    <button className={`button button-primary button-200 button-sm-100p ${filteredPopularTrips.length === 0 ? 'disabled' : ''}`}
+                        onClick={() => { handleMoreTripsClick("popular") }}
                     >More Trips</button>
                 </div>
             </div>
@@ -117,7 +123,6 @@ function Dashboard() {
                 <Container className='trips-item-container'>
                     <Row className="g-4 justify-content-md-center">
                         {
-
                             filteredTripsNearYou.length === 0 ?
                                 <span className='noTrip'>No trip found</span>
                                 :
@@ -132,8 +137,8 @@ function Dashboard() {
                     </Row>
                 </Container>
                 <div className='button-container'>
-                    <button className="button button-primary button-200 button-sm-100p"
-                        onClick={handleMoreTripsClick}
+                    <button className={`button button-primary button-200 button-sm-100p ${filteredTripsNearYou.length === 0 ? 'disabled' : ''}`}
+                        onClick={() => { handleMoreTripsClick("nearby") }}
                     >More Trips</button>
                 </div>
             </div>

@@ -1,7 +1,8 @@
 import './TripItem.css';
 import Card from 'react-bootstrap/Card';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
 const TripItem = ({ trip }) => {
     const item_title = trip.title;
@@ -10,13 +11,46 @@ const TripItem = ({ trip }) => {
     const item_cost = trip.cost;
     const item_rating = trip.rating;
 
+    const [wishlistIcon, setWishlistIcon] = useState(false);
     const navigate = useNavigate();
+
+    // const [localStorageData, setLocaStorageData ] = useState()
+    useEffect(() => {
+        // Check if the trip ID is present in the localStorage
+        const list = localStorage.getItem('id') ? JSON.parse(localStorage.getItem('id')) : [];
+        setWishlistIcon(list.includes(trip.id));
+    }, [trip.id]);
+
+    const handleWishlist = (e) => {
+        e.stopPropagation();
+        const list = localStorage.getItem('id') ? JSON.parse(localStorage.getItem('id')) : [];
+        if (!wishlistIcon) {
+            list.push(trip.id);
+        } else {
+            if (list.findIndex !== -1) {
+                list.splice(list.findIndex((x) => x === trip.id), 1);
+            }
+        }
+        localStorage.setItem('id', JSON.stringify(list));
+        setWishlistIcon(!wishlistIcon);
+    }
+
+
 
     return (
         <Card className="trip-item" onClick={() => {
             navigate('/package-details');
         }}>
             <Card.Img className='trip-item__image' variant="top" src={trip.image} />
+            <div onClick={handleWishlist} className="wishlist-container">
+                {wishlistIcon ? (
+                    <AiFillHeart className="heart-icon" />)
+                    : (<AiOutlineHeart className="heart-icon" />)
+                }
+
+            </div>
+
+            {/* <AiOutlineHeart onClick={() => {setWishlistICon(true)}} className="heart-icon" /> */}
             <Card.Body>
                 <Card.Title className='trip-item__title'>{item_title}</Card.Title>
                 <div className="trip-item__info-container">

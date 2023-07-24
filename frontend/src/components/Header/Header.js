@@ -225,7 +225,6 @@ const Header = () => {
             </div>
           }
 
-
           {
             userId && userId !== "undefined" &&
             <div className="menu-item">

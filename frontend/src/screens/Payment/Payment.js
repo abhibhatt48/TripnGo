@@ -41,7 +41,7 @@ function Payment() {
       };
 
       try {
-        const response = await axios.post(APIs.CREATE_SESSION, formData);
+        const response = await axios.post(APIs.PAYMENT, formData);
         if (response.data.success) {
           window.location.href = response.data.data.link;
         } else {
@@ -68,7 +68,7 @@ function Payment() {
             <p className="subtitle">Amount: ${amount}</p>
             <p className="subtitle">Discounted Amount: ${discountedAmount.toFixed(2)}</p>
             <Row className="form-container">
-            <Col lg={6} md={8} sm={12}> 
+              <Col lg={6} md={8} sm={12}>
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">
                     <input

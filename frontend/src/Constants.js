@@ -6,7 +6,7 @@ const APIs = {
     SOCKET_URL: `${HOST_URL}`,
     NOTIFICATIONS: `${HOST_URL}/notifications`,
     CONTACT_US: `${HOST_URL}/contact-us`,
-    CREATE_SESSION: `${HOST_URL}/payment`,
+    PAYMENT: `${HOST_URL}/payment`,
     LOGIN: `${HOST_URL}/login`,
     SIGNUP: `${HOST_URL}/signup`,
     FORGOT_PASSWORD: `${HOST_URL}/validate-email`,

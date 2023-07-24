@@ -9,6 +9,7 @@ import axios from 'axios';
 import APIs from 'Constants';
 import { useNavigate } from 'react-router-dom';
 
+
 function Dashboard() {
     const [filteredPopularTrips, setFilteredPopularTrips] = React.useState(popularTrips);
     const [filteredTripsNearYou, setFilteredTripsNearYou] = React.useState(tripsNearYou);
@@ -106,8 +107,8 @@ function Dashboard() {
                     </Row>
                 </Container>
                 <div className='button-container'>
-                    <button className="button button-primary button-200 button-sm-100p"
-                        onClick={handleMoreTripsClick}
+                    <button className={`button button-primary button-200 button-sm-100p ${filteredPopularTrips.length === 0 ? 'disabled' : ''}`}
+                        onClick={onSearchClick}
                     >More Trips</button>
                 </div>
             </div>
@@ -117,7 +118,6 @@ function Dashboard() {
                 <Container className='trips-item-container'>
                     <Row className="g-4 justify-content-md-center">
                         {
-
                             filteredTripsNearYou.length === 0 ?
                                 <span className='noTrip'>No trip found</span>
                                 :
@@ -132,8 +132,8 @@ function Dashboard() {
                     </Row>
                 </Container>
                 <div className='button-container'>
-                    <button className="button button-primary button-200 button-sm-100p"
-                        onClick={handleMoreTripsClick}
+                    <button className={`button button-primary button-200 button-sm-100p ${filteredTripsNearYou.length === 0 ? 'disabled' : ''}`}
+                        onClick={onSearchClick}
                     >More Trips</button>
                 </div>
             </div>

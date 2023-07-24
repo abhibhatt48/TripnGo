@@ -16,7 +16,7 @@ var dashboardRouter = require('./routes/dashboard');
 var moretripsRouter = require('./routes/moretrips');
 var notificationsRouter = require('./routes/notifications');
 var { listenForNotifications } = require('./conn');
-var EmailRouter = require('./routes/validateEmail');
+var EmailRouter = require('./routes/validateemail');
 var ResetPassRouter = require('./routes/resetpass');
 var adminloginRouter = require('./routes/adminlogin');
 
@@ -37,13 +37,13 @@ app.use('/contact-us', contactUsRouter);
 app.use('/payment', paymentRouter);
 app.use('/wishlist', wishlistRouter);
 app.use('/signup', signupRouter);
-app.use('/login',loginRouter);
+app.use('/login', loginRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/moretrips', moretripsRouter);
 app.use('/notifications', notificationsRouter);
 app.use('/validate-email', EmailRouter);
 app.use('/reset-pass', ResetPassRouter);
-app.use('/adminlogin',adminloginRouter);
+app.use('/adminlogin', adminloginRouter);
 
 listenForNotifications();
 

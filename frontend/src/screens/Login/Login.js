@@ -135,7 +135,7 @@ function Login() {
 
                 {<p className="submitted-message">Or</p>}
 
-                <div>
+                <div className="button-container">
                   <button
                     type="button"
                     className="button button-primary button-100p"

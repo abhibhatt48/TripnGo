@@ -169,33 +169,61 @@ function ProfilePage() {
 
           <Container>
             <Row>
-              <Col sm={8}>
+              <Col sm={12}>
                 <Card className="h-100">
                   <Card.Body className="text-center">
-                    <div>
+                    {/* <div>
                       <img
                         src={userData.profileImage}
-                        roundedCircle
-                        style={{ width: "150px", height: "150px" }}
+                        style={{ width: "200px", height: "200px" }}
+                        className="mb-3"
+                        alt="Profile"
+                      />
+                    </div> */}
+
+                    <div
+                      style={{
+                        maxWidth: "150px",
+                        margin: "0 auto",
+                      }}
+                    >
+                      <img
+                        src={userData.profileImage}
+                        style={{ width: "100%", height: "auto" }}
                         className="mb-3"
                         alt="Profile"
                       />
                     </div>
+
+                    <Card.Title className="mt-2">{userData.name}</Card.Title>
+
                     <div>
                       <Button
                         variant="info"
                         onClick={handleShowEditImageModal}
                         className="button button-secondary responsive-button"
                       >
-                        Edit Image
+                        Edit Profile Picture
                       </Button>
                     </div>
-                    <Card.Title className="mt-4">{userData.name}</Card.Title>
+
+                    <div style={{ textAlign: "center" }}>
+                      <div>
+                        <Button
+                          className="button button-secondary responsive-button"
+                          variant="info"
+                          value="Edit profile modal will be opened"
+                          onClick={handleClick}
+                        >
+                          Edit Profile
+                        </Button>
+                      </div>
+                    </div>
                   </Card.Body>
                 </Card>
               </Col>
 
-              <Col sm={4}>
+              {/* <Col sm={4}>
                 <Card className="h-100">
                   <Card.Body>
                     <div
@@ -215,7 +243,7 @@ function ProfilePage() {
                     </div>
                   </Card.Body>
                 </Card>
-              </Col>
+              </Col> */}
             </Row>
 
             <Row className="mt-4">

@@ -1,3 +1,5 @@
+// Author: Siddhesh Salve
+
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Row, Col, Container, Card, Button, Modal } from "react-bootstrap";
@@ -47,6 +49,46 @@ function ProfilePage() {
   };
 
   const handleCloseEditImageModal = () => {
+    const userId = userData._id;
+
+    // Get the input element for the image file
+    const imageInput = document.getElementById("imageUpload");
+
+    // Check if an image file is available
+    if (imageInput.files.length > 0) {
+      const file = imageInput.files[0];
+      const reader = new FileReader();
+
+      // Convert the image file to base64
+      reader.onload = () => {
+        // const base64Image = reader.result.split(",")[1]; // Extract the base64-encoded data part
+
+        const base64Image = reader.result;
+        console.log(base64Image);
+        // Create a FormData object to send the base64 image data to the server
+        const formData = new FormData();
+        formData.append("image", base64Image);
+
+        // Make the PUT request to update the user's image
+        axios
+          .post(`http://localhost:3000/profile/image/${userId}`, {
+            profileImage: base64Image,
+          })
+          .then((response) => {
+            console.log("Image updated successfully:", response.data);
+            // Optionally, you can set the updated user data to the state
+            // if you want to reflect the changes immediately on the page.
+            // setUserData(response.data);
+          })
+          .catch((error) => {
+            console.error("Error updating image:", error.response.data);
+          });
+      };
+
+      // Read the image file as a data URL (base64)
+      reader.readAsDataURL(file);
+    }
+
     setShowEditImageModal(false);
   };
 

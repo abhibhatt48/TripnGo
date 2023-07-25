@@ -7,6 +7,12 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
+const bodyParser = require("body-parser");
+const app = express();
+
+// Parse incoming requests with body-parser
+app.use(bodyParser.json({ limit: "100mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "100mb" }));
 
 router.use(cors());
 
@@ -80,9 +86,9 @@ router.put("/:id", async function (req, res, next) {
   }
 });
 
-router.put("/image/:id", async function (req, res, next) {
+router.post("/image/:id", async function (req, res, next) {
   const { id } = req.params; // Get the ID from the request URL
-
+  const { profileImage } = req.body;
   const database = await db();
   try {
     // Convert the string ID to an ObjectId
@@ -97,24 +103,14 @@ router.put("/image/:id", async function (req, res, next) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Check if an image was uploaded in the request
-    if (!req.file) {
-      return res.status(400).json({ error: "Image upload required" });
-    }
-
-    // Get the base64-encoded image data from the request file
-    const image = req.file.buffer.toString("base64");
-
-    // Update the user data with the new image
-    user.image = image;
-
     // Save the updated user document back to the database
+    console.log(profileImage);
     await database
       .collection("UserProfile")
-      .updateOne({ _id: objectId }, { $set: { image: user.image } });
+      .updateOne({ _id: objectId }, { $set: { profileImage: profileImage } });
 
     // Return the updated user data as the response
-    return res.status(200).json(user);
+    return res.status(200).json({ message: "image updated!" });
   } catch (error) {
     console.error("Error updating image in MongoDB:", error);
     return res.status(500).json({ error: "Internal server error" });

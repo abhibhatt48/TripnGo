@@ -42,6 +42,7 @@ function Login() {
         password: password,
       };
 
+       navigate("/profilepage");
       await axios
         .post(APIs.LOGIN, user)
         .then((response) => {

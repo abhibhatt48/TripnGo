@@ -16,6 +16,7 @@ import SignUp from 'screens/SignUp';
 import ContactUs from 'screens/ContactUs';
 import ContactList from 'screens/ContactList';
 import FAQs from 'screens/FAQs';
+import ProfilePage from './screens/ProfilePage/index';
 import Page404 from 'screens/Page404';
 import Wishlist from 'screens/Wishlist';
 import ForgotPassword from 'screens/ForgotPassword';
@@ -38,6 +39,7 @@ root.render(
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/faqs" element={<FAQs />} />
+        <Route path="/profilepage" element={<ProfilePage/>} />
         <Route path="/payment" element={<Payment />} />
         <Route path="*" element={<Page404 />} />
         <Route path="/wishlist" element={<Wishlist />} />

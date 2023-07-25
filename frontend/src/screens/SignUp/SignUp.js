@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import './SignUp.css';
+import "./SignUp.css";
 import APIs from "Constants";
 
 function SignUp() {
@@ -84,20 +84,20 @@ function SignUp() {
           setMessage("Signup Successful");
           console.log("Inside axios");
           console.log(response.data);
-          navigate("/profile");
+          navigate("/profilepage");
         })
         .catch((error) => {
-          if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+          if (
+            error.response &&
+            (error.response.status === 401 || error.response.status === 403)
+          ) {
             setMessage(error.response.data.message);
           } else {
             setMessage("Error during signing up", error);
           }
 
           console.log("Error while signing up", error);
-
         });
-
-
     } else {
       // Passwords do not match, show an error message or take appropriate action
       console.log("Passwords do not match");
@@ -120,7 +120,9 @@ function SignUp() {
                 <div className="form-group">
                   <input
                     type="text"
-                    className={`form-control ${!isUsername ? "is-invalid" : ""}`}
+                    className={`form-control ${
+                      !isUsername ? "is-invalid" : ""
+                    }`}
                     placeholder="Username"
                     value={username}
                     onChange={handleUsernameChange}
@@ -137,22 +139,26 @@ function SignUp() {
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control ${!isEmailValid ? "is-invalid" : ""
-                      }`}
+                    className={`form-control ${
+                      !isEmailValid ? "is-invalid" : ""
+                    }`}
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
                     required
                   />
                   {!isEmailValid && (
-                    <div className="invalid-feedback">*Invalid email format</div>
+                    <div className="invalid-feedback">
+                      *Invalid email format
+                    </div>
                   )}
                 </div>
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control ${!isPasswordValid ? "is-invalid" : ""
-                      }`}
+                    className={`form-control ${
+                      !isPasswordValid ? "is-invalid" : ""
+                    }`}
                     placeholder="Password"
                     value={password}
                     onChange={handlePasswordChange}
@@ -160,9 +166,9 @@ function SignUp() {
                   />
                   {!isPasswordValid && (
                     <div className="invalid-feedback">
-                      *Password must be at least 8 characters long
-                      contain at least one uppercase letter, one lowercase
-                      letter, one digit, and one special character.{" "}
+                      *Password must be at least 8 characters long contain at
+                      least one uppercase letter, one lowercase letter, one
+                      digit, and one special character.{" "}
                       {isPasswordValid ?? (
                         <small className="form-text text-muted">
                           Password is valid.
@@ -173,8 +179,9 @@ function SignUp() {
                   <div className="form-group">
                     <input
                       type="password"
-                      className={`form-control ${!isConfirmPassword ? "is-invalid" : ""
-                        }`}
+                      className={`form-control ${
+                        !isConfirmPassword ? "is-invalid" : ""
+                      }`}
                       placeholder="Confirm Password"
                       value={confirmPassword}
                       onChange={handleConfirmPasswordChange}
@@ -184,12 +191,14 @@ function SignUp() {
                       <div className="invalid-feedback">
                         *Passwords do not match{" "}
                       </div>
-                    )
-                    }
+                    )}
                   </div>
                 </div>
                 <div className="button-container">
-                  <button type="submit" className="button button-secondary button-100p">
+                  <button
+                    type="submit"
+                    className="button button-secondary button-100p"
+                  >
                     Sign up
                   </button>
                 </div>

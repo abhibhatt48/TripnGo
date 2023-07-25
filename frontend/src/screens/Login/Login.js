@@ -42,15 +42,13 @@ function Login() {
         password: password,
       };
 
-       navigate("/profilepage");
-      await axios
-        .post(APIs.LOGIN, user)
-        .then((response) => {
-          const id = response.data.user.id;
-          localStorage.setItem("userId", id);
+      navigate("/");
+      await axios.post(APIs.LOGIN, user).then((response) => {
+        const id = response.data.user.id;
+        localStorage.setItem("userId", id);
 
-          window.location.href = "/";
-        });
+        window.location.href = "/";
+      });
     } catch (error) {
       if (
         error.response &&
@@ -83,8 +81,9 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control ${!isEmailValid ? "is-invalid" : ""
-                      }`}
+                    className={`form-control ${
+                      !isEmailValid ? "is-invalid" : ""
+                    }`}
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
@@ -97,8 +96,9 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control ${!isPasswordValid ? "is-invalid" : ""
-                      }`}
+                    className={`form-control ${
+                      !isPasswordValid ? "is-invalid" : ""
+                    }`}
                     placeholder="Password"
                     value={password}
                     onChange={handlePasswordChange}
@@ -148,7 +148,6 @@ function Login() {
                     Signup
                   </button>
                 </div>
-
               </form>
             </Col>
           </Row>

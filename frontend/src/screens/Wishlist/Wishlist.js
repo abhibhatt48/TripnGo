@@ -5,9 +5,13 @@ import React from 'react';
 import { useEffect, useRef } from 'react';
 import TripItem from '../../components/TripItem/TripItem';
 import { popularTrips, tripsNearYou } from '../Dashboard/TripItems';
+import axios from 'axios';
 import _ from 'lodash';
+import APIs from 'Constants';
 
 const Wishlist = () => {
+
+  
   const usePrevious = (value) => {
     const ref = useRef();
     useEffect(() => {
@@ -16,26 +20,33 @@ const Wishlist = () => {
     return ref.current;
   };
 
-  const [filteredTrips, setFilteredTrips] = React.useState([...popularTrips, ...tripsNearYou]);
+  const [filteredTrips, setFilteredTrips] = React.useState([]);
   const localStorageData = localStorage.getItem('id');
   const wishlistIDs = localStorageData ? JSON.parse(localStorageData) : [];
+  const [showMoreTrips, setShowMoreTrips] = React.useState(false);
   const previousWishlistIDs = usePrevious(wishlistIDs);
 
-  // useEffect(() => {
-  //     const wishlistItems = filteredTrips.filter((trip) => wishlistIDs.includes(trip.id));
-  //     setFilteredTrips(wishlistItems);
-  //   }, [wishlistIDs, filteredTrips]);
-
+  const fetchTripDetails = async () => {
+    try {
+      if(wishlistIDs){
+        const response = await axios.post(APIs.WISHLIST_ITEMS, { id: wishlistIDs });
+        setFilteredTrips(response.data);
+      }
+     
+    } catch (error) {
+      console.error('Error fetching trip details:', error);
+    }
+  };
   useEffect(() => {
     // Check if the wishlistIDs have changed
     if (!_.isEqual(wishlistIDs, previousWishlistIDs)) {
-      // Filter the trips based on the updated wishlistIDs
-      const wishlistItems = [...popularTrips, ...tripsNearYou].filter((trip) =>
-        wishlistIDs.includes(trip.id)
-      );
-      setFilteredTrips(wishlistItems);
+      if (wishlistIDs.length > 0) {
+        fetchTripDetails(); // Fetch details for the wishlistIDs from the backend
+      } else {
+        setFilteredTrips([]); // If no wishlistIDs, clear the filtered trips
+      }
     }
-  }, [wishlistIDs, previousWishlistIDs]);
+  }, [wishlistIDs, previousWishlistIDs],[]);
 
   // Images by barnyc: https://flickr.com/photos/75487768@N04/31628278140/in/photolist-QbTcbm-naDN9o-8tF7Y3-bpQQFi-DDnvj9-hnwqti-JRMGJH-N9vpzy-MoREwn-23mWx8L-27HZbNM-PzxcXy-dkdGBH-MC55mp-CRe2wH-ddngBy-5pBL9K-aimadp-atdUU9-6KBNJ3-fnqbB2-7kPfy7-9yQB4D-27yjzhM-26h2CDK-Zow8Ti-SwsNoj-7mLDRp-T9MWwY-21LYYPn-25X7Hrm-Xx4bVM-GWeFwT-Jn58bR-DGZcAy-E8i7yj-uxLmC3-bBeBGg-bB2AyU-DKb97-KxECR9-Gcrv2e-oVgqQC-28MX46G-yJVjVY-Xvs96Y-Q2kHof-pcJooL-W9WpXW-Gw2QEA/
   const popular_trips_images = [
@@ -50,9 +61,13 @@ const Wishlist = () => {
     "https://live.staticflickr.com/5537/31228301162_8dddd9450d_c_d.jpg"
   ];
 
+  const handleMoreTripsClick = () => {
+    setShowMoreTrips(true); // Show all trips when the button is clicked
+  };
+
+
   return (
     <div className='dashboard-container wishlist-page-container'>
-      {/* ... (previous code) */}
       <div className="trips-container">
         <h1 className="title">Wishlist Items</h1>
         <Container className='trips-item-container'>
@@ -60,17 +75,47 @@ const Wishlist = () => {
             {filteredTrips.length === 0 ? (
               <span className='noTrip'>No Items found</span>
             ) : (
-              Array.from({ length: Math.min(3, filteredTrips.length) }).map((_, idx) => (
-                <Col key={idx}>
-                  <TripItem trip={{
-                    image: filteredTrips[idx].type === 'popular' ? popular_trips_images[idx] : near_by_trips_images[idx],
-                    ...filteredTrips[idx]
-                  }} />
-                </Col>
-              ))
+              showMoreTrips
+                ? filteredTrips.map((trip, idx) => (
+                  <Col key={idx}>
+                    <TripItem
+                      trip={{
+                        image:
+                          trip.type === 'popular'
+                            ? popular_trips_images[idx]
+                            : near_by_trips_images[idx],
+                        ...trip,
+                      }} 
+                      
+                    />
+                  </Col>
+                ))
+                : filteredTrips.slice(0, 3).map((trip, idx) => (
+                  <Col key={idx}>
+                    <TripItem
+                      trip={{
+                        image:
+                          trip.type === 'popular'
+                            ? popular_trips_images[idx]
+                            : near_by_trips_images[idx],
+                        ...trip,
+                      }}
+                    />
+                  </Col>
+                ))
             )}
           </Row>
         </Container>
+        {!showMoreTrips && filteredTrips.length > 3 && (
+          <div className='button-container'>
+            <button
+              className="button button-primary button-200 button-sm-100p"
+              onClick={handleMoreTripsClick}
+            >
+              More Trips
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

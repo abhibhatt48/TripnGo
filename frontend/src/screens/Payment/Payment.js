@@ -52,15 +52,15 @@ function Payment() {
       <Container className="central-container">
         <div className="payment-container">
           <div className="payment-overlay">
-            <h1 className="title">Payment</h1>
-            <p className="subtitle label">Name:</p>
-            <p className="subtitle">{name}</p>
-            <p className="subtitle label">Package Name:</p>
-            <p className="subtitle">{packageName}</p>
-            <p className="subtitle label">Amount:</p>
-            <p className="subtitle">${amount}</p>
-            <p className="subtitle label">Discounted Amount:</p>
-            <p className="subtitle">${discountedAmount.toFixed(2)}</p>
+            <h1 className="payment-title">Payment</h1>
+            <p className="payment-subtitle label">Name:</p>
+            <p className="payment-subtitle">{name}</p>
+            <p className="payment-subtitle label">Package Name:</p>
+            <p className="payment-subtitle">{packageName}</p>
+            <p className="payment-subtitle label">Amount:</p>
+            <p className="payment-subtitle">${amount}</p>
+            <p className="payment-subtitle label">Discounted Amount:</p>
+            <p className="payment-subtitle">${discountedAmount.toFixed(2)}</p>
             <Row className="form-container">
               <Col lg={12} md={12} sm={12}>
                 <form onSubmit={handleSubmit}>

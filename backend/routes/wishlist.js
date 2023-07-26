@@ -5,15 +5,16 @@ const { ObjectId } = require('mongodb');
 
 
 /* POST wish list packages id */
-router.post('/:id',  async(req, res) => {
+router.post('/packages',  async(req, res) => {
 
     console.log("serverhit");
-    const id = req.params.id;
+    const ids = req.body.id; // Get the array of ids from the request body
+    console.log(ids);
     const database = await db();
     console.log("serverhit");
     try {
-      const packageDetails = await database.collection('PackageDetails').findOne({_id : ObjectId(id)}); 
-      if (!packageDetails) {
+      const packageDetails = await database.collection('TravelPackages').find({ id: { $in: ids } }).toArray();
+      if (!packageDetails || packageDetails.length === 0) {
         return res.status(404).json({ error: 'No such package found.' });
       }
       res.status(200).json(packageDetails)

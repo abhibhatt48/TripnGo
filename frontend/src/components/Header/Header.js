@@ -1,3 +1,5 @@
+// Author: Rahul Saliya
+
 import "./Header.css";
 import React, { useState } from "react";
 import { FaUser } from "react-icons/fa";
@@ -73,7 +75,10 @@ const Header = () => {
       setCurrentKey("Home");
     } else {
       const index = navPaths.indexOf(path);
-      setCurrentKey(menuItems[index]);
+      if (index !== -1)
+        setCurrentKey(menuItems[index]);
+      else
+        setCurrentKey(path);
     }
 
   }, [location, menuItems, navPaths]);
@@ -93,7 +98,7 @@ const Header = () => {
       }
       setNotifications(noti);
     });
-  }, []);
+  }, [userId]);
 
   return (
     <div className="nav-bar-container">
@@ -104,7 +109,6 @@ const Header = () => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <FiShoppingBag className="wishlist-icon" />
         <Modal.Header
           className="notification-header"
           closeButton
@@ -175,20 +179,19 @@ const Header = () => {
             <span
               className={
                 "wishlist-text menu-button " +
-                (currentKey === "Wishlist" ? "active" : "")
+                (currentKey === "wishlist" ? "active" : "")
               }
               onClick={() => {
-                setCurrentKey("Wishlist");
                 showOptions && setShowOptions(false);
                 setShowWishlist(!showWishlist);
+                navigate('/wishlist');
               }}
             >
               Wishlist
             </span>
             <FiShoppingBag
-              className="wishlist-icon"
+              className={`wishlist-icon ${currentKey === "wishlist" ? "active" : ""}`}
               onClick={() => {
-                setShowWishlist(!showWishlist);
                 navigate('/wishlist');
               }}
             />
@@ -227,20 +230,20 @@ const Header = () => {
 
           {
             userId && userId !== "undefined" &&
-            <div className="menu-item">
+            <div className="menu-item" onClick={() => {
+              showOptions && setShowOptions(false);
+              setCurrentKey("Profile");
+              navigate('/profilePage');
+            }}>
               <span
                 className={
                   "profile-text menu-button " +
                   (currentKey === "Profile" ? "active" : "")
                 }
-                onClick={() => {
-                  showOptions && setShowOptions(false);
-                  setCurrentKey("Profile");
-                }}
               >
                 Profile
               </span>
-              <div className="profile-container">
+              <div className="profile-container" >
                 <FaUser className="profile-icon" />
               </div>
             </div>

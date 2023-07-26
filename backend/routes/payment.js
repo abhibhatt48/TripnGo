@@ -3,10 +3,10 @@ var express = require('express');
 var router = express.Router();
 const { sendNotification } = require("../conn");
 const stripe = require("stripe")(process.env.SECRET_KEY);
-const response = require('./response');
 
 router.post("/", async (req, res) => {
-  const { name, amount, packageName,userId } = req.body;
+  const host = req.get("origin");
+  const { amount, packageName, userId } = req.body;
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -23,25 +23,37 @@ router.post("/", async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: "http://localhost:3001/",
-      cancel_url: "http://localhost:3000/payment",
+      success_url: host,
+      cancel_url: `${host}/payment`,
     });
-    // const notificationPayload = {
-    //   userId,
-    //   title: 'Payment Successful',
-    //   description: `Your payment for the ${packageName} has been processed successfully.`,
-    //   payload: {
-    //     type: 'payment',
-    //     // modify this as needed
-    //     url: session.url
-    //   }
-    // };
 
-//sendNotification(notificationPayload);
-res.send(response.sendSuccess(res, { link: session.url }));
+    const notificationPayload = {
+      userId,
+      title: 'Payment Started',
+      description: `Your payment for the ${packageName} package has been started successfully.`,
+      payload: {
+        type: 'payment',
+        data: {
+          amount,
+          packageName,
+        }
+      }
+    };
+
+    sendNotification(notificationPayload);
+
+    //sendNotification(notificationPayload);
+    res.status(200).json({
+      success: true,
+      message: "Operation successful",
+      data: { link: session.url }
+    });
   } catch (error) {
     console.log(error);
-res.send(response.sendError(res, "Failed to create Stripe session", 500));
+    res.status(500).json({
+      success: false,
+      message: "Failed to create Stripe session"
+    });
   }
 });
 module.exports = router;

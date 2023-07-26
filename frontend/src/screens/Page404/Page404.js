@@ -1,3 +1,5 @@
+// Author: Rahul Saliya
+
 import React from 'react';
 import "./Page404.css";
 import { PiSmileySadFill } from 'react-icons/pi';

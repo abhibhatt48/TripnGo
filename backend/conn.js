@@ -47,7 +47,7 @@ async function sendNotification(notification) {
     const { userId, title, description, payload } = notification;
 
     if (!userId || !title || !description || !payload) {
-        res.status(400).send("Missing required fields");
+        new Error("Invalid notification");
         return;
     }
 

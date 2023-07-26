@@ -6,7 +6,8 @@ import TripItem from 'components/TripItem';
 import { Row, Col, Container } from 'react-bootstrap';
 import { Modal, Button } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
-import api from './api'; // Import the updated 'api' object
+import APIs from 'Constants';
+import axios from 'axios';
 
 function MoreTrips() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -24,62 +25,44 @@ function MoreTrips() {
     { label: '1701-2500' }
   ];
 
-  // Create a function to fetch data from the database and set the state
-  const fetchData = async () => {
-    try {
-      const response = await api.get('/moretrips/allPackages');
-      const trips = response.data;
-      setTravelPackages(trips);
-      setFilteredTrips(trips); // Set the filteredTrips state to the fetched data
-    } catch (error) {
-      console.error('Error fetching trips:', error);
-    }
-  };
-
-  // Call the fetchData function when the component mounts to get the initial data
-  React.useEffect(() => {
-    fetchData();
-  }, []);
-
-  const onSearchTextChange = (e) => {
-    setSearchText(e.target.value);
-    const filteredTrips = TravelPackages.filter((trip) => {
-      return trip.title.toLowerCase().includes(searchText.toLowerCase());
-    });
-    setFilteredTrips(filteredTrips);
-  };
-
-  const onSearchClick = (e) => {
-    e.preventDefault();
-    console.log('Search button clicked');
-  };
-
-  const onFilterClick = (e) => {
-    setShowFilterPopup(true); // Set the state to true to show the popup
-  }
-
   // Define the function to fetch trips by location
   const fetchTripsByLocation = async (location) => {
-    try {
-      const response = await api.get(`moretrips?location=${encodeURIComponent(location)}`);
-      const trips = response.data;
-      setFilteredTrips(trips);
-    } catch (error) {
-      console.error('Error fetching trips:', error);
-    }
+   const response= await axios.get(`${APIs.TRIPS_BY_LOCATION}?location=${encodeURIComponent(location)}`)
+    const trips=response.data;
+    setFilteredTrips(trips);
+    return trips;
   };
-
   const fetchTripsByPrice = async (range) => {
     const [minPriceStr, maxPriceStr] = range.split('-');
     const minPrice = Number(minPriceStr);
     const maxPrice = Number(maxPriceStr);
-    try {
-      const response = await api.get(`/moretrips/filterByPrice?minPrice=${minPrice}&maxPrice=${maxPrice}`)
-      const trips = response.data;
-      setFilteredTrips(trips);
-    } catch (error) {
-      console.error('Error fetching trips:', error);
-    }
+    const response=await axios.get(`${APIs.TRIPS_BY_PRICE}?minPrice=${minPrice}&maxPrice=${maxPrice}`)
+    const trips = response.data;
+    setFilteredTrips(trips);
+    return trips;
+  };
+
+  React.useEffect(() => {
+    axios.get(APIs.ALL_TRIPS)
+        .then((res) => {
+            setTravelPackages(res.data);
+            setFilteredTrips(res.data);
+        })
+        .catch((err) => {
+            console.log('Error fetching trips:', err);
+        });
+}, []);
+
+  const onSearchTextChange = (e) => {
+    setSearchText(e.target.value);
+    const filteredTrips = TravelPackages.filter((trip) => {
+      return trip.title.toLowerCase().includes(e.target.value.toLowerCase());
+    });
+    setFilteredTrips(filteredTrips);
+  };
+
+  const onFilterClick = (e) => {
+    setShowFilterPopup(true); // Set the state to true to show the popup
   }
 
   const handleLocationReset = () => {
@@ -106,28 +89,28 @@ function MoreTrips() {
     if (selectedLocation && selectedPriceRange) {
       // If both location and price range are selected, fetch trips by location and price range separately
       try {
-        const locationTripsResponse = await api.get(`moretrips?location=${encodeURIComponent(selectedLocation)}`);
-        const locationTrips = locationTripsResponse.data;
-
+        const locationTrips = await fetchTripsByLocation(selectedLocation);
         const [minPriceStr, maxPriceStr] = selectedPriceRange.split('-');
         const minPrice = Number(minPriceStr);
         const maxPrice = Number(maxPriceStr);
-        const priceRangeTripsResponse = await api.get(`/moretrips/filterByPrice?minPrice=${minPrice}&maxPrice=${maxPrice}`);
-        const priceRangeTrips = priceRangeTripsResponse.data;
-
+        const priceRangeTrips = await fetchTripsByPrice(selectedPriceRange);
+  
         // Find the intersection of trips that satisfy both location and price range conditions
+        console.log("locationTrips",locationTrips)
         const intersectedTrips = locationTrips.filter((trip1) =>
           priceRangeTrips.some((trip2) => trip1.id === trip2.id)
         );
-
+        console.log(intersectedTrips.title);
+  
         setFilteredTrips(intersectedTrips);
       } catch (error) {
         console.error('Error fetching trips:', error);
       }
-    } else if (selectedLocation) {
+    }  
+    else if (selectedLocation) {
       fetchTripsByLocation(selectedLocation);
     } else if (selectedPriceRange) {
-      fetchTripsByPrice(selectedPriceRange);
+       fetchTripsByPrice(selectedPriceRange);
     } else {
       // If neither location nor price range is selected, reset the filters and show all trips
       setFilteredTrips(TravelPackages);
@@ -139,11 +122,6 @@ function MoreTrips() {
       <Row className='search-container'>
         <Col lg={{ span: 6 }} md={{ span: 5 }}>
           <input className="search-input" type="text" placeholder="Search" value={searchText} onChange={onSearchTextChange} />
-        </Col>
-        <Col lg={{ span: 1 }} md={{ span: 2 }}>
-          <button className="button button-primary button-md-100p"
-            onClick={onSearchClick}
-          >Search</button>
         </Col>
         <Col lg={{ span: 1 }} md={{ span: 2 }}>
           <button className="button button-primary button-md-100p" onClick={onFilterClick}
@@ -186,7 +164,7 @@ function MoreTrips() {
               <label>{location}</label>
             </div>
           ))}
-          <Button variant="outline-secondary" onClick={handleLocationReset} className="filter-reset-button">Reset Location</Button> {/* Add the location reset button */}
+          <Button variant="outline-secondary" onClick={handleLocationReset} className="filter-reset-button">Reset Location</Button> 
         </Modal.Body>
         <Modal.Body>
           <h5>Price Range:</h5>

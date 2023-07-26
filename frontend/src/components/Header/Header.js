@@ -23,17 +23,17 @@ async function listenForNotifications(onNotification) {
     },
   });
   socket.on("connect", () => {
-    console.log("Connected to server");
+    // console.log("Connected to server");
   });
 
   socket.on("message", (message) => {
-    console.log("Received message:", message);
+    // console.log("Received message:", message);
     if (onNotification && typeof onNotification === "function")
       onNotification(message);
   });
 
   socket.on("disconnect", () => {
-    console.log("Disconnected from server");
+    // console.log("Disconnected from server");
   });
 
   return socket;
@@ -197,9 +197,8 @@ const Header = () => {
               Wishlist
             </span>
             <FiShoppingBag
-              className={`wishlist-icon ${
-                currentKey === "wishlist" ? "active" : ""
-              }`}
+              className={`wishlist-icon ${currentKey === "wishlist" ? "active" : ""
+                }`}
               onClick={() => {
                 navigate("/wishlist");
               }}

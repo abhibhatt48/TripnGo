@@ -31,8 +31,8 @@ function ProfilePage() {
     console.log("in use effect");
     console.log("in use effect to get details");
 
-    getUserDetails();
-  });
+     getUserDetails();
+  }, []);
 
   const {
     register,

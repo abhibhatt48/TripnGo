@@ -168,6 +168,17 @@ If the correct credentials are used for Admin login then it will redirect the ad
 
 ### Author: [Siddhesh Salve](Sd264348@dal.ca)
 
+## List of Files Included
+
+1. `csci-5709-grp-18/frontend/src/screens/ProfilePage/index.js`
+2. `csci-5709-grp-18/backend/routes/profile.js`
+3. `csci-5709-grp-18/frontend/src/screens/ProfilePage/ProfilePage.css`
+4. `csci-5709-grp-18/frontend/src/screens/ProfilePage/ProfilePage.js`
+5. `csci-5709-grp-18/frontend/src/screens/Login/Login.js`
+6. `csci-5709-grp-18/backend/app.js`
+7. `csci-5709-grp-18/frontend/src/constants.js`
+8. `csci-5709-grp-18/frontend/src/index.js`
+
 ### This the test data for the profile page.
 
 ```

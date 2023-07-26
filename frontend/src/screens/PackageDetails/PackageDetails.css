@@ -1,9 +1,14 @@
-.App {
+.package-details-container {
     min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .page-header {
     text-align: center;
     margin-top: 50px;
+    margin-bottom: 50px;
     font-size: 50px;
 }

@@ -1,3 +1,5 @@
+// Author: Rahul Saliya
+
 import { Col, Row } from "react-bootstrap";
 import "./Footer.css";
 import { FaTwitter, FaFacebookF, FaGooglePlusG, FaRss } from "react-icons/fa";

@@ -33,14 +33,14 @@
   color: black;
 }
 
-.title {
+.payment-title {
   font-size: 36px;
   margin-top: 0px;
   font-weight: 600;
   margin-bottom: 28px;
 }
 
-.subtitle {
+.payment-subtitle {
   padding: 0px 40px;
   font-size: 20px;
   color: #333;
@@ -48,7 +48,7 @@
   margin-bottom: 8px;
 }
 
-.subtitle.label {
+.payment-subtitle.label {
   font-size: 20px;
   padding: 0px 40px;
   text-align: start;
@@ -93,12 +93,12 @@
     min-width: 400px;
   }
 
-  .title {
+  .payment-title {
     font-size: 30px;
     margin-bottom: 6px;
   }
 
-  .subtitle {
+  .payment-subtitle {
     font-size: 16px;
     margin-bottom: 24px;
   }

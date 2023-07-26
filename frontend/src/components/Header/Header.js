@@ -1,3 +1,5 @@
+// Author: Rahul Saliya
+
 import "./Header.css";
 import React, { useState } from "react";
 import { FaUser } from "react-icons/fa";
@@ -228,20 +230,20 @@ const Header = () => {
 
           {
             userId && userId !== "undefined" &&
-            <div className="menu-item">
+            <div className="menu-item" onClick={() => {
+              showOptions && setShowOptions(false);
+              setCurrentKey("Profile");
+              navigate('/profilePage');
+            }}>
               <span
                 className={
                   "profile-text menu-button " +
                   (currentKey === "Profile" ? "active" : "")
                 }
-                onClick={() => {
-                  showOptions && setShowOptions(false);
-                  setCurrentKey("Profile");
-                }}
               >
                 Profile
               </span>
-              <div className="profile-container">
+              <div className="profile-container" >
                 <FaUser className="profile-icon" />
               </div>
             </div>

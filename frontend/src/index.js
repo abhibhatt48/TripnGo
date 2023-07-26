@@ -1,3 +1,5 @@
+// Author: Rahul Saliya
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'index.css';
@@ -39,7 +41,7 @@ root.render(
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/faqs" element={<FAQs />} />
-        <Route path="/profilepage" element={<ProfilePage/>} />
+        <Route path="/profilepage" element={<ProfilePage />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="*" element={<Page404 />} />
         <Route path="/wishlist" element={<Wishlist />} />

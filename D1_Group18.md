@@ -461,7 +461,22 @@ Body Naveen has used in testing the API endpoint.
 | ----------------------- | ---------------------------------------------------------- | ---- | ---------------------------- |
 | Get all travel packages | GET /moretrips/allPackages                                 | GET  |                              |
 | Filter by Location      | GET /moretrips?location={location}                         | GET  |                              |
-| Filter by Price Range   | GET /moretrips/filterByPrice?minPrice={min}&maxPrice={max} | GET  |                              |
+| Filter by Price Range   | GET /moretrips/filterByPrice?minPrice={min}&maxPrice={max} | GET  |                              
+
+- Main page of all packages availabe: 
+![Alt text](https://res.cloudinary.com/dv0rdcdpa/image/upload/v1690410006/packageslistingpage_vu6bse.png)
+
+- Sample output when user searches for a particular trip type
+![Alt text](https://res.cloudinary.com/dv0rdcdpa/image/upload/v1690410006/SearchforTrip_rpyl9y.png)
+
+- Sample output when user filters by location
+![Alt text](https://res.cloudinary.com/dv0rdcdpa/image/upload/v1690410006/filterbyLocation_mjxon4.png)
+
+- Sample output when user filters by price 
+![Alt text](https://res.cloudinary.com/dv0rdcdpa/image/upload/v1690410006/filterbyPrice_vhruxk.png)
+
+- Filter options available to apply
+![Alt text](https://res.cloudinary.com/dv0rdcdpa/image/upload/v1690410006/filterOptions_xexhtx.png)
 
 ## Deployment
 

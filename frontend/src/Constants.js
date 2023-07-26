@@ -15,6 +15,7 @@ const APIs = {
     FORGOT_PASSWORD: `${HOST_URL}/validate-email`,
     RESET_PASSWORD: `${HOST_URL}/reset-pass`,
     ADMIN_LOGIN: `${HOST_URL}/adminlogin`,
+    WISHLIST_ITEMS: `${HOST_URL}wishlist/packages`
 };
 
 export default APIs;

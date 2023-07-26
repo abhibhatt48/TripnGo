@@ -455,6 +455,13 @@ Body Naveen has used in testing the API endpoint.
 
 ### Author: [Sindhu Bhimavarapu](ssindhu@dal.ca)
 
+## List of Files Included
+
+1. `csci-5709-grp-18/frontend/src/screens/MoreTrips/MoreTrips.js`
+2. `csci-5709-grp-18/frontend/src/screens/MoreTrips/index.js`
+3. `csci-5709-grp-18/backend/routes/moretrips.js`
+
+
 #### API Endpoints for More Trips Page
 
 | API Name                | URL Path                                                   | Type | Request Body (if applicable) |

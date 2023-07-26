@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var cors = require('cors')
 var logger = require('morgan');
 var cors = require("cors");
 
@@ -19,6 +18,7 @@ var { listenForNotifications } = require('./conn');
 var EmailRouter = require('./routes/validateemail');
 var ResetPassRouter = require('./routes/resetpass');
 var adminloginRouter = require('./routes/adminlogin');
+var profileRouter = require('./routes/profile');
 
 
 var app = express();
@@ -44,6 +44,26 @@ app.use('/notifications', notificationsRouter);
 app.use('/validate-email', EmailRouter);
 app.use('/reset-pass', ResetPassRouter);
 app.use('/adminlogin', adminloginRouter);
+app.use('/profile',profileRouter);
+
+
+const endpointSecret = "whsec_5XLp9PVFgRGEvCWjkOwgV0gtaPcSyfn4";
+app.post('/payment-callback', async (req, res) => {
+    const sig = req.headers['stripe-signature'];
+
+    let event;
+
+    try {
+        event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    } catch (err) {
+        response.status(400).send(`Webhook Error: ${err.message}`);
+        return;
+    }
+
+    console.log(event);
+
+    res.sendStatus(200);
+});
 
 listenForNotifications();
 

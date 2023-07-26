@@ -1,3 +1,5 @@
+// Author: Rahul Saliya
+
 import './TripItem.css';
 import Card from 'react-bootstrap/Card';
 import React, { useEffect, useState } from 'react';
@@ -50,7 +52,6 @@ const TripItem = ({ trip }) => {
 
             </div>
 
-            {/* <AiOutlineHeart onClick={() => {setWishlistICon(true)}} className="heart-icon" /> */}
             <Card.Body>
                 <Card.Title className='trip-item__title'>{item_title}</Card.Title>
                 <div className="trip-item__info-container">

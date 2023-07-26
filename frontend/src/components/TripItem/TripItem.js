@@ -1,3 +1,5 @@
+// Author: Rahul Saliya
+
 import './TripItem.css';
 import Card from 'react-bootstrap/Card';
 import React, { useEffect, useState } from 'react';

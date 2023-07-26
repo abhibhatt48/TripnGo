@@ -22,7 +22,7 @@ router.get('/allPackages', async function (req, res) {
 
   
 /* GET packages list by location */
-router.get('/', async function (req, res) {
+router.get('/filterByLocation', async function (req, res) {
     const location = req.query.location;
     const database = await db();    
     try {

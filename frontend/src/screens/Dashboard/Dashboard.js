@@ -66,11 +66,11 @@ function Dashboard() {
         if (searchText.length === 0) {
             return;
         }
-        navigate('/travel-packages?searchText=' + searchText);
+        navigate('/moretrips/?searchText=' + searchText);
     };
 
     const handleMoreTripsClick = (target) => {
-        navigate('/travel-packages?tripType=' + target.toLowerCase());
+        navigate('/moretrips/?tripType=' + target.toLowerCase());
     };
 
     return (

@@ -1,3 +1,5 @@
+// Author: Rahul Saliya
+
 const Spacer = ({ ...props }) => {
     const { flex, width, height } = props;
 

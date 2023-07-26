@@ -4,34 +4,36 @@ import "./Header.css";
 import React, { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { IoIosNotifications } from "react-icons/io";
-import { FiShoppingBag } from 'react-icons/fi';
+import { FiShoppingBag } from "react-icons/fi";
 import { Container } from "react-bootstrap";
 import { HiMenu } from "react-icons/hi";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate, useLocation } from "react-router-dom";
 import APIs from "Constants";
 import axios from "axios";
-import io from 'socket.io-client';
+import io from "socket.io-client";
 
 async function listenForNotifications(onNotification) {
   const userId = localStorage.getItem("userId") ?? 1;
+  const email = localStorage.getItem("email");
   const socket = io(APIs.SOCKET_URL, {
     query: {
-      userId: userId
-    }
+      userId: userId,
+      email: sessionStorage.getItem("email"),
+    },
   });
-  socket.on('connect', () => {
-    console.log('Connected to server');
+  socket.on("connect", () => {
+    console.log("Connected to server");
   });
 
-  socket.on('message', message => {
-    console.log('Received message:', message);
-    if (onNotification && typeof onNotification === 'function')
+  socket.on("message", (message) => {
+    console.log("Received message:", message);
+    if (onNotification && typeof onNotification === "function")
       onNotification(message);
   });
 
-  socket.on('disconnect', () => {
-    console.log('Disconnected from server');
+  socket.on("disconnect", () => {
+    console.log("Disconnected from server");
   });
 
   return socket;
@@ -44,26 +46,33 @@ const Header = () => {
   const [isNewNotification, setIsNewNotification] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [userId, setUserId] = useState(localStorage.getItem("userId") ?? 1);
+  const [email, setEmail] = useState(localStorage.getItem("email") ?? 2);
   const location = useLocation();
   const navigate = useNavigate();
 
   // on local storage change, update userId
-  window.addEventListener('storage', () => {
+  window.addEventListener("storage", () => {
     const id = localStorage.getItem("userId");
+    const email = localStorage.getItem("email");
     setUserId(id);
+    setEmail(email);
   });
 
   var menuItems = React.useMemo(() => {
     const withoutLoginItems = ["Home", "FAQs", "Contact", "Login"];
     const withLoginItems = ["Home", "FAQs", "Contact"];
-    return userId && userId !== "undefined" ? withLoginItems : withoutLoginItems;
+    return userId && userId !== "undefined"
+      ? withLoginItems
+      : withoutLoginItems;
   }, [userId]);
   var navPaths = React.useMemo(() => {
     const withoutLoginItems = ["/", "faqs", "contact-us", "login"];
     const withLoginItems = ["/", "faqs", "contact-us"];
     const id = localStorage.getItem("userId");
     setUserId(id);
-    return userId && userId !== "undefined" ? withLoginItems : withoutLoginItems;
+    return userId && userId !== "undefined"
+      ? withLoginItems
+      : withoutLoginItems;
   }, [userId]);
 
   const [currentKey, setCurrentKey] = useState(menuItems[0]);
@@ -75,12 +84,9 @@ const Header = () => {
       setCurrentKey("Home");
     } else {
       const index = navPaths.indexOf(path);
-      if (index !== -1)
-        setCurrentKey(menuItems[index]);
-      else
-        setCurrentKey(path);
+      if (index !== -1) setCurrentKey(menuItems[index]);
+      else setCurrentKey(path);
     }
-
   }, [location, menuItems, navPaths]);
 
   React.useEffect(() => {
@@ -125,17 +131,18 @@ const Header = () => {
         </Modal.Header>
         <Modal.Body className="notification-container">
           {notifications.map((notification, idx) => (
-            <div key={idx}
+            <div
+              key={idx}
               onClick={() => {
                 setShowNotifications(false);
                 const url = notification.payload.url;
                 if (url) {
                   navigate(url);
                 }
-              }} className="notification-item">
-              <span className="notification-title">
-                {notification.title}
-              </span>
+              }}
+              className="notification-item"
+            >
+              <span className="notification-title">{notification.title}</span>
               <span className="notification-description">
                 {notification.description}
               </span>
@@ -184,21 +191,22 @@ const Header = () => {
               onClick={() => {
                 showOptions && setShowOptions(false);
                 setShowWishlist(!showWishlist);
-                navigate('/wishlist');
+                navigate("/wishlist");
               }}
             >
               Wishlist
             </span>
             <FiShoppingBag
-              className={`wishlist-icon ${currentKey === "wishlist" ? "active" : ""}`}
+              className={`wishlist-icon ${
+                currentKey === "wishlist" ? "active" : ""
+              }`}
               onClick={() => {
-                navigate('/wishlist');
+                navigate("/wishlist");
               }}
             />
           </div>
 
-          {
-            userId && userId !== "undefined" &&
+          {userId && userId !== "undefined" && (
             <div className="menu-item">
               <span
                 className={
@@ -221,20 +229,20 @@ const Header = () => {
                     setShowNotifications(!showNotifications);
                   }}
                 />
-                {isNewNotification && (
-                  <div className="notification-dot"></div>
-                )}
+                {isNewNotification && <div className="notification-dot"></div>}
               </div>
             </div>
-          }
+          )}
 
-          {
-            userId && userId !== "undefined" &&
-            <div className="menu-item" onClick={() => {
-              showOptions && setShowOptions(false);
-              setCurrentKey("Profile");
-              navigate('/profilePage');
-            }}>
+          {userId && userId !== "undefined" && (
+            <div
+              className="menu-item"
+              onClick={() => {
+                showOptions && setShowOptions(false);
+                setCurrentKey("Profile");
+                navigate("/profilePage");
+              }}
+            >
               <span
                 className={
                   "profile-text menu-button " +
@@ -243,11 +251,11 @@ const Header = () => {
               >
                 Profile
               </span>
-              <div className="profile-container" >
+              <div className="profile-container">
                 <FaUser className="profile-icon" />
               </div>
             </div>
-          }
+          )}
         </div>
       </Container>
     </div>

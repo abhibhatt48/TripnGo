@@ -84,7 +84,7 @@ function SignUp() {
           setMessage("Signup Successful");
           console.log("Inside axios");
           console.log(response.data);
-          navigate("/profilepage");
+          navigate("/login");
         })
         .catch((error) => {
           if (

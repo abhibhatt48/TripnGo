@@ -68,7 +68,7 @@ function ProfilePage() {
 
         // Make the PUT request to update the user's image
         axios
-          .post(APIs.PROFILE`/image/${userId}`, {
+          .post(APIs.PROFILE + `/image/${userId}`, {
             profileImage: base64Image,
           })
           .then((response) => {
@@ -141,7 +141,7 @@ function ProfilePage() {
     console.log(updatedData);
     // Make the PUT request to update the user data
     axios
-      .put(APIs.PROFILE`/${userData._id}`, updatedData)
+      .put(APIs.PROFILE + `/${userData._id}`, updatedData)
       .then((response) => {
         console.log("Data updated successfully:", response.data);
       })

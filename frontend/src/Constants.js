@@ -1,13 +1,13 @@
 // Author: Rahul Saliya
 
-//const HOST_URL = "http://localhost:3000";
+// const HOST_URL = "http://localhost:3000";
 const HOST_URL = "https://web-project-backend-erns.onrender.com";
 
 const APIs = {
   POPULAR_TRIPS: `${HOST_URL}/dashboard/popular-trips`,
   TRIPS_NEAR_YOU: `${HOST_URL}/dashboard/trips-near-you`,
   ALL_TRIPS: `${HOST_URL}/moretrips/allPackages`,
-  TRIPS_BY_LOCATION: `${HOST_URL}/moretrips/filterbyLocation`,
+  TRIPS_BY_LOCATION: `${HOST_URL}/moretrips/filterByLocation`,
   TRIPS_BY_PRICE: `${HOST_URL}/moretrips/filterByPrice`,
   SOCKET_URL: `${HOST_URL}`,
   NOTIFICATIONS: `${HOST_URL}/notifications`,

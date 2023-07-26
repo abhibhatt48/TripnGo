@@ -36,7 +36,7 @@ root.render(
         <Route path="/" element={<Dashboard />} />
         <Route path="/order-details" element={<OrderDetails />} />
         <Route path="/package-details" element={<PackageDetails />} />
-        <Route path="/travel-packages" element={<MoreTrips />} />
+        <Route path="/moretrips" element={<MoreTrips />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/contact-us" element={<ContactUs />} />

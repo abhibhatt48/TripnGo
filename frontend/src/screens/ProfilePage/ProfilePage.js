@@ -5,10 +5,12 @@ import { useForm } from "react-hook-form";
 import { Row, Col, Container, Card, Button, Modal } from "react-bootstrap";
 import "./ProfilePage.css";
 import axios from "axios";
+import APIs from "Constants";
 
 function ProfilePage() {
   const [showEditProfileModal, setShowEditProfileModal] = useState(false);
   const [showEditImageModal, setShowEditImageModal] = useState(false);
+  const email = window.localStorage.getItem("email");
   const [userData, setUserData] = useState({
     name: "",
     age: "",
@@ -27,12 +29,10 @@ function ProfilePage() {
 
   useEffect(() => {
     console.log("in use effect");
-    // if (!userData) {
     console.log("in use effect to get details");
 
     getUserDetails();
-    // }
-  }, []);
+  });
 
   const {
     register,
@@ -61,24 +61,18 @@ function ProfilePage() {
 
       // Convert the image file to base64
       reader.onload = () => {
-        // const base64Image = reader.result.split(",")[1]; // Extract the base64-encoded data part
-
         const base64Image = reader.result;
         console.log(base64Image);
-        // Create a FormData object to send the base64 image data to the server
         const formData = new FormData();
         formData.append("image", base64Image);
 
         // Make the PUT request to update the user's image
         axios
-          .post(`http://localhost:3000/profile/image/${userId}`, {
+          .post(APIs.PROFILE`/image/${userId}`, {
             profileImage: base64Image,
           })
           .then((response) => {
             console.log("Image updated successfully:", response.data);
-            // Optionally, you can set the updated user data to the state
-            // if you want to reflect the changes immediately on the page.
-            // setUserData(response.data);
           })
           .catch((error) => {
             console.error("Error updating image:", error.response.data);
@@ -101,8 +95,8 @@ function ProfilePage() {
   const getUserDetails = () => {
     console.log("in user details");
     axios
-      .post("http://localhost:3000/profile", {
-        email: "john.doe@example.com",
+      .post(APIs.PROFILE, {
+        email,
       })
       .then((response) => {
         console.log(response.data);
@@ -147,12 +141,9 @@ function ProfilePage() {
     console.log(updatedData);
     // Make the PUT request to update the user data
     axios
-      .put(`http://localhost:3000/profile/${userData._id}`, updatedData)
+      .put(APIs.PROFILE`/${userData._id}`, updatedData)
       .then((response) => {
         console.log("Data updated successfully:", response.data);
-        // Optionally, you can set the updated user data to the state
-        // if you want to reflect the changes immediately on the page.
-        // setUserData(response.data);
       })
       .catch((error) => {
         console.error("Error updating data:", error.response.data);
@@ -172,15 +163,6 @@ function ProfilePage() {
               <Col sm={12}>
                 <Card className="h-100">
                   <Card.Body className="text-center">
-                    {/* <div>
-                      <img
-                        src={userData.profileImage}
-                        style={{ width: "200px", height: "200px" }}
-                        className="mb-3"
-                        alt="Profile"
-                      />
-                    </div> */}
-
                     <div
                       style={{
                         maxWidth: "150px",
@@ -222,28 +204,6 @@ function ProfilePage() {
                   </Card.Body>
                 </Card>
               </Col>
-
-              {/* <Col sm={4}>
-                <Card className="h-100">
-                  <Card.Body>
-                    <div
-                      className="d-flex flex-column justify-content-center align-items-center"
-                      style={{ textAlign: "center", height: "150px" }}
-                    >
-                      <div>
-                        <Button
-                          className="button button-secondary responsive-button"
-                          variant="info"
-                          value="Edit profile modal will be opened"
-                          onClick={handleClick}
-                        >
-                          Edit Profile
-                        </Button>
-                      </div>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col> */}
             </Row>
 
             <Row className="mt-4">

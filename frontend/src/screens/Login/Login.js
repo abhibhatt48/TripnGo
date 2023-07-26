@@ -44,8 +44,10 @@ function Login() {
 
       navigate("/");
       await axios.post(APIs.LOGIN, user).then((response) => {
+        console.log(response.data);
         const id = response.data.user.id;
         localStorage.setItem("userId", id);
+        localStorage.setItem("email", response.data.user.email);
 
         window.location.href = "/";
       });

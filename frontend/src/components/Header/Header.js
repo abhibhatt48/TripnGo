@@ -81,6 +81,29 @@ const Header = () => {
   React.useEffect(() => {
     const path = location.pathname.split("/")[1];
 
+    const excludedPaths = [
+      "/",
+      "/login",
+      "/sign-up",
+      "/contact-us",
+      "/faqs",
+      "/wishlist",
+      "/forgotPassword",
+      "/resetpassword",
+      "/moretrips",
+    ];
+
+    if (!excludedPaths.includes(location.pathname)) {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        navigate("/login", {
+          state: {
+            errorMessage: "Please login to continue.",
+          },
+        }); return;
+      }
+    }
+
     if (path === "/" || path === "") {
       setCurrentKey("Home");
     } else {
@@ -88,7 +111,7 @@ const Header = () => {
       if (index !== -1) setCurrentKey(menuItems[index]);
       else setCurrentKey(path);
     }
-  }, [location, menuItems, navPaths]);
+  }, [location, menuItems, navPaths, navigate]);
 
   React.useEffect(() => {
     listenForNotifications((message) => {
@@ -271,7 +294,7 @@ const Header = () => {
                       e.preventDefault();
                       localStorage.clear();
                       sessionStorage.clear();
-                      navigate("/login");
+                      window.location.href = "/";
                     }}>Logout</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

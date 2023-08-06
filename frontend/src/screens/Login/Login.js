@@ -42,7 +42,6 @@ function Login() {
         password: password,
       };
 
-      navigate("/");
       await axios.post(APIs.LOGIN, user).then((response) => {
         console.log(response.data);
         const id = response.data.user.id;
@@ -83,9 +82,8 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control ${
-                      !isEmailValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isEmailValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
@@ -98,9 +96,8 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control ${
-                      !isPasswordValid ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${!isPasswordValid ? "is-invalid" : ""
+                      }`}
                     placeholder="Password"
                     value={password}
                     onChange={handlePasswordChange}

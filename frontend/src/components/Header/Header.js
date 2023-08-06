@@ -8,6 +8,7 @@ import { FiShoppingBag } from "react-icons/fi";
 import { Container } from "react-bootstrap";
 import { HiMenu } from "react-icons/hi";
 import Modal from "react-bootstrap/Modal";
+import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate, useLocation } from "react-router-dom";
 import APIs from "Constants";
 import axios from "axios";
@@ -236,21 +237,44 @@ const Header = () => {
           {userId && userId !== "undefined" && (
             <div
               className="menu-item"
-              onClick={() => {
-                showOptions && setShowOptions(false);
-                setCurrentKey("Profile");
-                navigate("/profilePage");
-              }}
             >
               <span
                 className={
                   "profile-text menu-button " +
                   (currentKey === "Profile" ? "active" : "")
                 }
+                onClick={() => {
+                  showOptions && setShowOptions(false);
+                  setCurrentKey("Profile");
+                  navigate("/profilePage");
+                }}
               >
                 Profile
               </span>
-              <div className="profile-container">
+              <div className="profile-container" onClick={() => {
+                const dropdownBasic = document.getElementById("dropdown-basic");
+                dropdownBasic.click();
+              }}>
+                <Dropdown>
+                  <Dropdown.Toggle variant="success" id="dropdown-basic" style={{
+                    visibility: "hidden",
+                    position: "absolute",
+                    marginTop: "-10px",
+                  }}>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/profilePage");
+                    }}>Profile</Dropdown.Item>
+                    <Dropdown.Item onClick={(e) => {
+                      e.preventDefault();
+                      localStorage.clear();
+                      sessionStorage.clear();
+                      navigate("/login");
+                    }}>Logout</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
                 <FaUser className="profile-icon" />
               </div>
             </div>

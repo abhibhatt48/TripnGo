@@ -1,7 +1,7 @@
 // Author: Rahul Saliya
 
-// const HOST_URL = "http://localhost:3000";
-const HOST_URL = "https://web-project-backend-erns.onrender.com";
+const HOST_URL = "http://localhost:3000";
+// const HOST_URL = "https://web-project-backend-erns.onrender.com";
 
 const APIs = {
   POPULAR_TRIPS: `${HOST_URL}/dashboard/popular-trips`,

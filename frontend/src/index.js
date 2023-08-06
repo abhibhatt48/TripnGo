@@ -40,14 +40,9 @@ root.render(
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/faqs" element={<FAQs />} />
         <Route path="/profilepage" element={<ProfilePage />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="*" element={<Page404 />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/admin" element={<Adminlogin />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/admin/contact-list" element={<ContactList />} />

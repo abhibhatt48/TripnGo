@@ -19,6 +19,7 @@ var EmailRouter = require('./routes/validateemail');
 var ResetPassRouter = require('./routes/resetpass');
 var adminloginRouter = require('./routes/adminlogin');
 var profileRouter = require('./routes/profile');
+var packageRouter = require('./routes/package');
 
 
 var app = express();
@@ -44,7 +45,8 @@ app.use('/notifications', notificationsRouter);
 app.use('/validate-email', EmailRouter);
 app.use('/reset-pass', ResetPassRouter);
 app.use('/adminlogin', adminloginRouter);
-app.use('/profile',profileRouter);
+app.use('/profile', profileRouter);
+app.use('/package', packageRouter);
 
 
 const endpointSecret = "whsec_5XLp9PVFgRGEvCWjkOwgV0gtaPcSyfn4";

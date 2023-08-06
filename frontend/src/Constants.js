@@ -7,6 +7,7 @@ const APIs = {
   POPULAR_TRIPS: `${HOST_URL}/dashboard/popular-trips`,
   TRIPS_NEAR_YOU: `${HOST_URL}/dashboard/trips-near-you`,
   ALL_TRIPS: `${HOST_URL}/moretrips/allPackages`,
+  PACKAGE_DETAILS: `${HOST_URL}/package`,
   TRIPS_BY_LOCATION: `${HOST_URL}/moretrips/filterByLocation`,
   TRIPS_BY_PRICE: `${HOST_URL}/moretrips/filterByPrice`,
   SOCKET_URL: `${HOST_URL}`,

@@ -12,6 +12,7 @@ const TripItem = ({ trip }) => {
     const item_description = trip.description.length > 100 ? trip.description.substring(0, 100) + "..." : trip.description;
     const item_cost = trip.cost;
     const item_rating = trip.rating;
+    trip.id = trip._id ? trip._id : (trip.id ? trip.id : "123");
 
     const [wishlistIcon, setWishlistIcon] = useState(false);
     const navigate = useNavigate();
@@ -41,7 +42,7 @@ const TripItem = ({ trip }) => {
 
     return (
         <Card className="trip-item" onClick={() => {
-            navigate('/package-details');
+            navigate(`/package-details?trip=${trip.id}`);
         }}>
             <Card.Img className='trip-item__image' variant="top" src={trip.image} />
             <div onClick={handleWishlist} className="wishlist-container">
@@ -49,7 +50,6 @@ const TripItem = ({ trip }) => {
                     <AiFillHeart className="heart-icon" />)
                     : (<AiOutlineHeart className="heart-icon" />)
                 }
-
             </div>
 
             <Card.Body>

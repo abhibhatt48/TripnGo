@@ -31,7 +31,7 @@ function ProfilePage() {
     console.log("in use effect");
     console.log("in use effect to get details");
 
-     getUserDetails();
+    getUserDetails();
   }, []);
 
   const {
@@ -200,6 +200,21 @@ function ProfilePage() {
                           Edit Profile
                         </Button>
                       </div>
+                      <div>
+                        <Button
+                          className="button button-secondary responsive-button"
+                          variant="info"
+                          value="Edit profile modal will be opened"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            localStorage.clear();
+                            sessionStorage.clear();
+                            window.location.href = "/";
+                          }}
+                        >
+                          Logout
+                        </Button>
+                      </div>
                     </div>
                   </Card.Body>
                 </Card>
@@ -328,9 +343,8 @@ function ProfilePage() {
               <label htmlFor="dob">Date of Birth:</label>
               <input
                 type="date"
-                className={`form-control ${
-                  errors.dateOfBirth ? "is-invalid" : ""
-                }`}
+                className={`form-control ${errors.dateOfBirth ? "is-invalid" : ""
+                  }`}
                 id="dob"
                 {...register("dateOfBirth", {
                   required: "Date of Birth is required",
@@ -387,9 +401,8 @@ function ProfilePage() {
               <label htmlFor="addressCity">Address City:</label>
               <input
                 type="text"
-                className={`form-control ${
-                  errors.addressCity ? "is-invalid" : ""
-                }`}
+                className={`form-control ${errors.addressCity ? "is-invalid" : ""
+                  }`}
                 id="addressCity"
                 {...register("addressCity", {
                   required: "Address City is required",

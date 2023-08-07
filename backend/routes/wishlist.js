@@ -13,7 +13,12 @@ router.post('/packages',  async(req, res) => {
     const database = await db();
     console.log("serverhit");
     try {
-      const packageDetails = await database.collection('TravelPackages').find({ id: { $in: ids } }).toArray();
+      const objectIds = ids.map(id => ObjectId(id));
+      const packageDetails = await database.collection('TravelPackages')
+        .find({ _id: { $in: objectIds } })
+        .toArray();
+
+      // const packageDetails = await database.collection('TravelPackages').find({ _id: ObjectId(ids) }).toArray();
       if (!packageDetails || packageDetails.length === 0) {
         return res.status(404).json({ error: 'No such package found.' });
       }

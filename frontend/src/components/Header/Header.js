@@ -81,19 +81,15 @@ const Header = () => {
   React.useEffect(() => {
     const path = location.pathname.split("/")[1];
 
-    const excludedPaths = [
-      "/",
-      "/login",
-      "/sign-up",
-      "/contact-us",
-      "/faqs",
-      "/wishlist",
-      "/forgotPassword",
-      "/resetpassword",
-      "/moretrips",
+    const restrictedPaths = [
+      "/order-details",
+      "/profilepage",
+      "/admin",
+      "/admin/contact-list",
+      "/payment",
     ];
 
-    if (!excludedPaths.includes(location.pathname)) {
+    if (restrictedPaths.includes(location.pathname)) {
       const userId = localStorage.getItem("userId");
       if (!userId) {
         navigate("/login", {
